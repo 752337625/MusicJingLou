@@ -18,7 +18,7 @@ import VueSetupExtend from 'vite-plugin-vue-setup-extend'; // success 影响项�
 import AutoImport from 'unplugin-auto-import/vite'; // success
 import Components from 'unplugin-vue-components/vite'; // success
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'; // success
-import Eruda from 'vite-plugin-eruda'; // success
+import Eruda from 'vite-plugin-eruda'; // success 帮助您在开发环境中自动打开调试工具.
 
 // AndDesignVueResolve,VantResolve,NutuiResolve,AntdResolve
 // import styleImport, { ElementPlusResolve } from 'vite-plugin-style-import';
@@ -31,6 +31,7 @@ import Vuejsx from '@vitejs/plugin-vue-jsx';
 import PurgeIcons from 'vite-plugin-purge-icons';
 import Electron from 'vite-plugin-electron';
 import { configStyleImportPlugin } from './styleImport';
+
 // import { configImageminPlugin } from './imagemin'; // success
 export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
 	const {
