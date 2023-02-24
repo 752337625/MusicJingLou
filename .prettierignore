@@ -1,0 +1,10 @@
+.vscode
+.husky
+.github
+.local
+dist
+/node_modules/**
+**/*.svg
+**/*.sh
+*-lock.yaml
+.vscode

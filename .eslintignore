@@ -1,0 +1,16 @@
+!.*
+.github
+.vscode
+.husky
+.idea
+.local
+*.sh
+*.woff
+*.ttf
+dist
+public
+docs
+scripts
+bin
+Dockerfile
+node_modules

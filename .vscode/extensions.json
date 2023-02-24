@@ -1,0 +1,14 @@
+{
+	// 扩展vscode插件推荐
+	"recommendations": [
+		"vue.volar",
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode",
+		"antfu.vite",
+		"antfu.iconify",
+		"lokalise.i18n-ally",
+		"mikestead.dotenv",
+		"voorjaar.windicss-intellisense",
+		"jingwang37.element-plus-snippets"
+	]
+}
