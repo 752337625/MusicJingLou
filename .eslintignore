@@ -7,6 +7,7 @@
 *.sh
 *.woff
 *.ttf
+*.html
 dist
 public
 docs

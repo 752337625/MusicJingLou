@@ -19,7 +19,7 @@ function getConfFiles() {
  * 返回配置文件内容
  */
 export function getEnvConfig(match = 'VITE_', confFiles = getConfFiles()) {
-	let envConfig = {};
+	let envConfig: Partial<ViteEnv> = {};
 	confFiles.forEach(item => {
 		try {
 			const env = dotenv.parse(fs.readFileSync(path.resolve(process.cwd(), item)));
