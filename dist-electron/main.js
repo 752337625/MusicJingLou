@@ -1,1 +1,63 @@
-"use strict";const r=require("electron-window-state"),{app:t,BrowserWindow:l,protocol:c}=require("electron"),o=require("electron-is-dev"),{createTray:p,createTrayWindow:g}=require("./module/tray"),a=require("path");o||(global.__img=a.join(__dirname,"./img"),global.__images=a.join(__dirname,"./images"));const u=o?"public/images/tray.ico":`${global.__images}/tray.ico`,d=o?"public/images/prev.png":`${global.__images}/prev.png`,m=o?"public/images/next.png":`${global.__images}/next.png`,w=o?"public/images/play.png":`${global.__images}/play.png`,f=o?"public/images/pause.png":`${global.__images}/pause.png`;c.registerSchemesAsPrivileged([{scheme:"jingluo",privileges:{secure:!0,standard:!0}}]);const b=function(i,e){i.setThumbarButtons([{tooltip:"上一曲",icon:d,click(){}},{tooltip:e?"暂停":"播放",icon:e?f:w,click(){}},{tooltip:"下一曲",icon:m,click(){}}])};function s(){const i=r({defaultWidth:1200,defaultHeight:900}),e=new l({...i,center:!0,show:!1,minHeight:900,minWidth:1200,resizable:!0,focusable:!0,alwaysOnTop:!1,title:process.platform==="win32"?"网易云音乐":"",icon:u,frame:!1,backgroundColor:"#fff",hasShadow:!0,webPreferences:{devTools:o,webSecurity:!0,nodeIntegration:!0,contextIsolation:!1}});if(e.once("ready-to-show",()=>{e.show(),process.platform==="win32"&&(b(e,!1),e.setThumbnailClip({x:0,y:0,width:180,height:50}))}),process.platform==="win32"){e.removeMenu(),global.tray=p();let n=global.tray.getBounds();global.trayWindow=g(n)}o?(e.loadURL("http://localhost:3100/jinluo"),e.webContents.openDevTools()):e.loadURL(`http://${process.env.VITE_DEV_SERVER_HOST}:${process.env.VITE_DEV_SERVER_PORT}`),e.on("close",n=>{n.preventDefault()})}t.whenReady().then(()=>{s(),t.on("activate",()=>{l.getAllWindows().length===0&&s()})});t.on("window-all-closed",()=>{process.platform!=="darwin"&&t.quit()});
+'use strict';
+const { app: o, BrowserWindow: t, protocol: s } = require('electron'),
+	e = require('electron-is-dev'),
+	{ createTray: r } = require('./module/tray'),
+	l = require('path'),
+	c = new Map();
+e ||
+	((global.__img = l.join(__dirname, './img')), (global.__images = l.join(__dirname, './images')));
+const g = e ? 'public/images/tray.ico' : `${global.__images}/tray.ico`,
+	p = e ? 'public/images/prev.png' : `${global.__images}/prev.png`,
+	u = e ? 'public/images/next.png' : `${global.__images}/next.png`,
+	w = e ? 'public/images/play.png' : `${global.__images}/play.png`,
+	b = e ? 'public/images/pause.png' : `${global.__images}/pause.png`;
+s.registerSchemesAsPrivileged([{ scheme: 'jingluo', privileges: { secure: !0, standard: !0 } }]);
+const m = function (i, n) {
+	i.setThumbarButtons([
+		{ tooltip: '上一曲', icon: p, click() {} },
+		{ tooltip: n ? '暂停' : '播放', icon: n ? b : w, click() {} },
+		{ tooltip: '下一曲', icon: u, click() {} },
+	]);
+};
+function a() {
+	(global.win = new t({
+		width: 1200,
+		height: 900,
+		center: !0,
+		show: !1,
+		minHeight: 900,
+		minWidth: 1200,
+		resizable: !0,
+		focusable: !0,
+		alwaysOnTop: !1,
+		icon: g,
+		frame: !1,
+		backgroundColor: '#fff',
+		hasShadow: !0,
+		webPreferences: { devTools: e, webSecurity: !0, nodeIntegration: !0, contextIsolation: !1 },
+	})),
+		c.set(global.win.id, global.win),
+		global.win.once('ready-to-show', () => {
+			global.win.show(),
+				process.platform === 'win32' &&
+					(m(win, !1), global.win.setThumbnailClip({ x: 0, y: 0, width: 180, height: 50 }));
+		}),
+		process.platform === 'win32' && (global.win.removeMenu(), (global.tray = r())),
+		e
+			? (global.win.loadURL('http://localhost:3100/jingluo'), global.win.webContents.openDevTools())
+			: global.win.loadURL(
+					`http://${process.env.VITE_DEV_SERVER_HOST}:${process.env.VITE_DEV_SERVER_PORT}`,
+			  ),
+		global.win.on('close', i => {
+			i.preventDefault();
+		});
+}
+o.whenReady().then(() => {
+	a(),
+		o.on('activate', () => {
+			t.getAllWindows().length === 0 && a();
+		});
+});
+o.on('window-all-closed', () => {
+	process.platform !== 'darwin' && o.quit();
+});

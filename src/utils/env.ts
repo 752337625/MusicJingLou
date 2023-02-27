@@ -1,38 +1,72 @@
-import dotenv from 'dotenv';
-import fs from 'fs';
-import path from 'path';
-/**
- * 获取当前环境下生效的配置文件名
- */
-function getConfFiles() {
-	const script = process.env.npm_lifecycle_script;
-	const reg = new RegExp('--mode ([a-z_\\d]+)');
-	const result = reg.exec(script as string) as any;
-	if (result) {
-		const mode = result[1] as string;
-		return ['.env', `.env.${mode}`];
-	}
-	return ['.env', '.env.production'];
+export function getEnvConfig() {
+	const ENV = import.meta.env as unknown as ViteEnv;
+	const {
+		VITE_DEFAULT_THEME_KEY,
+		VITE_DEFAULT_LOCALE_KEY,
+		VITE_PUBLIC_PATH,
+		VITE_DEFAULT_CACHE_KEY,
+		VITE_DEFAULT_CACHE_TIME,
+		VITE_GLOB_API_URL,
+	} = ENV;
+	return {
+		VITE_DEFAULT_THEME_KEY,
+		VITE_DEFAULT_LOCALE_KEY,
+		VITE_PUBLIC_PATH,
+		VITE_DEFAULT_CACHE_KEY,
+		VITE_DEFAULT_CACHE_TIME,
+		VITE_GLOB_API_URL,
+	};
 }
 
 /**
- * 返回配置文件内容
+ * @description: Development mode
  */
-export function getEnvConfig(match = 'VITE_', confFiles = getConfFiles()) {
-	let envConfig: Partial<ViteEnv> = {};
-	confFiles.forEach(item => {
-		try {
-			const env = dotenv.parse(fs.readFileSync(path.resolve(process.cwd(), item)));
-			envConfig = { ...envConfig, ...env };
-		} catch (e) {
-			console.error(`Error in parsing ${item}`, e);
-		}
-	});
-	const reg = new RegExp(`^(${match})`);
-	Object.keys(envConfig).forEach(key => {
-		if (!reg.test(key)) {
-			Reflect.deleteProperty(envConfig, key);
-		}
-	});
-	return envConfig;
+export const devMode = 'development';
+
+/**
+ * @description: Production mode
+ */
+export const prodMode = 'production';
+
+/**
+ * 设计到npm\pnpm 启动指令：cross-env NODE_ENV=production、cross-env REPORT=true等
+ */
+export function isReportMode(): boolean {
+	return process.env.REPORT === 'true';
+}
+
+/**
+ * @description: {string} 应用运行的模式。
+ * @returns:
+ * @example:
+ */
+export function getEnv(): string {
+	return import.meta.env.MODE;
+}
+
+/**
+ * @description: {boolean} 应用是否运行在开发环境 (永远与 import.meta.env.PROD相反)。
+ * @returns:
+ * @example:
+ */
+export function isDevMode(): boolean {
+	return import.meta.env.DEV;
+}
+
+/**
+ * @description: {boolean} 应用是否运行在生产环境。
+ * @returns:
+ * @example:
+ */
+export function isProdMode(): boolean {
+	return import.meta.env.PROD;
+}
+
+/**
+ * @description: {string} 部署应用时的基本 URL。他由base 配置项决定。
+ * @returns:
+ * @example:
+ */
+export function getBaseUrl(): string {
+	return import.meta.env.BASE_URL;
 }

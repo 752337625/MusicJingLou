@@ -2,7 +2,7 @@ declare global {
 	declare type Recordable<T = any> = Record<string, T>;
 	declare type Nullable<T> = T | null;
 	declare interface ViteEnv {
-		readonly VITE_PORT: number;
+		readonly VITE_PORT?: number;
 		readonly VITE_DEFAULT_LOCALE_KEY?: string;
 		readonly VITE_DEFAULT_THEME_KEY?: string;
 		readonly VITE_PUBLIC_PATH?: string;

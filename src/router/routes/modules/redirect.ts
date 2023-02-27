@@ -1,4 +1,4 @@
-// export default {
-// 	path: '/',
-// 	redirect: '/login',
-// };
+export default {
+	path: '/',
+	redirect: '/index',
+};

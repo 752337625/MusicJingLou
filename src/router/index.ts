@@ -1,11 +1,11 @@
 import { App } from 'vue';
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import { getEnvConfig } from '/@/utils/env';
 import list from '/@/router/routes/index';
 const { VITE_PUBLIC_PATH } = getEnvConfig();
 const routes: Array<RouteRecordRaw> = list;
 const router = createRouter({
-	history: createWebHashHistory(VITE_PUBLIC_PATH),
+	history: createWebHistory(VITE_PUBLIC_PATH),
 	routes,
 	strict: true, // 默认为 false，意味着默认情况下，路由 /users 同时匹配 /users 和 /users/。
 	scrollBehavior: () => ({ left: 0, top: 0 }),

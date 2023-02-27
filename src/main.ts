@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import App from '/@/App.vue';
-// import setupRouter from '/@/router';
-// import setupStore from '/@/store';
+import setupRouter from '/@/router';
+import setupStore from '/@/store';
 // import setupI18n from '/@/locales';
 // import setupGlobDirectives from '/@/directives';
 // import setupGlobProperties from '@/properties';
@@ -12,17 +12,12 @@ import 'virtual:windi.css'; //tailwindcss
 // import { registerGlobComp } from '/@/components/registerGlobComp';
 async function bootstrap() {
 	const app = createApp(App);
-
-	// setupRouter(app);
-
-	// setupStore(app);
-
-	//初始化系统默认配置：国际化，主题
+	setupRouter(app);
+	setupStore(app);
+	// //初始化系统默认配置：国际化，主题
 	// initAppConfigStore();
-
 	//国际化
 	// await setupI18n(app);
-
 	//设置全局指令
 	// setupGlobDirectives(app);
 

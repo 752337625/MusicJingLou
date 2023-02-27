@@ -1,33 +1,15 @@
-const { Tray, screen, BrowserWindow } = require('electron');
+const { Tray, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
-import { LOAD_URL } from './../config';
-
 const trayWinURL = isDev ? `http://localhost:9080/#tray` : `${LOAD_URL}#tray`;
 const createTray = function () {
-	let { width: screenWidth } = screen.getPrimaryDisplay().size;
-	const trayIconPath = __static + '/images/tray.ico';
-	const appTray = new Tray(trayIconPath);
-	appTray.setToolTip('网易云音乐');
-	appTray.on('right-click', (_event, _bounds) => {
-		const [trayMenuWidth, trayMenuHeight] = global.trayWindow.getSize();
-		let { x, y } = screen.getCursorScreenPoint();
-		if (x + trayMenuWidth > screenWidth) {
-			global.trayWindow.setPosition(x - trayMenuWidth, y - trayMenuHeight);
-		} else {
-			global.trayWindow.setPosition(x, y - trayMenuHeight);
-		}
-		global.trayWindow.show();
+	const trayIconPath = isDev ? 'public/images/tray.ico' : `${global.__images}/tray.ico`;
+	const tray = new Tray(trayIconPath);
+	tray.on('double-click', () => {
+		global.win.isVisible() ? win.hide() : win.show();
 	});
-	// appTray.on('click', (event, bounds) => {
-	//   if (global.mainWindow.isVisible()) {
-	//     global.mainWindow.hide()
-	//   } else {
-	//     global.mainWindow.show()
-	//   }
-	// })
-	return appTray;
+	tray.setToolTip('网易云音乐');
+	return tray;
 };
-
 const createTrayWindow = function (bounds) {
 	const obj = {
 		height: 350,

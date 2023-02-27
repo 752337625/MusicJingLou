@@ -1,7 +1,5 @@
-/**
- * @description: default layout
+/*
+ * 考虑到项目中可能有很多的布局
+ * 所有简历一个文件夹layout用于创建布局root.vue
  */
-
-// export const LAYOUT = () => import('@/layouts/default/index.vue');
-
-//export const EXCEPTION_COMPONENT = () => import('@/views/sys/exception/Exception.vue');
+export const JINGLUO = () => import('/@/layouts/layout/jingluo.vue');
