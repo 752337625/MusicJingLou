@@ -61,7 +61,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 			//stringify:true
 		},
 		build: {
-			target: 'es2015',
 			cssTarget: 'chrome61',
 			sourcemap: isBuild ? false : 'inline',
 			assetsInlineLimit: 0, //禁止将文件转base64
@@ -79,6 +78,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 			// chunk 大小警告的限制
 			chunkSizeWarningLimit: 500,
 			rollupOptions: {
+				external: [/dist-electron/],
 				output: {
 					chunkFileNames: 'js/[name]-[hash].js',
 					entryFileNames: 'js/[name]-[hash].js',

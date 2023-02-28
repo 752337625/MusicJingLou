@@ -8,7 +8,6 @@
 *.woff
 *.ttf
 *.html
-dist-electron
 dist
 public
 docs

@@ -25,5 +25,6 @@ dist-ssr
 .eslintrc-auto-import.json
 components.d.ts
 auto-imports.d.ts
-dist-electron
 release
+dist-electron/main.js
+pnpm-lock.yaml
