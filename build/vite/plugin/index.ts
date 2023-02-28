@@ -30,7 +30,6 @@ import Vuejsx from '@vitejs/plugin-vue-jsx';
 import PurgeIcons from 'vite-plugin-purge-icons';
 import Electron from 'vite-plugin-electron';
 import { configStyleImportPlugin } from './styleImport';
-import electronRender from 'vite-plugin-electron-renderer';
 
 // import { configImageminPlugin } from './imagemin'; // success
 export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
@@ -78,7 +77,6 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
 			// 配置 Electron 入口文件
 			entry: path.join(process.cwd(), 'electron/main.js'),
 		}),
-		electronRender(),
 	];
 	// vite-plugin-purge-icons
 	vitePlugins.push(PurgeIcons());

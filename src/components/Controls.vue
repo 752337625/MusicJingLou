@@ -6,7 +6,7 @@
 	</el-button-group>
 </template>
 
-<script setup>
+<script setup name="Controls">
 	import { ArrowLeft, ArrowRight, RefreshLeft } from '@element-plus/icons-vue';
 	let back = () => {
 		cosnole.log(1);

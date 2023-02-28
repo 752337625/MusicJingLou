@@ -26,5 +26,6 @@ dist-ssr
 components.d.ts
 auto-imports.d.ts
 release
+dist-electron
 dist-electron/main.js
 pnpm-lock.yaml

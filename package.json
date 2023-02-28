@@ -3,14 +3,14 @@
 	"private": true,
 	"version": "1.0.0",
 	"homepage": "",
-	"description": "",
+	"description": "这是一个app",
 	"author": {
 		"name": ""
 	},
 	"engines": {
 		"node": ">= 14"
 	},
-	"main": "dist-electron/main.js",
+	"main": "electron/main.js",
 	"scripts": {
 		"add": "git add .",
 		"commit": "czg",

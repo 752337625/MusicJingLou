@@ -5,7 +5,7 @@ const createTray = function () {
 	const trayIconPath = isDev ? 'public/images/tray.ico' : `${global.__images}/tray.ico`;
 	const tray = new Tray(trayIconPath);
 	tray.on('double-click', () => {
-		global.win.isVisible() ? win.hide() : win.show();
+		global.win.isVisible() ? '' : win.show();
 	});
 	tray.setToolTip('网易云音乐');
 	return tray;

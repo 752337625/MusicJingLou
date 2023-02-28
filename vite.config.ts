@@ -78,7 +78,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 			// chunk 大小警告的限制
 			chunkSizeWarningLimit: 500,
 			rollupOptions: {
-				external: [/dist-electron/],
 				output: {
 					chunkFileNames: 'js/[name]-[hash].js',
 					entryFileNames: 'js/[name]-[hash].js',
@@ -95,6 +94,13 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 				// managed by `vite-plugin-optimize-persist`
 				// 'dayjs',
 				// '@iconify/iconify',
+
+				'element-plus/es/components/container/style/css',
+				'element-plus/es/components/loading/style/css',
+				'element-plus/es/components/footer/style/css',
+				'element-plus/es/components/header/style/css',
+				'element-plus/es/components/main/style/css',
+				'element-plus/lib/locale/lang/zh-cn',
 			],
 		},
 	};

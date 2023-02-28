@@ -14,14 +14,15 @@ const icon = isDev ? 'public/images/tray.ico' : `${global.__images}/tray.ico`;
 protocol.registerSchemesAsPrivileged([
 	{ scheme: 'jingluo', privileges: { secure: true, standard: true } },
 ]);
+process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 function createWindow() {
 	global.win = new BrowserWindow({
-		width: 1200,
-		height: 900,
+		width: 1100,
+		height: 660,
 		center: true,
 		show: false,
-		minHeight: 900,
-		minWidth: 1200,
+		minHeight: 660,
+		minWidth: 1100,
 		resizable: true,
 		focusable: true,
 		alwaysOnTop: false, // 窗口是否永远在其他窗口上面
@@ -34,13 +35,12 @@ function createWindow() {
 			devTools: isDev, // 是否开启 DevTools
 			webSecurity: true, //允许跨域
 			nodeIntegration: true, //开启true这一步很重要,目的是为了vue文件中可以引入node和electron相关的API
-			contextIsolation: false, // 可以使用require方法,
+			contextIsolation: true, // 可以使用require方法,
 			preload: path.join(__dirname, './preload.js'),
 		},
 	});
 	global.win.once('ready-to-show', () => {
 		global.win.show();
-		global.win.focus();
 		if (process.platform === 'win32') {
 			// 设置任务栏操作和缩略图
 			setThumbarButtons(global.win, false);
@@ -52,6 +52,7 @@ function createWindow() {
 		global.win.removeMenu();
 		// 如果是windows系统模拟托盘菜单
 		global.tray = createTray();
+		console.log(global.tray.getBounds());
 		// let trayBounds = global.tray.getBounds();
 		// global.trayWindow = createTrayWindow(trayBounds);
 	}
