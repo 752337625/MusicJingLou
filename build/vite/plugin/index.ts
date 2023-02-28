@@ -1,4 +1,3 @@
-import fs from 'fs';
 import path from 'path';
 import { PluginOption } from 'vite';
 import vue from '@vitejs/plugin-vue';
@@ -63,7 +62,7 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
 			resolvers: [ElementPlusResolver()], //提供解决Element取消手动import问题
 		}),
 		Components({
-			dirs: 'src/components',
+			dirs: 'src/base',
 			dts: './typings/components.d.ts', // 生成配置文件，如果是ts项目，通常我们会把声明文件放在根目录/types中，注意，这个文件夹需要先建好，否则可能导致等下无法往里生成components.d.ts文件
 			resolvers: [ElementPlusResolver()], // 组件按需引入，例如Element2.x的按需引入方式。后采用AutoImport取消import
 		}),
@@ -96,7 +95,12 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
 	// vite-plugin-eruda
 	VITE_USE_ERUDA && vitePlugins.push(Eruda());
 	// vitejs/plugin-legacy
-	VITE_USE_LEGACY && vitePlugins.push(Legacy());
+	VITE_USE_LEGACY &&
+		vitePlugins.push(
+			Legacy({
+				targets: ['chrome 52'],
+			}),
+		);
 	// vite-plugin-vue-setup-extend
 	isBuild && VITE_SETUP_EXTEND && vitePlugins.push(VueSetupExtend());
 	// vite-plugin-compression

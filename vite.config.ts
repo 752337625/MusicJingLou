@@ -50,6 +50,8 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 			preprocessorOptions: {
 				less: {
 					modifyVars: {},
+					charset: false,
+					additionalData: '@import "./src/design/color.less";',
 					javascriptEnabled: true,
 				},
 			},

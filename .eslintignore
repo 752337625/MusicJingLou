@@ -16,3 +16,6 @@ scripts
 bin
 Dockerfile
 node_modules
+release
+dist-electron
+.eslintrc-auto-import.json

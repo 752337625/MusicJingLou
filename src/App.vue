@@ -9,7 +9,7 @@
 	const localeStore = useLocaleStore();
 	let locale = computed(() => localeStore.getLocale);
 	watchEffect(async () => {
-		const defaultLocale = await import(`/@/locales/lang/${locale.value}.ts`);
+		const defaultLocale = await import(/* @vite-ignore */ `./locales/lang/${locale.value}.ts`);
 		const message = defaultLocale.default?.message ?? {};
 		EleLocale.value = message[locale.value];
 	});

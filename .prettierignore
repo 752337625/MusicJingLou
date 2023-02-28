@@ -8,3 +8,8 @@ dist
 **/*.sh
 *-lock.yaml
 .vscode
+release
+dist-electron
+.eslintrc-auto-import.json
+components.d.ts
+auto-imports.d.ts

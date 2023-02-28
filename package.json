@@ -16,7 +16,8 @@
 		"commit": "czg",
 		"prepare": "husky install",
 		"serve": "vite",
-		"build": "concurrently \"vue-tsc\" \"vite build\"",
+		"build": "concurrently \"vue-tsc --noEmit\" \"vite build\"",
+		"electron:build": "electron-builder",
 		"build:no-cache": "concurrently \"pnpm run clean:cache\" \"pnpm run build\"",
 		"preview": "pnpm run build && vite preview",
 		"preview:dist": "vite preview",
@@ -31,6 +32,7 @@
 		"reinstall": "concurrently \"rimraf pnpm-lock.yaml\" \"rimraf package.lock.json\" \"pnpm install\""
 	},
 	"dependencies": {
+		"@element-plus/icons-vue": "^2.0.10",
 		"@vueuse/core": "^9.13.0",
 		"@vueuse/shared": "^9.13.0",
 		"axios": "^1.3.4",
@@ -44,7 +46,7 @@
 		"pinia": "^2.0.32",
 		"qs": "^6.11.0",
 		"vue": "^3.2.45",
-		"vue-i18n": "^9.2.2",
+		"vue-i18n": "^9.1.9",
 		"vue-router": "^4.1.6"
 	},
 	"devDependencies": {
@@ -72,6 +74,7 @@
 		"dotenv": "^16.0.3",
 		"electron": "^23.1.1",
 		"electron-builder": "^23.6.0",
+		"electron-packager": "^17.1.1",
 		"electron-reload": "2.0.0-alpha.1",
 		"electron-window-state": "^5.0.3",
 		"eslint": "^8.34.0",
@@ -130,5 +133,57 @@
 			"eslint --fix",
 			"prettier --write"
 		]
+	},
+	"build": {
+		"appId": "com.electron.desktop",
+		"productName": "electron",
+		"asar": true,
+		"copyright": "Copyright © 2023 electron",
+		"directories": {
+			"output": "release/"
+		},
+		"files": [
+			"dist"
+		],
+		"mac": {
+			"icon": "public/electron-icon/icon.icns",
+			"artifactName": "${productName}_${version}.${ext}",
+			"target": [
+				"dmg"
+			]
+		},
+		"win": {
+			"icon": "public/electron-icon/icon.ico",
+			"target": [
+				{
+					"target": "nsis",
+					"arch": [
+						"x64"
+					]
+				}
+			],
+			"artifactName": "${productName}_${version}.${ext}"
+		},
+		"nsis": {
+			"shortcutName": "鲸落云",
+			"oneClick": false,
+			"perMachine": false,
+			"allowToChangeInstallationDirectory": true,
+			"deleteAppDataOnUninstall": false,
+			"installerIcon": "public/electron-icon/icon.ico",
+			"uninstallerIcon": "public/electron-icon/icon.ico",
+			"installerHeaderIcon": "public/electron-icon/icon.ico",
+			"createDesktopShortcut": true,
+			"createStartMenuShortcut": true
+		},
+		"publish": [
+			{
+				"provider": "generic",
+				"url": "http://127.0.0.1:8080"
+			}
+		],
+		"releaseInfo": {
+			"releaseNotes": "版本更新的具体内容"
+		}
 	}
 }

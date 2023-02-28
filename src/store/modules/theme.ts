@@ -34,7 +34,3 @@ export const useThemeStore = defineStore({
 		},
 	},
 });
-// Need to be used outside the setup
-export function useErrorLogStoreWithOut() {
-	return useErrorLogStore(store);
-}

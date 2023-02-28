@@ -5,13 +5,19 @@
 // Read more: https://github.com/vuejs/core/pull/3399
 import '@vue/runtime-core'
 
-export {};
+export {}
 
 declare module '@vue/runtime-core' {
-	export interface GlobalComponents {
-		ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider'];
-		HelloWorld: typeof import('./../src/components/HelloWorld.vue')['default'];
-		RouterLink: typeof import('vue-router')['RouterLink'];
-		RouterView: typeof import('vue-router')['RouterView'];
-	}
+  export interface GlobalComponents {
+    ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
+    ElContainer: typeof import('element-plus/es')['ElContainer']
+    ElFooter: typeof import('element-plus/es')['ElFooter']
+    ElHeader: typeof import('element-plus/es')['ElHeader']
+    ElMain: typeof import('element-plus/es')['ElMain']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
+  }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
+  }
 }
