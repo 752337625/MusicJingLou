@@ -1,19 +1,21 @@
-const { app, BrowserWindow, protocol } = require('electron');
+const path = require('path');
+const { app, BrowserWindow } = require('electron');
+const { creatProtocol } = require('./module/protocol');
 // 判断系统处于什么环境
 const isDev = require('electron-is-dev');
 // 创建系统托盘
-const { createTray } = require('./module/tray');
+const { createTray, createTrayWindow } = require('./module/tray');
 // 设置底部任务栏按钮和缩略图
 const { setThumbarButtons } = require('./module/userTasks');
-const path = require('path');
+// 注册协议
+creatProtocol();
 if (!isDev) {
 	global.__img = path.join(__dirname, './img');
 	global.__images = path.join(__dirname, './images');
 }
 const icon = isDev ? 'public/images/tray.ico' : `${global.__images}/tray.ico`;
-protocol.registerSchemesAsPrivileged([
-	{ scheme: 'jingluo', privileges: { secure: true, standard: true } },
-]);
+
+// 取消安全校验
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 function createWindow() {
 	global.win = new BrowserWindow({
@@ -21,14 +23,13 @@ function createWindow() {
 		height: 660,
 		center: true,
 		show: false,
-		minHeight: 660,
 		minWidth: 1100,
+		minHeight: 660,
 		resizable: true,
-		focusable: true,
 		alwaysOnTop: false, // 窗口是否永远在其他窗口上面
 		icon: icon,
-		// titleBarStyle: 'hiddenInset',
-		frame: false,
+		titleBarStyle: 'hiddenInset',
+		frame: process.platform !== 'win32',
 		backgroundColor: '#fff',
 		hasShadow: true,
 		webPreferences: {
@@ -39,50 +40,66 @@ function createWindow() {
 			preload: path.join(__dirname, './preload.js'),
 		},
 	});
+	// 禁用右键菜单,这个禁用后所有的功能都不能点了
+	// global.win.setEnabled(false);
 	global.win.once('ready-to-show', () => {
 		global.win.show();
 		if (process.platform === 'win32') {
-			// 设置任务栏操作和缩略图
+			// 设置任务栏缩略图
 			setThumbarButtons(global.win, false);
+			// 去除原生顶部菜单栏
+			global.win.removeMenu();
+			// 如果是windows系统模拟托盘菜单
+			global.tray = createTray();
+			// 如果是windows系统模拟托盘右键菜单
+			global.trayWindow = createTrayWindow();
 		}
 	});
-	// 设置appId才能使用Notification
 	if (process.platform === 'win32') {
-		// 去除原生顶部菜单栏
-		global.win.removeMenu();
-		// 如果是windows系统模拟托盘菜单
-		global.tray = createTray();
-		console.log(global.tray.getBounds());
-		// let trayBounds = global.tray.getBounds();
-		// global.trayWindow = createTrayWindow(trayBounds);
 	}
 	// app.setUserTasks([]);
-	// 生产环境、开发环境，访问的路径不同
-	// 开发环境下，我们访问的是 Vite 本地服务
-	// 打包之后，我们访问的是 dist 静态文件
-	// 所以这里要加个判断
 	if (isDev) {
 		global.win.loadURL('http://localhost:3100/jingluo');
 		global.win.webContents.openDevTools();
+		// require('electron-reload')(__dirname, {
+		// 	// Note that the path to electron may vary according to the main file
+		// 	electron: require(`../node_modules/electron`),
+		// });
 	} else {
 		global.win.loadFile(path.join(__dirname, '../index.html'));
 	}
-	// 窗口注册close事件
-	global.win.on('close', _event => {
-		// event.preventDefault(); // 阻止窗口关闭
+	//在窗口要关闭的时候触发。 它在DOM 的beforeunload 和 unload 事件之前触发. 调用event.preventDefault()将阻止这个操作。
+	global.win.on('close', event => {
+		event.preventDefault(); // 阻止窗口关闭
+		// 隐藏不是关闭
+		if (process.platform !== 'darwin') return global.win.hide();
+	});
+	//在窗口关闭时触发 当你接收到这个事件的时候, 你应当移除相应窗口的引用对象，避免再次使用它.
+	global.win.on('closed', _event => {
+		//console.log(event);
 	});
 }
 
 app.whenReady().then(() => {
 	createWindow();
-	app.on('activate', () => {
-		if (BrowserWindow.getAllWindows().length === 0) {
-			createWindow();
-		}
-	});
+});
+
+// 为避免启动多个应用 在 macOS Linux Windows 下都可以
+app.on('second-instance', () => {
+	const win = BrowserWindowsMap.get(global.win.id);
+	if (win) {
+		win.restore();
+		win.show();
+	}
+	// const tray = BrowserWindowsMap.get(global.tray.id);
+	// if (tray) {
+	// 	tray.restore();
+	// 	tray.show();
+	// }
+});
+app.on('activate', () => {
+	if (!BrowserWindow.getAllWindows().length) return createWindow();
 });
 app.on('window-all-closed', () => {
-	if (process.platform !== 'darwin') {
-		app.quit();
-	}
+	if (process.platform !== 'darwin') return app.quit();
 });

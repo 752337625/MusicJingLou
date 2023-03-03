@@ -88,7 +88,7 @@ video {
 	border: 0;
 	vertical-align: baseline;
 	box-sizing: border-box;
-	user-select: none;
+	// user-select: none;
 }
 // HTML5 display-role reset for older browsers
 article,
@@ -136,9 +136,10 @@ body,
 	font-size: 18px;
 	overflow: hidden;
 }
+// 不能把所有的拖拽都禁用掉,因为有些区域是可以推拽得
 body {
-	-webkit-app-region: drag;
-	user-select: none;
+	// -webkit-app-region: drag;
+	// user-select: none;
 }
 button {
 	-webkit-app-region: no-drag;

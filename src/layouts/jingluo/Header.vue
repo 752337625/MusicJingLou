@@ -1,9 +1,13 @@
+<script setup>
+	import { createAsyncComponent } from '/@/utils/createAsyncComponent';
+	let ControlsBox = createAsyncComponent(() => import('/@/components/ControlsBox.vue'));
+</script>
 <template>
-	<div class="top-bar">
+	<div v-drop class="top-bar">
 		<img src="../../assets/logo.svg" alt="LOGO" class="top-bar-logo" />
 		<div class="top-bar-main">
 			<div class="top-bar-control">
-				<Controls />
+				<controls-box />
 			</div>
 			<div class="top-bar-search">
 				<!-- <search-box /> -->
@@ -26,8 +30,6 @@
 		</div>
 	</div>
 </template>
-
-<script setup></script>
 
 <style lang="less" scoped>
 	.top-bar {

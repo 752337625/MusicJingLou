@@ -22,10 +22,9 @@ dist-ssr
 *.sw?
 
 # 取消提交的配置文件
+dist-electron
 .eslintrc-auto-import.json
 components.d.ts
 auto-imports.d.ts
 release
-dist-electron
-dist-electron/main.js
 pnpm-lock.yaml

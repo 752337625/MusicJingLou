@@ -4,7 +4,7 @@ import setupRouter from '/@/router';
 import setupStore from '/@/store';
 import '/@/design/index.less';
 // import setupI18n from '/@/locales';
-// import setupGlobDirectives from '/@/directives';
+import setupGlobDirectives from '/@/directives';
 // import setupGlobProperties from '@/properties';
 import '/@/design/index.less';
 // import initAppConfigStore from '/@/initAppConfig'; //初始化配置，例如国际化、主题
@@ -19,8 +19,9 @@ async function bootstrap() {
 	// initAppConfigStore();
 	//国际化
 	// await setupI18n(app);
+
 	//设置全局指令
-	// setupGlobDirectives(app);
+	setupGlobDirectives(app);
 
 	// Configure globa Properties
 	// setupGlobProperties(app);

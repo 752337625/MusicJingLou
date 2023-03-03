@@ -16,6 +16,7 @@
 		width: 100%;
 		height: 100%;
 	}
+
 	.el-header,
 	.el-footer {
 		height: 50px;
@@ -25,6 +26,9 @@
 	.el-header {
 		background-color: @jl-layout-background-color;
 		color: @jl-layout-color;
+	}
+	.el-main {
+		-webkit-app-region: no-drag;
 	}
 	.el-footer {
 		border-top: 1px solid #ddd;

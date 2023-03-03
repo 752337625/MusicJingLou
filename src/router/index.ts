@@ -2,6 +2,8 @@ import { App } from 'vue';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import { getEnvConfig } from '/@/utils/env';
 import list from '/@/router/routes/index';
+// import { useManualRefHistory } from '@vueuse/core';
+// const { history, commit, undo, redo } = useManualRefHistory(counter);
 const { VITE_PUBLIC_PATH } = getEnvConfig();
 const routes: Array<RouteRecordRaw> = list;
 const router = createRouter({
@@ -16,8 +18,10 @@ const router = createRouter({
  * @param {*} from
  * @param {*} next
  */
-router.beforeEach(() => {
+router.beforeEach((to, from, next) => {
+	console.log(to, from);
 	// console.log(1);
+	next();
 });
 /**
  * @description 全局解析守卫
@@ -25,8 +29,10 @@ router.beforeEach(() => {
  * @param {*} from
  * @param {*} next
  */
-router.beforeResolve(() => {
+router.beforeResolve((to, from, next) => {
+	console.log(to, from);
 	// console.log(1);
+	next();
 });
 /**
  * @description 全局后置钩子:不会改变导航本身,它们对于分析、更改页面标题、声明页面等辅助功能以及许多其他事情都很有用。
