@@ -29,10 +29,8 @@ router.beforeEach((to, from, next) => {
  * @param {*} from
  * @param {*} next
  */
-router.beforeResolve((to, from, next) => {
-	console.log(to, from);
+router.beforeResolve(() => {
 	// console.log(1);
-	next();
 });
 /**
  * @description 全局后置钩子:不会改变导航本身,它们对于分析、更改页面标题、声明页面等辅助功能以及许多其他事情都很有用。

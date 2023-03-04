@@ -101,6 +101,8 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 				'element-plus/es/components/header/style/css',
 				'element-plus/es/components/main/style/css',
 				'element-plus/lib/locale/lang/zh-cn',
+				'element-plus/es/components/button-group/style/css',
+				'element-plus/es/components/button/style/css',
 			],
 		},
 	};

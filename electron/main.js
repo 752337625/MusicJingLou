@@ -19,12 +19,10 @@ const icon = isDev ? 'public/images/tray.ico' : `${global.__images}/tray.ico`;
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 function createWindow() {
 	global.win = new BrowserWindow({
-		width: 1100,
-		height: 660,
 		center: true,
 		show: false,
-		minWidth: 1100,
-		minHeight: 660,
+		minWidth: 1022,
+		minHeight: 670,
 		resizable: true,
 		alwaysOnTop: false, // 窗口是否永远在其他窗口上面
 		icon: icon,

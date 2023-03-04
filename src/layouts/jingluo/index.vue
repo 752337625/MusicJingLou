@@ -15,6 +15,7 @@
 	.jingluo {
 		width: 100%;
 		height: 100%;
+		background-color: #fff;
 	}
 
 	.el-header,
@@ -28,7 +29,9 @@
 		color: @jl-layout-color;
 	}
 	.el-main {
-		-webkit-app-region: no-drag;
+		display: flex;
+		overflow: hidden;
+		padding: 0;
 	}
 	.el-footer {
 		border-top: 1px solid #ddd;
