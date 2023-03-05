@@ -65,7 +65,7 @@
 			}
 		}
 		.el-main {
-			padding: 20px 0 0 0;
+			padding: 0px 0 0 0;
 			width: 758px;
 			margin: 0 auto;
 		}
