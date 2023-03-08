@@ -56,7 +56,7 @@ const createTrayWindow = function () {
 		trayWindow.hide();
 	});
 	trayWindow.on('closed', () => {
-		trayWindow = null;
+		global.trayWindow = null;
 	});
 	return trayWindow;
 };

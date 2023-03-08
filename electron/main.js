@@ -5,8 +5,8 @@ const { creatProtocol } = require('./module/protocol');
 const isDev = require('electron-is-dev');
 // 创建系统托盘
 const { createTray, createTrayWindow } = require('./module/tray');
-// 设置底部任务栏按钮和缩略图
-const { setThumbarButtons } = require('./module/userTasks');
+// 设置window底部任务栏按钮（缩略图）
+const { setThumbarButton } = require('./module/thumbarButtons');
 // 注册协议
 creatProtocol();
 if (!isDev) {
@@ -44,9 +44,9 @@ function createWindow() {
 		global.win.show();
 		if (process.platform === 'win32') {
 			// 设置任务栏缩略图
-			setThumbarButtons(global.win, false);
+			setThumbarButton(false);
 			// 去除原生顶部菜单栏
-			global.win.removeMenu();
+			// global.win.removeMenu();
 			// 如果是windows系统模拟托盘菜单
 			global.tray = createTray();
 			// 如果是windows系统模拟托盘右键菜单
