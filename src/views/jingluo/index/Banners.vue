@@ -37,18 +37,18 @@
 </template>
 
 <script setup>
-  import { onMounted, ref } from 'vue';
+  import { onMounted, shallowRef } from 'vue';
   import { getBannersList } from '/@/api/main';
   import { Navigation, Pagination, Autoplay } from 'swiper';
   import { Swiper, SwiperSlide } from 'swiper/vue';
   import 'swiper/css';
   import 'swiper/css/pagination';
-  let lists = ref([]);
-  let loading = ref(true);
+  let lists = shallowRef([]);
+  let loading = shallowRef(true);
   const modules = [Navigation, Pagination, Autoplay];
   const getBanner = async () => {
     let { banners = [], code } = await getBannersList();
-    if (code !== 200) return ElMessage.error('请求失败');
+    if (code !== 200) return ElMessage.error('数据请求失败');
     lists.value = banners;
     loading.value = false;
   };

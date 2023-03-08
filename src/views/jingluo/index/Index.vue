@@ -1,27 +1,35 @@
 <script setup>
-  import { onMounted } from 'vue';
+  import { onMounted, shallowRef } from 'vue';
   import { createAsyncComponent } from '/@/utils/createAsyncComponent';
-  import { getPlayList } from '/@/api/main';
-
+  import { getPlayList, getHotList } from '/@/api/main';
   let Banners = createAsyncComponent(() => import('/@/views/jingluo/index/Banners.vue'));
   let PlayList = createAsyncComponent(() => import('/@/components/PlayList.vue'));
   const choosePlayListType = () => {
     console.log(1);
   };
-  const playlist_tags = [];
+  const playlist_tags = shallowRef([]);
+  const playlist_list = shallowRef([]);
+  const playlist_loading = ref(true);
+  const playlist_count = ref(6);
+  const playlist_index = ref(0);
   const getPlay = async () => {
-    let res = await getPlayList({
-      limit: 50,
+    let { code, playlists } = await getPlayList({
+      limit: 6,
       offset: 0,
       order: 'hot',
       cat: '',
     });
-    // if (code !== 200) return ElMessage.error('请求失败');
-    console.log(res);
-    // lists.value = banners;
-    // loading.value = false;
+    if (code !== 200) return ElMessage.error('数据请求失败');
+    playlist_list.value = playlists;
+    playlist_loading.value = false;
+  };
+  const getHot = async () => {
+    let { code, tags } = await getHotList();
+    if (code !== 200) return ElMessage.error('数据请求失败');
+    playlist_tags.value = tags;
   };
   onMounted(() => {
+    getHot();
     getPlay();
   });
 </script>
