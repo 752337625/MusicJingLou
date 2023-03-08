@@ -15,19 +15,17 @@ const httpsRE = /^https:\/\//;
  * @param list
  */
 export function createProxy(list: ProxyList = []) {
-	const ret: ProxyTargetList = {};
-	for (const [prefix, isRewrite, target] of list) {
-		const isHttps = httpsRE.test(target);
-		console.log(isRewrite);
-		ret[prefix] = {
-			target: target,
-			changeOrigin: true,
-			ws: true,
-			rewrite: path => path.replace(new RegExp(`^${prefix}`), `${prefix}`),
-			// https is require secure=false
-			...(isHttps ? { secure: false } : {}),
-		};
-	}
-	console.log(ret);
-	return ret;
+  const ret: ProxyTargetList = {};
+  for (const [prefix, rewrite, target] of list) {
+    const isHttps = httpsRE.test(target);
+    ret[prefix] = {
+      target: target,
+      changeOrigin: true,
+      ws: true,
+      rewrite: path => path.replace(new RegExp(`^${prefix}`), `${rewrite}`),
+      // https is require secure=false
+      ...(isHttps ? { secure: false } : {}),
+    };
+  }
+  return ret;
 }

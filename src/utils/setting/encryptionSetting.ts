@@ -5,8 +5,8 @@
 
 // aes encryption key
 export const cacheCipher = {
-	key: '_11111000001111@',
-	iv: '@11111000001111_',
+  key: '_11111000001111@',
+  iv: '@11111000001111_',
 };
 
 // Whether the system cache is encrypted using aes

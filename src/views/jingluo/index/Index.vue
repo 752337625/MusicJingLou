@@ -1,11 +1,11 @@
 <script setup>
-	import { createAsyncComponent } from '/@/utils/createAsyncComponent';
-	let Banners = createAsyncComponent(() => import('/@/views/jingluo/index/Banners.vue'));
+  import { createAsyncComponent } from '/@/utils/createAsyncComponent';
+  let Banners = createAsyncComponent(() => import('/@/views/jingluo/index/Banners.vue'));
 </script>
 <template>
-	<div class="home">
-		<Banners />
-		<!-- <div class="hot-list">
+  <div class="home">
+    <Banners />
+    <!-- <div class="hot-list">
 			<div class="h_title">
 				<h3>热门推荐</h3>
 				<span
@@ -60,70 +60,70 @@
 				</div>
 			</div>
 		</div> -->
-	</div>
+  </div>
 </template>
 
 <style lang="less" scoped>
-	.h_title {
-		padding: 20px 0 10px;
+  .h_title {
+    padding: 20px 0 10px;
 
-		h3 {
-			display: inline-block;
-			padding-right: 50px;
-			font-size: 28px;
-			font-weight: 700;
-		}
+    h3 {
+      display: inline-block;
+      padding-right: 50px;
+      font-size: 28px;
+      font-weight: 700;
+    }
 
-		span {
-			display: inline-block;
-			font-size: 16px;
-			margin: 0 40px 0 0;
-			color: @--color-text-main;
-			cursor: pointer;
+    span {
+      display: inline-block;
+      font-size: 16px;
+      margin: 0 40px 0 0;
+      color: @--color-text-main;
+      cursor: pointer;
 
-			&.active {
-				position: relative;
-				z-index: 1;
-				font-weight: 600;
-				color: @--color-text-main;
+      &.active {
+        position: relative;
+        z-index: 1;
+        font-weight: 600;
+        color: @--color-text-main;
 
-				&:after {
-					position: absolute;
-					content: '';
-					left: 0;
-					bottom: 1px;
-					width: 100%;
-					height: 6px;
-					background: @--color-text-height;
-					z-index: -1;
-				}
-			}
-		}
-	}
+        &:after {
+          position: absolute;
+          content: '';
+          left: 0;
+          bottom: 1px;
+          width: 100%;
+          height: 6px;
+          background: @--color-text-height;
+          z-index: -1;
+        }
+      }
+    }
+  }
 
-	.hot-list,
-	.album_list,
-	.mv_list,
-	.dj-list,
-	.artist-list {
-		padding: 0 20px;
-		margin-bottom: 25px;
-		background: #fff;
-		border-radius: 12px;
-		box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
-	}
+  .hot-list,
+  .album_list,
+  .mv_list,
+  .dj-list,
+  .artist-list {
+    padding: 0 20px;
+    margin-bottom: 25px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  }
 
-	.top_list {
-		margin-bottom: 25px;
-	}
-	.dj-artist {
-		display: flex;
-	}
-	.dj-list {
-		flex: 1;
-		margin-right: 20px;
-	}
-	.artist-list {
-		width: 440px;
-	}
+  .top_list {
+    margin-bottom: 25px;
+  }
+  .dj-artist {
+    display: flex;
+  }
+  .dj-list {
+    flex: 1;
+    margin-right: 20px;
+  }
+  .artist-list {
+    width: 440px;
+  }
 </style>

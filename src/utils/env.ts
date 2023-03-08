@@ -1,21 +1,21 @@
 export function getEnvConfig() {
-	const ENV = import.meta.env as unknown as ViteEnv;
-	const {
-		VITE_DEFAULT_THEME_KEY,
-		VITE_DEFAULT_LOCALE_KEY,
-		VITE_PUBLIC_PATH,
-		VITE_DEFAULT_CACHE_KEY,
-		VITE_DEFAULT_CACHE_TIME,
-		VITE_GLOB_API_URL,
-	} = ENV;
-	return {
-		VITE_DEFAULT_THEME_KEY,
-		VITE_DEFAULT_LOCALE_KEY,
-		VITE_PUBLIC_PATH,
-		VITE_DEFAULT_CACHE_KEY,
-		VITE_DEFAULT_CACHE_TIME,
-		VITE_GLOB_API_URL,
-	};
+  const ENV = import.meta.env as unknown as ViteEnv;
+  const {
+    VITE_DEFAULT_THEME_KEY,
+    VITE_DEFAULT_LOCALE_KEY,
+    VITE_PUBLIC_PATH,
+    VITE_DEFAULT_CACHE_KEY,
+    VITE_DEFAULT_CACHE_TIME,
+    VITE_GLOB_API_URL,
+  } = ENV;
+  return {
+    VITE_DEFAULT_THEME_KEY,
+    VITE_DEFAULT_LOCALE_KEY,
+    VITE_PUBLIC_PATH,
+    VITE_DEFAULT_CACHE_KEY,
+    VITE_DEFAULT_CACHE_TIME,
+    VITE_GLOB_API_URL,
+  };
 }
 
 /**
@@ -32,7 +32,7 @@ export const prodMode = 'production';
  * 设计到npm\pnpm 启动指令：cross-env NODE_ENV=production、cross-env REPORT=true等
  */
 export function isReportMode(): boolean {
-	return process.env.REPORT === 'true';
+  return process.env.REPORT === 'true';
 }
 
 /**
@@ -41,7 +41,7 @@ export function isReportMode(): boolean {
  * @example:
  */
 export function getEnv(): string {
-	return import.meta.env.MODE;
+  return import.meta.env.MODE;
 }
 
 /**
@@ -50,7 +50,7 @@ export function getEnv(): string {
  * @example:
  */
 export function isDevMode(): boolean {
-	return import.meta.env.DEV;
+  return import.meta.env.DEV;
 }
 
 /**
@@ -59,7 +59,7 @@ export function isDevMode(): boolean {
  * @example:
  */
 export function isProdMode(): boolean {
-	return import.meta.env.PROD;
+  return import.meta.env.PROD;
 }
 
 /**
@@ -68,5 +68,5 @@ export function isProdMode(): boolean {
  * @example:
  */
 export function getBaseUrl(): string {
-	return import.meta.env.BASE_URL;
+  return import.meta.env.BASE_URL;
 }

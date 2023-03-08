@@ -1,4 +1,4 @@
 export default {
-	path: '/',
-	redirect: '/music/index',
+  path: '/',
+  redirect: '/music/index',
 };
