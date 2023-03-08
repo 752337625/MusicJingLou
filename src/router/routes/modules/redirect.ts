@@ -1,4 +1,4 @@
 export default {
 	path: '/',
-	redirect: '/find/personal',
+	redirect: '/music/index',
 };

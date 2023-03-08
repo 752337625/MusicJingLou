@@ -1,57 +1,90 @@
 <script setup>
 	import { createAsyncComponent } from '/@/utils/createAsyncComponent';
-	let ControlsBox = createAsyncComponent(() => import('/@/components/ControlsBox.vue'));
+	import { computed } from 'vue';
+	import useLoginStore from '/@/store/modules/login';
+	let Search = createAsyncComponent(() => import('/@/layouts/jingluo/Search.vue'));
+	const loginStore = useLoginStore();
+	const isLogin = computed(() => loginStore.getIsLogin);
+	// 头像
+	const avatarUrl = computed(() => loginStore.getAvatarUrl);
+	// 名称
+	const nickname = computed(() => loginStore.getNickname);
+	const loginDialog = () => {
+		console.log(1);
+	};
+	const logout = () => {
+		console.log(1);
+	};
 </script>
 <template>
-	<div v-drop class="top-bar">
-		<img src="../../assets/logo.svg" alt="LOGO" class="top-bar-logo" />
-		<div class="top-bar-main">
-			<div class="top-bar-control">
-				<controls-box />
-			</div>
-			<div class="top-bar-search">
-				<!-- <search-box /> -->
-			</div>
-			<div class="top-bar-menu">
-				<div class="top-bar-menu-user">
-					<div class="item">
-						<!-- <user-info /> -->
+	<header class="header">
+		<div class="menu"> </div>
+		<Search />
+		<div :class="isLogin ? 'user-avatar' : 'login'">
+			<div v-if="isLogin" class="logined">
+				<el-image :src="avatarUrl" class="avatar">
+					<div slot="placeholder" class="image-slot">
+						<i class="iconfont icon-placeholder"></i>
 					</div>
-					<div class="item">
-						<!-- <theme-setting /> -->
-					</div>
-					<div class="item" @click="$router.push({ path: '/setting' })">
-						<!-- <a-icon type="setting" class="icon" /> -->
-					</div>
-					<!-- <div class="item" @click="logout" v-if="userId">退出</div> -->
-				</div>
-				<!-- <frame-actions /> -->
+				</el-image>
+				<span class="nickname">{{ nickname }}</span>
+				<span class="set"><i class="iconfont icon-set"></i></span>
+				<span class="quit" @click="logout"><i class="iconfont icon-quit"></i></span>
 			</div>
+			<span v-else class="login-btn" @click="loginDialog">登录</span>
 		</div>
-	</div>
+	</header>
 </template>
-
 <style lang="less" scoped>
-	.top-bar {
+	.header {
 		display: flex;
-		height: 100%;
-		.top-bar-logo {
-			width: 200px;
-			padding-left: 20px;
-			padding-right: 40px;
+		justify-content: space-between;
+		align-items: center;
+		height: 80px;
+	}
+	.menu {
+		flex: 1;
+	}
+
+	.user-avatar {
+		padding: 5px 0 5px 20px;
+		text-align: center;
+
+		.avatar {
+			display: inline-block;
+			width: 24px;
+			height: 24px;
+			border-radius: 100%;
+			overflow: hidden;
+			cursor: pointer;
 		}
-		.top-bar-main {
-			flex: 1;
+
+		.logined {
 			display: flex;
-			justify-content: space-between;
 			align-items: center;
-			.top-bar-search {
-				width: 240px;
-				flex: 0 0 240px;
+
+			span {
+				display: inline-block;
+				height: 24px;
+				line-height: 24px;
+				font-weight: 300;
+				padding: 0 10px;
+				cursor: pointer;
 			}
-			.top-bar-control {
-				margin-right: 5px;
+
+			.iconfont {
+				color: @--color-text-main;
+				vertical-align: top;
 			}
+		}
+	}
+	.login {
+		padding: 0 20px;
+		text-align: center;
+
+		.login-btn {
+			font-size: 16px;
+			cursor: pointer;
 		}
 	}
 </style>
