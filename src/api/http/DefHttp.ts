@@ -94,14 +94,14 @@ export class DefHttp {
 
 		// 请求拦截
 		this.axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-			const {
-				headers: { ignoreCancelToken = false },
-			} = config;
-			const ignoreCancel =
-				ignoreCancelToken !== undefined
-					? ignoreCancelToken
-					: this.options.requestOptions?.ignoreCancelToken;
-			!ignoreCancel && axiosCanceler.addPending(config);
+			// const {
+			// 	headers: { ignoreCancelToken = false },
+			// } = config;
+			// const ignoreCancel =
+			// 	ignoreCancelToken !== undefined
+			// 		? ignoreCancelToken
+			// 		: this.options.requestOptions?.ignoreCancelToken;
+			// !ignoreCancel && axiosCanceler.addPending(config);
 			if (requestInterceptors && isFunction(requestInterceptors)) {
 				config = requestInterceptors(config, this.options);
 			}

@@ -5,7 +5,9 @@ import { ContentTypeEnum } from '../enums/httpEnum';
 import { deepMerge } from '/@/utils';
 import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform';
 import { DefHttp } from './DefHttp';
+import { getEnvConfig } from '/@/utils/env';
 
+const { VITE_GLOB_API_URL } = getEnvConfig();
 /**
  * @description: 数据处理，方便区分多种处理方式
  */
@@ -69,9 +71,6 @@ export function createAxios(opt?: Partial<CreateAxiosOptions>) {
 		// 深度合并
 		deepMerge(
 			{
-				// See https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#authentication_schemes
-				// authentication schemes，e.g: Bearer
-				// authenticationScheme: 'Bearer',
 				authenticationScheme: '',
 				timeout: 10 * 1000,
 				// 基础接口地址
@@ -96,7 +95,7 @@ export function createAxios(opt?: Partial<CreateAxiosOptions>) {
 					// 消息提示类型
 					errorMessageMode: 'message',
 					// 接口地址
-					apiUrl: '/api',
+					apiUrl: VITE_GLOB_API_URL,
 					// 接口拼接地址
 					urlPrefix: '',
 					//  是否加入时间戳
@@ -116,3 +115,4 @@ export function createAxios(opt?: Partial<CreateAxiosOptions>) {
 		),
 	);
 }
+export const defHttp = createAxios();

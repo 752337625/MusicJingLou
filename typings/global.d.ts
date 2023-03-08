@@ -7,7 +7,7 @@ declare global {
 		readonly VITE_DEFAULT_THEME_KEY: string;
 		readonly VITE_PUBLIC_PATH: string;
 		readonly VITE_APP_TITLE: string;
-		readonly VITE_PROXY: [string, string][];
+		readonly VITE_PROXY: [string, string, string][];
 		readonly VITE_GLOB_APP_TITLE: string;
 		readonly VITE_GLOB_APP_SHORT_NAME: string;
 		readonly VITE_DEFAULT_CACHE_TIME: string;
