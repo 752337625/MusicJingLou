@@ -10,7 +10,7 @@ export default {
 		{
 			path: 'index',
 			name: 'index',
-			component: () => import('/@/views/jingluo/music/Index.vue'),
+			component: () => import('/@/views/jingluo/index/Index.vue'),
 			meta: {
 				title: '首页',
 				// 	// title: t('routes.dashboard.about'),

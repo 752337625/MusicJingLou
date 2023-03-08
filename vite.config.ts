@@ -51,7 +51,10 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 				less: {
 					modifyVars: {},
 					charset: false,
-					additionalData: '@import "./src/design/color.less";',
+					additionalData: `
+          @import "./src/design/color.less";
+          @import "./src/design/mixin.less";
+          `,
 					javascriptEnabled: true,
 				},
 			},

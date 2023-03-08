@@ -11,7 +11,7 @@ import axios from 'axios';
 import qs from 'qs';
 import { ContentTypeEnum, RequestEnum } from '../enums/httpEnum';
 import { AxiosCanceler } from './axiosCancel';
-import { isFunction } from '@jingluo/utils';
+import { isFunction } from '/@/utils';
 import { cloneDeep } from 'lodash-es';
 
 /**
