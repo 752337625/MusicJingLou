@@ -14,7 +14,7 @@
           :slides-per-view="4"
           :space-between="30"
           :modules="modules"
-          :autoplay="{ delay: 3000 }"
+          :autoplay="{ delay: 300000 }"
           :pagination="{ clickable: true }"
           class="banner_wrap">
           <swiper-slide v-for="item of lists" :key="item.imageUrl">
@@ -40,9 +40,9 @@
   import { onMounted, ref } from 'vue';
   import { getBannersList } from '/@/api/main';
   import { Navigation, Pagination, Autoplay } from 'swiper';
+  import { Swiper, SwiperSlide } from 'swiper/vue';
   import 'swiper/css';
   import 'swiper/css/pagination';
-  import { Swiper, SwiperSlide } from 'swiper/vue';
   let lists = ref([]);
   let loading = ref(true);
   const modules = [Navigation, Pagination, Autoplay];
@@ -85,7 +85,6 @@
   .banner_wrap {
     position: relative;
     padding: 40px 0;
-    .calcHeight(@w, 1080, 400);
     font-size: 0;
 
     .banner_img {

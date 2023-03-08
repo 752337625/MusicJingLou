@@ -5,7 +5,7 @@ import setupStore from '/@/store';
 import '/@/design/index.less';
 // import setupI18n from '/@/locales';
 import setupGlobDirectives from '/@/directives';
-// import setupGlobProperties from '@/properties';
+import setupGlobProperties from '/@/properties';
 import '/@/design/index.less';
 // import initAppConfigStore from '/@/initAppConfig'; //初始化配置，例如国际化、主题
 import 'virtual:svg-icons-register'; //vite-plugin-svg-icons
@@ -24,7 +24,7 @@ async function bootstrap() {
   setupGlobDirectives(app);
 
   // Configure globa Properties
-  // setupGlobProperties(app);
+  setupGlobProperties(app);
 
   // Register global components
   // 注册全局组件

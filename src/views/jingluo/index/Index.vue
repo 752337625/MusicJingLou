@@ -1,25 +1,50 @@
 <script setup>
+  import { onMounted } from 'vue';
   import { createAsyncComponent } from '/@/utils/createAsyncComponent';
+  import { getPlayList } from '/@/api/main';
+
   let Banners = createAsyncComponent(() => import('/@/views/jingluo/index/Banners.vue'));
+  let PlayList = createAsyncComponent(() => import('/@/components/PlayList.vue'));
+  const choosePlayListType = () => {
+    console.log(1);
+  };
+  const playlist_tags = [];
+  const getPlay = async () => {
+    let res = await getPlayList({
+      limit: 50,
+      offset: 0,
+      order: 'hot',
+      cat: '',
+    });
+    // if (code !== 200) return ElMessage.error('请求失败');
+    console.log(res);
+    // lists.value = banners;
+    // loading.value = false;
+  };
+  onMounted(() => {
+    getPlay();
+  });
 </script>
 <template>
   <div class="home">
     <Banners />
-    <!-- <div class="hot-list">
-			<div class="h_title">
-				<h3>热门推荐</h3>
-				<span
-					v-for="(item, index) in playlist_tags"
-					:key="item.id"
-					:class="index == playlist_index ? 'active' : ''"
-					@click="choosePlayListType(index)"
-					>{{ item.name }}</span
-				>
-			</div>
-			<div class="wrapper"> </div>
-		</div>
+    <div class="hot-list">
+      <div class="h_title">
+        <h3>热门推荐</h3>
+        <span
+          v-for="(item, index) in playlist_tags"
+          :key="item.id"
+          :class="index == playlist_index ? 'active' : ''"
+          @click="choosePlayListType(index)"
+          >{{ item.name }}</span
+        >
+      </div>
+      <div class="wrapper">
+        <Play-List :playList="playlist_list" :loading="playlist_loading" :num="playlist_count" />
+      </div>
+    </div>
 
-		<div class="album_list">
+    <!--<div class="album_list">
 			<div class="h_title">
 				<h3>新碟上架</h3>
 				<span

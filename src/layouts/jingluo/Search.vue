@@ -153,9 +153,7 @@
     display: flex;
     text-align: right;
     align-items: center;
-    border-bottom: 1px solid #999;
     background: #fff;
-
     .keyVal {
       width: 250px;
       border: 0;
