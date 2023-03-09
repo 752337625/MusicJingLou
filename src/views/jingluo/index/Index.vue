@@ -48,7 +48,7 @@
         >
       </div>
       <div class="wrapper">
-        <Play-List :playList="playlist_list" :loading="playlist_loading" :num="playlist_count" />
+        <PlayList :playList="playlist_list" :loading="playlist_loading" :num="playlist_count" />
       </div>
     </div>
 
