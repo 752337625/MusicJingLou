@@ -50,8 +50,6 @@ export default function getHotRecomList() {
       limit: 12,
       area: 'ZH',
       type: 'hot',
-      year: 2023,
-      month: 3,
     },
     album_count: 12,
     album_loading: true,
