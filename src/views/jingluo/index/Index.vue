@@ -1,37 +1,20 @@
 <script setup>
-  import { onMounted, shallowRef } from 'vue';
   import { createAsyncComponent } from '/@/utils/createAsyncComponent';
-  import { getPlayList, getHotList } from '/@/api/main';
+  import getPlayOrHotList from '/@/hook/usePlayOrHotList';
+  import getHotRecomList from '/@/hook/useTopAlbum';
   let Banners = createAsyncComponent(() => import('/@/views/jingluo/index/Banners.vue'));
   let PlayList = createAsyncComponent(() => import('/@/components/PlayList.vue'));
-  const choosePlayListType = () => {
-    console.log(1);
-  };
-  const playlist_tags = shallowRef([]);
-  const playlist_list = shallowRef([]);
-  const playlist_loading = ref(true);
-  const playlist_count = ref(6);
-  const playlist_index = ref(0);
-  const getPlay = async () => {
-    let { code, playlists } = await getPlayList({
-      limit: 6,
-      offset: 0,
-      order: 'hot',
-      cat: '',
-    });
-    if (code !== 200) return ElMessage.error('数据请求失败');
-    playlist_list.value = playlists;
-    playlist_loading.value = false;
-  };
-  const getHot = async () => {
-    let { code, tags } = await getHotList();
-    if (code !== 200) return ElMessage.error('数据请求失败');
-    playlist_tags.value = tags;
-  };
-  onMounted(() => {
-    getHot();
-    getPlay();
-  });
+  let AlbumList = createAsyncComponent(() => import('/@/components/AlbumList.vue'));
+  const {
+    playlist_tags,
+    playlist_list,
+    playlist_count,
+    playlist_loading,
+    playlist_index,
+    choosePlayListType,
+  } = getPlayOrHotList();
+  const { album_area, album_index, album_list, album_count, album_loading, chooseAlbumType } =
+    getHotRecomList();
 </script>
 <template>
   <div class="home">
@@ -48,51 +31,53 @@
         >
       </div>
       <div class="wrapper">
-        <Play-List :playList="playlist_list" :loading="playlist_loading" :num="playlist_count" />
+        <PlayList :playList="playlist_list" :loading="playlist_loading" :num="playlist_count" />
       </div>
     </div>
 
-    <!--<div class="album_list">
-			<div class="h_title">
-				<h3>新碟上架</h3>
-				<span
-					v-for="(item, index) in album_area"
-					:key="item.id"
-					:class="index == album_index ? 'active' : ''"
-					@click="chooseAlbumType(index)"
-					>{{ item.name }}</span
-				>
-			</div>
-			<div class="wrapper"> </div>
-		</div>
+    <div class="album_list">
+      <div class="h_title">
+        <h3>新碟上架</h3>
+        <span
+          v-for="(item, index) in album_area"
+          :key="item.id"
+          :class="index == album_index ? 'active' : ''"
+          @click="chooseAlbumType(index)"
+          >{{ item.name }}</span
+        >
+      </div>
+      <div class="wrapper">
+        <AlbumList :albumList="album_list" :loading="album_loading" :num="album_count" />
+      </div>
+    </div>
 
-		<div class="top_list"> </div>
-
-		<div class="mv_list">
-			<div class="h_title">
-				<h3>最新MV</h3>
-				<span
-					v-for="(item, index) in mv_area"
-					:key="item.id"
-					:class="index == mv_index ? 'active' : ''"
-					@click="chooseMvType(index)"
-					>{{ item }}</span
-				>
-			</div>
-			<div class="wrapper"> </div>
-		</div>
-		<div class="dj-artist">
-			<div class="dj-list">
-				<div class="h_title">
-					<h3>热门电台</h3>
-				</div>
-			</div>
-			<div class="artist-list">
-				<div class="h_title">
-					<h3>热门歌手</h3>
-				</div>
-			</div>
-		</div> -->
+    <!--<div class="top_list"> </div>
+    <div class="mv_list">
+      <div class="h_title">
+        <h3>最新MV</h3>
+        <span
+          v-for="(item, index) in mv_area"
+          :key="item.id"
+          :class="index == mv_index ? 'active' : ''"
+          @click="chooseMvType(index)"
+          >{{ item }}</span
+        >
+      </div>
+      <div class="wrapper"> </div>
+    </div>
+    <div class="dj-artist">
+      <div class="dj-list">
+        <div class="h_title">
+          <h3>热门电台</h3>
+        </div>
+      </div>
+      <div class="artist-list">
+        <div class="h_title">
+          <h3>热门歌手</h3>
+        </div>
+      </div>
+    </div>
+    -->
   </div>
 </template>
 

@@ -14,7 +14,7 @@
           :slides-per-view="4"
           :space-between="30"
           :modules="modules"
-          :autoplay="{ delay: 300000 }"
+          :autoplay="{ delay: 3000 }"
           :pagination="{ clickable: true }"
           class="banner_wrap">
           <swiper-slide v-for="item of lists" :key="item.imageUrl">

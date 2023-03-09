@@ -76,8 +76,6 @@
       display: block;
       position: relative;
       padding-top: 100%;
-      // height: 216px;
-
       &::after,
       &::before {
         content: '';
@@ -91,11 +89,7 @@
       &::before {
         border: 1px solid #d6d6d6;
         right: -6px;
-        -webkit-transform: scale(0.85);
-        -ms-transform: scale(0.85);
         transform: scale(0.85);
-        -webkit-transform-origin: 100% 50%;
-        -ms-transform-origin: 100% 50%;
         transform-origin: 100% 50%;
         z-index: 2;
         border-radius: 2px;
@@ -105,11 +99,7 @@
       &::after {
         border: 1px solid #c4c4c4;
         right: -11px;
-        -webkit-transform: scale(0.73);
-        -ms-transform: scale(0.73);
         transform: scale(0.73);
-        -webkit-transform-origin: 100% 50%;
-        -ms-transform-origin: 100% 50%;
         transform-origin: 100% 50%;
         z-index: 1;
         border-radius: 2px;
@@ -134,32 +124,17 @@
       z-index: 4;
       font-size: 12px;
       display: block;
-      // width: 60%;
       text-align: center;
       color: #fff;
       line-height: 30px;
       padding-right: 10px;
       border-radius: 0 4px 0 0;
-      background: -moz-linear-gradient(
-        left,
-        rgba(0, 0, 0, 0) 0%,
-        rgba(0, 0, 0, 0.5) 97%,
-        rgba(0, 0, 0, 0.5) 100%
-      ); /* FF3.6-15 */
-      background: -webkit-linear-gradient(
-        left,
-        rgba(0, 0, 0, 0) 0%,
-        rgba(0, 0, 0, 0.5) 97%,
-        rgba(0, 0, 0, 0.5) 100%
-      ); /* Chrome10-25,Safari5.1-6 */
       background: linear-gradient(
         to right,
         rgba(0, 0, 0, 0) 0%,
         rgba(0, 0, 0, 0.5) 97%,
         rgba(0, 0, 0, 0.5) 100%
-      ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#80000000',GradientType=1 ); /* IE6-9 */
-
+      );
       .icon-playnum {
         color: #fff;
       }
@@ -214,7 +189,7 @@
       .tag {
         padding-right: 5px;
         font-size: 12px;
-        color: var(--color-text-height);
+        color: @--color-text-height;
       }
     }
   }
