@@ -1,6 +1,6 @@
 <template>
   <div class="banner">
-    <el-skeleton :loading="loading" animated>
+    <el-skeleton :loading="loading" animated :throttle="500">
       <template #template>
         <el-skeleton-item class="skeleton-img" variant="image" />
         <el-skeleton-item class="skeleton-img" variant="image" />
