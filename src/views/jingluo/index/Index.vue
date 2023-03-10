@@ -1,10 +1,16 @@
 <script setup>
   import { createAsyncComponent } from '/@/utils/createAsyncComponent';
-  import getPlayOrHotList from '/@/hook/usePlayOrHotList';
-  import getHotRecomList from '/@/hook/useTopAlbum';
-  let Banners = createAsyncComponent(() => import('/@/views/jingluo/index/Banners.vue'));
+  import usePlayOrHotList from '/@/hook/usePlayOrHotList';
+  import useTopAlbum from '/@/hook/useTopAlbum';
+  import useMvList from '/@/hook/useMvList';
+  import useDtList from '/@/hook/useDtList';
+  import useSongList from '/@/hook/useSongList';
+  let Banners = createAsyncComponent(() => import('/@/components/Banners.vue'));
   let PlayList = createAsyncComponent(() => import('/@/components/PlayList.vue'));
   let AlbumList = createAsyncComponent(() => import('/@/components/AlbumList.vue'));
+  let MvList = createAsyncComponent(() => import('/@/components/MvList.vue'));
+  let HotDtList = createAsyncComponent(() => import('/@/components/HotDtList.vue'));
+  let HotSongList = createAsyncComponent(() => import('/@/components/HotSongList.vue'));
   const {
     playlist_tags,
     playlist_list,
@@ -12,9 +18,12 @@
     playlist_loading,
     playlist_index,
     choosePlayListType,
-  } = getPlayOrHotList();
+  } = usePlayOrHotList();
   const { album_area, album_index, album_list, album_count, album_loading, chooseAlbumType } =
-    getHotRecomList();
+    useTopAlbum();
+  const { mv_area, mv_list, mv_index, mv_count, mv_loading, chooseMvType } = useMvList();
+  const { dj_list, dj_loading, dj_count } = useDtList();
+  const { song_list, song_loading, song_count } = useSongList();
 </script>
 <template>
   <div class="home">
@@ -34,7 +43,21 @@
         <PlayList :playList="playlist_list" :loading="playlist_loading" :num="playlist_count" />
       </div>
     </div>
-
+    <div class="mv_list">
+      <div class="h_title">
+        <h3>最新MV</h3>
+        <span
+          v-for="(item, index) in mv_area"
+          :key="item.id"
+          :class="index == mv_index ? 'active' : ''"
+          @click="chooseMvType(index)"
+          >{{ item }}</span
+        >
+      </div>
+      <div class="wrapper">
+        <MvList :mvList="mv_list" :loading="mv_loading" :num="mv_count" />
+      </div>
+    </div>
     <div class="album_list">
       <div class="h_title">
         <h3>新碟上架</h3>
@@ -51,33 +74,22 @@
       </div>
     </div>
 
-    <!--<div class="top_list"> </div>
-    <div class="mv_list">
-      <div class="h_title">
-        <h3>最新MV</h3>
-        <span
-          v-for="(item, index) in mv_area"
-          :key="item.id"
-          :class="index == mv_index ? 'active' : ''"
-          @click="chooseMvType(index)"
-          >{{ item }}</span
-        >
-      </div>
-      <div class="wrapper"> </div>
-    </div>
+    <div class="top_list"> </div>
+
     <div class="dj-artist">
       <div class="dj-list">
         <div class="h_title">
           <h3>热门电台</h3>
         </div>
-      </div>
-      <div class="artist-list">
-        <div class="h_title">
-          <h3>热门歌手</h3>
-        </div>
+        <HotDtList :djList="dj_list" :loading="dj_loading" :num="dj_count" />
       </div>
     </div>
-    -->
+    <div class="artist-list">
+      <div class="h_title">
+        <h3>热门歌手</h3>
+      </div>
+      <HotSongList :songList="song_list" :loading="song_loading" :num="song_count" />
+    </div>
   </div>
 </template>
 
@@ -139,9 +151,8 @@
   }
   .dj-list {
     flex: 1;
-    margin-right: 20px;
   }
   .artist-list {
-    width: 440px;
+    flex: 1;
   }
 </style>

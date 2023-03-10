@@ -5,6 +5,9 @@ enum Api {
   GetPlayList = '/top/playlist',
   GetHotList = '/playlist/hot',
   GetTopAlbumList = '/top/album',
+  GetMvList = '/mv/all',
+  GetDtList = '/dj/hot',
+  GetSongList = '/top/artists',
 }
 export const getBannersList = () => {
   return defHttp.get({ url: Api.GetBannersList });
@@ -17,4 +20,13 @@ export const getHotList = () => {
 };
 export const getTopAlbumList = params => {
   return defHttp.get({ url: Api.GetTopAlbumList, params });
+};
+export const getMvList = params => {
+  return defHttp.get({ url: Api.GetMvList, params });
+};
+export const getDtList = params => {
+  return defHttp.get({ url: Api.GetDtList, params });
+};
+export const getSongList = params => {
+  return defHttp.get({ url: Api.GetSongList, params });
 };
