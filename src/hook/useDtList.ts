@@ -4,8 +4,8 @@ import { onMounted, reactive, toRefs } from 'vue';
 export default function useDtList() {
   const dj_info = reactive({
     dj_list: [],
-    dj_params: { limit: 6 },
-    dj_count: 6,
+    dj_params: { limit: 8 },
+    dj_count: 8,
     dj_loading: true,
   });
   const getHotDj = async params => {

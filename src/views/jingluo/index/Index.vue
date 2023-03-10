@@ -5,12 +5,14 @@
   import useMvList from '/@/hook/useMvList';
   import useDtList from '/@/hook/useDtList';
   import useSongList from '/@/hook/useSongList';
+  import useTopList from '/@/hook/useTopList';
   let Banners = createAsyncComponent(() => import('/@/components/Banners.vue'));
   let PlayList = createAsyncComponent(() => import('/@/components/PlayList.vue'));
   let AlbumList = createAsyncComponent(() => import('/@/components/AlbumList.vue'));
   let MvList = createAsyncComponent(() => import('/@/components/MvList.vue'));
   let HotDtList = createAsyncComponent(() => import('/@/components/HotDtList.vue'));
   let HotSongList = createAsyncComponent(() => import('/@/components/HotSongList.vue'));
+  let TopList = createAsyncComponent(() => import('/@/components/TopList.vue'));
   const {
     playlist_tags,
     playlist_list,
@@ -24,6 +26,7 @@
   const { mv_area, mv_list, mv_index, mv_count, mv_loading, chooseMvType } = useMvList();
   const { dj_list, dj_loading, dj_count } = useDtList();
   const { song_list, song_loading, song_count } = useSongList();
+  const { top_list, top_song_list, top_num, top_loading, addSongList } = useTopList();
 </script>
 <template>
   <div class="home">
@@ -74,7 +77,14 @@
       </div>
     </div>
 
-    <div class="top_list"> </div>
+    <div class="top_list">
+      <TopList
+        :topList="top_list"
+        :songList="top_song_list"
+        :topNum="top_num"
+        :loading="top_loading"
+        @add_song_list="addSongList" />
+    </div>
 
     <div class="dj-artist">
       <div class="dj-list">

@@ -2,5 +2,9 @@ declare module '*.json' {
   const value: any;
   export default value;
 }
-
+declare module 'vue' {
+  interface ComponentCustomProperties {
+    $utils: any;
+  }
+}
 export {};
