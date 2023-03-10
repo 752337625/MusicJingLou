@@ -38,7 +38,7 @@
     justify-content: space-around;
 
     .item {
-      width: 20%;
+      width: 100px;
       height: 100px;
       margin-bottom: 5px;
       border-radius: 4px;
@@ -66,7 +66,7 @@
     align-content: space-between;
     justify-content: space-around;
     .ske-img {
-      width: 8%;
+      width: 100px;
       height: 100px;
       margin-bottom: 5px;
     }
