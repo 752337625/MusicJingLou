@@ -25,9 +25,9 @@ const useLoginStore = defineStore({
     getNickname: (state): String => {
       return state.userInfo.nickname ?? '暂无数据';
     },
-    // getUserInfo: (state): UserInfo => {
-    // 	return state?.userInfo ?? null;
-    // },
+    getUserInfo: (state): UserInfo => {
+      return state?.userInfo ?? null;
+    },
     getIsLogin: (state): Boolean => {
       return state.isLogin;
     },

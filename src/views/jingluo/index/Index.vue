@@ -61,6 +61,14 @@
         <MvList :mvList="mv_list" :loading="mv_loading" :num="mv_count" />
       </div>
     </div>
+    <div class="dj-artist">
+      <div class="dj-list">
+        <div class="h_title">
+          <h3>热门电台</h3>
+        </div>
+        <HotDtList :djList="dj_list" :loading="dj_loading" :num="dj_count" />
+      </div>
+    </div>
     <div class="album_list">
       <div class="h_title">
         <h3>新碟上架</h3>
@@ -76,7 +84,6 @@
         <AlbumList :albumList="album_list" :loading="album_loading" :num="album_count" />
       </div>
     </div>
-
     <div class="top_list">
       <TopList
         :topList="top_list"
@@ -86,14 +93,6 @@
         @add_song_list="addSongList" />
     </div>
 
-    <div class="dj-artist">
-      <div class="dj-list">
-        <div class="h_title">
-          <h3>热门电台</h3>
-        </div>
-        <HotDtList :djList="dj_list" :loading="dj_loading" :num="dj_count" />
-      </div>
-    </div>
     <div class="artist-list">
       <div class="h_title">
         <h3>热门歌手</h3>

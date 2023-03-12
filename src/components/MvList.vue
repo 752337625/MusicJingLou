@@ -16,9 +16,11 @@
           <router-link :to="{ path: '/mvlist/mv', query: { id: item.id } }" class="faceImg">
             <i class="iconfont icon-video-play"></i>
             <el-image :src="item.cover || item.imgurl">
-              <div slot="placeholder" class="image-slot">
-                <i class="iconfont icon-placeholder"></i>
-              </div>
+              <template #placeholder>
+                <div class="image-slot">
+                  <i class="iconfont icon-placeholder"></i>
+                </div>
+              </template>
             </el-image>
           </router-link>
           <div class="info">

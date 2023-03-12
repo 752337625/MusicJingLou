@@ -12,9 +12,11 @@
           class="item">
           <div class="faceImg">
             <el-image :src="item.picUrl + '?param=100y100'">
-              <div slot="placeholder" class="image-slot">
-                <i class="iconfont icon-placeholder"></i>
-              </div>
+              <template #placeholder>
+                <div class="image-slot">
+                  <i class="iconfont icon-placeholder"></i>
+                </div>
+              </template>
             </el-image>
           </div>
         </router-link>

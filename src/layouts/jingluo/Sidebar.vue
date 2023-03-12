@@ -22,32 +22,32 @@
     {
       name: '首页',
       icon: 'index',
-      path: '/music/index',
+      path: 'music/index',
     },
     {
       name: '排行榜',
       icon: 'rank',
-      path: '/music/rank',
+      path: 'music/rank',
     },
     {
       name: '歌单',
       icon: 'playlist',
-      path: '/music/playlist',
+      path: 'music/playlist',
     },
     {
       name: 'MV',
       icon: 'mvlist',
-      path: '/music/mvlist',
+      path: 'music/mvlist',
     },
     {
       name: '歌手',
       icon: 'artist',
-      path: '/music/mvlist',
+      path: 'music/artist',
     },
     {
       name: '我的音乐',
       icon: 'mvlist',
-      path: '/music/my',
+      path: 'music/my',
     },
   ]);
   // 当前选择菜单

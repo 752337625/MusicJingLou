@@ -37,14 +37,16 @@
               :class="{ active: songItem.vip || songItem.license }">
               <div class="songimg">
                 <el-image :src="songItem.album.picUrl + '?param=120y120'">
-                  <div slot="placeholder" class="image-slot">
-                    <i class="iconfont icon-placeholder"></i>
-                  </div>
+                  <template #placeholder>
+                    <div class="image-slot">
+                      <i class="iconfont icon-placeholder"></i>
+                    </div>
+                  </template>
                 </el-image>
               </div>
               <div class="songinfo">
                 <router-link
-                  :to="{ path: '/song', query: { id: songItem.id } }"
+                  :to="{ path: '/music/song', query: { id: songItem.id } }"
                   class="song_title"
                   >{{ songItem.name }}</router-link
                 >

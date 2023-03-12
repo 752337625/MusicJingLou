@@ -41,10 +41,12 @@
   import { getBannersList } from '/@/api/main';
   import { Navigation, Pagination, Autoplay } from 'swiper';
   import { Swiper, SwiperSlide } from 'swiper/vue';
+  import { useRouter } from 'vue-router';
   import 'swiper/css';
   import 'swiper/css/pagination';
   let lists = shallowRef([]);
   let loading = shallowRef(true);
+  const router = useRouter();
   const modules = [Navigation, Pagination, Autoplay];
   const getBanner = async () => {
     let { banners = [], code } = await getBannersList();
@@ -53,24 +55,24 @@
     loading.value = false;
   };
 
-  const pathHandler = _params => {
-    // switch (params.targetType) {
-    // 	case 1: // 单曲
-    // 		router.push({ path: '/song', query: { id: params.targetId } });
-    // 		break;
-    // 	case 10: // 专辑
-    // 		router.push({ path: '/album', query: { id: params.targetId } });
-    // 		break;
-    // 	case 1000: // 歌单
-    // 		router.push({ path: '/playlist', query: { id: params.targetId } });
-    // 		break;
-    // 	case 1004: // MV
-    // 		router.push({ path: '/mvlist/mv', query: { id: params.targetId } });
-    // 		break;
-    // 	case 3000: // 外链
-    // 		window.open(params.url, '_blank');
-    // 		break;
-    // }
+  const pathHandler = params => {
+    switch (params.targetType) {
+      case 1: // 单曲
+        router.push({ path: '/music/song', query: { id: params.targetId } });
+        break;
+      case 10: // 专辑
+        router.push({ path: '/music/album', query: { id: params.targetId } });
+        break;
+      case 1000: // 歌单
+        router.push({ path: '/music/playlist', query: { id: params.targetId } });
+        break;
+      case 1004: // MV
+        router.push({ path: '/mvlist/mv', query: { id: params.targetId } });
+        break;
+      case 3000: // 外链
+        window.open(params.url, '_blank');
+        break;
+    }
   };
   onMounted(() => getBanner());
 </script>

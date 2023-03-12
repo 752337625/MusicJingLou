@@ -1,0 +1,54 @@
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-size: 14px;
+  font-family: PingFang SC, Arial, Microsoft YaHei, sans-serif;
+  color: @--color-text-main;
+}
+// 不能把所有的拖拽都禁用掉,因为有些区域是可以推拽得
+body {
+  // -webkit-app-region: drag;
+  // user-select: none;
+  -webkit-app-region: no-drag;
+}
+button {
+  -webkit-app-region: no-drag;
+}
+a {
+  text-decoration: none;
+  color: @--color-text-main;
+}
+.el-aside {
+    width: 270px;
+  }
+.aside-box {
+    width: 350px;
+    padding-bottom: 25px;
+    flex-shrink: 0;
+    padding-left: 20px;
+  }
+  
+  @media screen and (max-width: 1500px) {
+    .aside-box {
+      width: 300px;
+    }
+  }
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background: #ccc;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+  }
+  ::-webkit-scrollbar-thumb:active {
+    background: #999;
+  }

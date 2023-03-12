@@ -9,7 +9,8 @@ export default function useDtList() {
     dj_loading: true,
   });
   const getHotDj = async params => {
-    const { djRadios } = await getDtList(params);
+    const { code, djRadios } = await getDtList(params);
+    if (code !== 200) return ElMessage.error('数据请求失败');
     dj_info['dj_list'] = djRadios;
     dj_info['dj_loading'] = false;
   };
