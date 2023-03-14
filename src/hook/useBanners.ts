@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router';
 
 interface BannerInfo {
   banner_list: Array<any>;
-  banner_loading: Boolean;
+  banner_loading: boolean;
 }
 
 export default function useBanners() {
