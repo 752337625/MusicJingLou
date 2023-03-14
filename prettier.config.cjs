@@ -5,7 +5,7 @@
  * eslint-plugin-prettier:将 prettier 的能力集成到 eslint 中。按照 prettier 的规则检查代码规范性，并进行修复。
  */
 module.exports = {
-  printWidth: 100,
+  printWidth: 150,
   semi: true, //在语句末尾打印分号。
   singleQuote: true, //使用单引号代替双引号。
   tabWidth: 2, //指定每个缩进级别的空格数。

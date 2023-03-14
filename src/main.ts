@@ -13,25 +13,21 @@ import 'virtual:windi.css'; //tailwindcss
 // import { registerGlobComp } from '/@/components/registerGlobComp';
 async function bootstrap() {
   const app = createApp(App);
+  // 设置vue-router
   setupRouter(app);
+  // 设置pinia
   setupStore(app);
-  // //初始化系统默认配置：国际化，主题
+  // 初始化系统默认配置：国际化，主题
   // initAppConfigStore();
-  //国际化
+  // 设置i18n
   // await setupI18n(app);
-
-  //设置全局指令
+  // 设置directive
   setupGlobDirectives(app);
-
-  // Configure globa Properties
+  // 设置properties
   setupGlobProperties(app);
-
-  // Register global components
-  // 注册全局组件
+  // 注册component
   // registerGlobComp(app);
-
-  // Configure global error handling
-  // 配置全局错误处理
+  // 配置error
   // setupErrorHandle(app);
   app.mount('#app');
 }
