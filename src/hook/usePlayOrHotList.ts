@@ -2,22 +2,22 @@ import { getPlayList, getHotList } from '/@/api/main';
 import { onMounted, reactive, toRefs } from 'vue';
 
 interface PlayListTags {
-  name: String;
-  id: String;
+  name: string;
+  id: string;
 }
 interface PlayListList {
-  coverImgUrl: String;
-  id: String;
-  name: String;
-  tags: Array<String>;
-  playCount: String | Number;
-  trackCount: String | Number;
+  coverImgUrl: string;
+  id: string;
+  name: string;
+  tags: Array<string>;
+  playCount: string | Number;
+  trackCount: string | Number;
 }
 interface PlayListParams {
   limit: Number;
   offset: Number;
-  cat?: String;
-  order?: String | 'new' | 'hot';
+  cat?: string;
+  order?: string | 'new' | 'hot';
 }
 interface PlayListInfo {
   playlist_tags: Array<PlayListTags>;
@@ -55,8 +55,7 @@ export default function getPlayOrHotList() {
   // 切换歌单类别
   const choosePlayListType = index => {
     playlist_info['playlist_index'] = index;
-    playlist_info['playlist_params']['cat'] =
-      index !== 0 ? playlist_info['playlist_tags'][index].name : '';
+    playlist_info['playlist_params']['cat'] = index !== 0 ? playlist_info['playlist_tags'][index].name : '';
     playlist_info['playlist_loading'] = true;
     getPlayTags(playlist_info['playlist_params']);
   };
