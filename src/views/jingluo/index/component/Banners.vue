@@ -1,6 +1,6 @@
 <template>
   <div class="banner">
-    <el-skeleton :loading="loading" animated :throttle="500">
+    <el-skeleton :loading="banner_loading" animated :throttle="500">
       <template #template>
         <el-skeleton-item class="skeleton-img" variant="image" />
         <el-skeleton-item class="skeleton-img" variant="image" />
@@ -15,7 +15,7 @@
           :autoplay="{ delay: 3000 }"
           :pagination="{ clickable: true }"
           class="banner_wrap">
-          <swiper-slide v-for="item of list" :key="item.imageUrl">
+          <swiper-slide v-for="item of banner_list" :key="item.imageUrl">
             <el-image :src="item.pic" :alt="item.typeTitle" class="banner_img" @click="pathHandler(item)">
               <template #placeholder>
                 <div class="image-slot">
@@ -30,44 +30,14 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { onMounted, shallowRef } from 'vue';
-  import { getBannersList } from '/@/api/main';
   import { Navigation, Pagination, Autoplay } from 'swiper';
   import { Swiper, SwiperSlide } from 'swiper/vue';
-  import { useRouter } from 'vue-router';
   import 'swiper/css';
   import 'swiper/css/pagination';
-  let list = shallowRef([]);
-  let loading = shallowRef(true);
-  const router = useRouter();
+  import useBanners from '/@/hook/useBanners';
   const modules = [Navigation, Pagination, Autoplay];
-  const getBanner = async () => {
-    let { banners = [], code } = await getBannersList();
-    if (code !== 200) return ElMessage.error('数据请求失败');
-    list.value = banners;
-    loading.value = false;
-  };
 
-  const pathHandler = params => {
-    switch (params.targetType) {
-      case 1: // 单曲
-        router.push({ path: '/music/song', query: { id: params.targetId } });
-        break;
-      case 10: // 专辑
-        router.push({ path: '/music/album', query: { id: params.targetId } });
-        break;
-      case 1000: // 歌单
-        router.push({ path: '/music/playlist', query: { id: params.targetId } });
-        break;
-      case 1004: // MV
-        router.push({ path: '/mvlist/mv', query: { id: params.targetId } });
-        break;
-      case 3000: // 外链
-        window.open(params.url, '_blank');
-        break;
-    }
-  };
-  onMounted(() => getBanner());
+  const { banner_list, banner_loading, pathHandler } = useBanners();
 </script>
 
 <style lang="less" scoped>
