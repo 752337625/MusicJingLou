@@ -28,7 +28,7 @@ interface PlayListInfo {
   playlist_loading: Boolean;
 }
 
-export default function getPlayOrHotList() {
+export default function useHotList() {
   const playlist_info: PlayListInfo = reactive({
     playlist_tags: [],
     playlist_list: [],

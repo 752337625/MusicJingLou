@@ -9,20 +9,14 @@
       </template>
       <template #default>
         <swiper
-          v-if="lists"
-          ref="mySwiper"
           :slides-per-view="4"
           :space-between="30"
           :modules="modules"
           :autoplay="{ delay: 3000 }"
           :pagination="{ clickable: true }"
           class="banner_wrap">
-          <swiper-slide v-for="item of lists" :key="item.imageUrl">
-            <el-image
-              :src="item.pic"
-              :alt="item.typeTitle"
-              class="banner_img"
-              @click="pathHandler(item)">
+          <swiper-slide v-for="item of list" :key="item.imageUrl">
+            <el-image :src="item.pic" :alt="item.typeTitle" class="banner_img" @click="pathHandler(item)">
               <template #placeholder>
                 <div class="image-slot">
                   <i class="iconfont icon-placeholder"></i>
@@ -44,14 +38,14 @@
   import { useRouter } from 'vue-router';
   import 'swiper/css';
   import 'swiper/css/pagination';
-  let lists = shallowRef([]);
+  let list = shallowRef([]);
   let loading = shallowRef(true);
   const router = useRouter();
   const modules = [Navigation, Pagination, Autoplay];
   const getBanner = async () => {
     let { banners = [], code } = await getBannersList();
     if (code !== 200) return ElMessage.error('数据请求失败');
-    lists.value = banners;
+    list.value = banners;
     loading.value = false;
   };
 
@@ -78,29 +72,13 @@
 </script>
 
 <style lang="less" scoped>
-  // 轮播图的宽度
-  @w: calc((@mainWidth - 90px) / 4);
-
   .banner {
-    padding-bottom: 30px;
+    padding: 0 20px;
+    margin-bottom: 25px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
   }
-  .banner_wrap {
-    position: relative;
-    padding: 40px 0;
-    font-size: 0;
-
-    .banner_img {
-      width: 100%;
-      height: 100%;
-      cursor: pointer;
-    }
-
-    .swiper-slide,
-    .el-image {
-      .calcHeight(@w, 1080, 400);
-    }
-  }
-
   .el-skeleton {
     display: flex;
     justify-content: space-between;
@@ -108,7 +86,7 @@
 
     .skeleton-img {
       flex: 1;
-      .calcHeight(@w, 1080, 400);
+      height: 98px;
       margin-right: 30px;
 
       &:last-child {
@@ -116,10 +94,17 @@
       }
     }
   }
+  .banner_wrap {
+    padding: 40px 0;
+    font-size: 0;
+    height: 100%;
+  }
+
   .swiper {
     .swiper-slide {
       border-radius: 12px;
       box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+      cursor: pointer;
       overflow: hidden;
     }
     :deep(.swiper-pagination-bullet-active) {

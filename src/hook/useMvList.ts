@@ -11,7 +11,7 @@ interface mvParams {
   year?: String | Number;
   month?: String | Number;
 }
-interface mvInfo {
+interface MvInfo {
   mv_area: Array<CODE>;
   mv_list: Array<any>;
   mv_index: Number;
@@ -21,7 +21,7 @@ interface mvInfo {
 }
 
 export default function useMvList() {
-  const mv_info: mvInfo = reactive({
+  const mv_info: MvInfo = reactive({
     mv_area: ['全部', '内地', '港台', '欧美', '日本', '韩国'],
     mv_list: [],
     mv_index: 0,

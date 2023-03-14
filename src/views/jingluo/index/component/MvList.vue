@@ -1,37 +1,36 @@
 <script lang="ts" setup>
   import { createAsyncComponent } from '/@/utils/createAsyncComponent';
-  import useHotList from '/@/hook/useHotList';
-  let PlayList = createAsyncComponent(() => import('/@/components/PlayList.vue'));
-  const { playlist_tags, playlist_list, playlist_count, playlist_loading, playlist_index, choosePlayListType } = useHotList();
+  import useMvList from '/@/hook/useMvList';
+  let MvList = createAsyncComponent(() => import('/@/components/MvList.vue'));
+  const { mv_area, mv_list, mv_index, mv_count, mv_loading, chooseMvType } = useMvList();
 </script>
 <template>
-  <div class="hot-list">
+  <div class="mv_list">
     <div class="h_title">
-      <h3>热门推荐</h3>
-      <span
-        v-for="(item, index) in playlist_tags"
-        :key="item.id"
-        :class="index == playlist_index ? 'active' : ''"
-        @click="choosePlayListType(index)"
-        >{{ item.name }}</span
-      >
+      <h3>最新MV</h3>
+      <span v-for="(item, index) in mv_area" :key="item" :class="index == mv_index ? 'active' : ''" @click="chooseMvType(index)">{{ item }}</span>
     </div>
     <div class="wrapper">
-      <PlayList :playList="playlist_list" :loading="playlist_loading" :num="playlist_count" />
+      <MvList :mvList="mv_list" :loading="mv_loading" :num="mv_count" />
     </div>
   </div>
 </template>
-<style lang="less" scoped>
+<style lang="less">
+  .mv_list {
+    padding: 0 20px;
+    margin-bottom: 25px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  }
   .h_title {
     padding: 20px 0 10px;
-
     h3 {
       display: inline-block;
       padding-right: 50px;
       font-size: 28px;
       font-weight: 700;
     }
-
     span {
       display: inline-block;
       font-size: 16px;
@@ -56,12 +55,5 @@
         }
       }
     }
-  }
-  .hot-list {
-    padding: 0 20px;
-    margin-bottom: 25px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
   }
 </style>

@@ -1,19 +1,17 @@
 <script lang="ts" setup>
   import { createAsyncComponent } from '/@/utils/createAsyncComponent';
   import useTopAlbum from '/@/hook/useTopAlbum';
-  import useMvList from '/@/hook/useMvList';
   import useDtList from '/@/hook/useDtList';
   import useSongList from '/@/hook/useSongList';
   import useTopList from '/@/hook/useTopList';
   let Banners = createAsyncComponent(() => import('/@/components/Banners.vue'));
   let HostList = createAsyncComponent(() => import('/@/views/jingluo/index/component/HostList.vue'));
+  let MvList = createAsyncComponent(() => import('/@/views/jingluo/index/component/MvList.vue'));
   let AlbumList = createAsyncComponent(() => import('/@/components/AlbumList.vue'));
-  let MvList = createAsyncComponent(() => import('/@/components/MvList.vue'));
   let HotDtList = createAsyncComponent(() => import('/@/components/HotDtList.vue'));
   let HotSongList = createAsyncComponent(() => import('/@/components/HotSongList.vue'));
   let TopList = createAsyncComponent(() => import('/@/components/TopList.vue'));
   const { album_area, album_index, album_list, album_count, album_loading, chooseAlbumType } = useTopAlbum();
-  const { mv_area, mv_list, mv_index, mv_count, mv_loading, chooseMvType } = useMvList();
   const { dj_list, dj_loading, dj_count } = useDtList();
   const { song_list, song_loading, song_count } = useSongList();
   const { top_list, top_song_list, top_num, top_loading, addSongList } = useTopList();
@@ -22,17 +20,7 @@
   <div class="home">
     <Banners />
     <HostList />
-    <div class="mv_list">
-      <div class="h_title">
-        <h3>最新MV</h3>
-        <span v-for="(item, index) in mv_area" :key="item.id" :class="index == mv_index ? 'active' : ''" @click="chooseMvType(index)">{{
-          item
-        }}</span>
-      </div>
-      <div class="wrapper">
-        <MvList :mvList="mv_list" :loading="mv_loading" :num="mv_count" />
-      </div>
-    </div>
+    <MvList />
     <div class="dj-artist">
       <div class="dj-list">
         <div class="h_title">
@@ -102,9 +90,7 @@
       }
     }
   }
-
   .album_list,
-  .mv_list,
   .dj-list,
   .artist-list {
     padding: 0 20px;
