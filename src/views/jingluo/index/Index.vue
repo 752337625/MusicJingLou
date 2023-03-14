@@ -4,7 +4,7 @@
   import useDtList from '/@/hook/useDtList';
   import useSongList from '/@/hook/useSongList';
   import useTopList from '/@/hook/useTopList';
-  let Banners = createAsyncComponent(() => import('/@/components/Banners.vue'));
+  let Banners = createAsyncComponent(() => import('/@/views/jingluo/index/component/Banners.vue'));
   let HostList = createAsyncComponent(() => import('/@/views/jingluo/index/component/HostList.vue'));
   let MvList = createAsyncComponent(() => import('/@/views/jingluo/index/component/MvList.vue'));
   let AlbumList = createAsyncComponent(() => import('/@/components/AlbumList.vue'));
@@ -18,8 +18,11 @@
 </script>
 <template>
   <div class="home">
+    <!-- 轮播 -->
     <Banners />
+    <!-- 热门推荐 -->
     <HostList />
+    <!-- 最新MV -->
     <MvList />
     <div class="dj-artist">
       <div class="dj-list">

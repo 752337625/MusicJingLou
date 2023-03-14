@@ -29,8 +29,7 @@
     </el-skeleton>
   </div>
 </template>
-
-<script setup>
+<script lang="ts" setup>
   import { onMounted, shallowRef } from 'vue';
   import { getBannersList } from '/@/api/main';
   import { Navigation, Pagination, Autoplay } from 'swiper';
