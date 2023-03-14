@@ -1,3 +1,12 @@
+<script lang="ts" setup>
+  import { Navigation, Pagination, Autoplay } from 'swiper';
+  import { Swiper, SwiperSlide } from 'swiper/vue';
+  import 'swiper/css';
+  import 'swiper/css/pagination';
+  import useBanners from '/@/hook/useBanners';
+  const modules = [Navigation, Pagination, Autoplay];
+  const { banner_list, banner_loading, pathHandler } = useBanners();
+</script>
 <template>
   <div class="banner">
     <el-skeleton :loading="banner_loading" animated :throttle="500">
@@ -8,14 +17,14 @@
         <el-skeleton-item class="skeleton-img" variant="image" />
       </template>
       <template #default>
-        <swiper
+        <Swiper
           :slides-per-view="4"
           :space-between="30"
           :modules="modules"
           :autoplay="{ delay: 3000 }"
           :pagination="{ clickable: true }"
           class="banner_wrap">
-          <swiper-slide v-for="item of banner_list" :key="item.imageUrl">
+          <SwiperSlide v-for="item of banner_list" :key="item.imageUrl">
             <el-image :src="item.pic" :alt="item.typeTitle" class="banner_img" @click="pathHandler(item)">
               <template #placeholder>
                 <div class="image-slot">
@@ -23,22 +32,12 @@
                 </div>
               </template>
             </el-image>
-          </swiper-slide>
-        </swiper>
+          </SwiperSlide>
+        </Swiper>
       </template>
     </el-skeleton>
   </div>
 </template>
-<script lang="ts" setup>
-  import { Navigation, Pagination, Autoplay } from 'swiper';
-  import { Swiper, SwiperSlide } from 'swiper/vue';
-  import 'swiper/css';
-  import 'swiper/css/pagination';
-  import useBanners from '/@/hook/useBanners';
-  const modules = [Navigation, Pagination, Autoplay];
-
-  const { banner_list, banner_loading, pathHandler } = useBanners();
-</script>
 
 <style lang="less" scoped>
   .banner {

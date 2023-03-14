@@ -12,22 +12,16 @@
     </template>
     <template #default>
       <div class="dj">
-        <router-link
-          v-for="item in djList"
-          :key="item.id"
-          :to="{ path: '/dj', query: { id: item.id } }"
-          class="item">
+        <router-link v-for="item in djList" :key="item.id" :to="{ path: '/dj', query: { id: item.id } }" class="item">
           <div class="faceImg">
             <el-image :src="item.picUrl + '?param=120y120'">
-              <div slot="placeholder" class="image-slot">
-                <i class="iconfont icon-placeholder"></i>
-              </div>
+              <template #placeholder>
+                <div class="image-slot"> <i class="iconfont icon-placeholder"></i> </div>
+              </template>
             </el-image>
           </div>
           <div class="info">
-            <div v-if="item.name" class="dj-name"
-              ><i class="iconfont icon-dj"></i>{{ item.name }}</div
-            >
+            <div v-if="item.name" class="dj-name"><i class="iconfont icon-dj"></i>{{ item.name }}</div>
             <div v-if="item.rcmdtext" class="dj-rcmdtext">{{ item.rcmdtext }}</div>
             <div class="dj-count"
               ><span>共{{ $utils.formartNum(item.programCount) }}期</span>

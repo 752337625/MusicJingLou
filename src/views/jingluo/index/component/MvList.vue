@@ -8,7 +8,13 @@
   <div class="mv_list">
     <div class="h_title">
       <h3>最新MV</h3>
-      <span v-for="(item, index) in mv_area" :key="item" :class="index == mv_index ? 'active' : ''" @click="chooseMvType(index)">{{ item }}</span>
+      <span
+        v-for="(item, index) in mv_area"
+        :key="item"
+        :class="index == mv_index ? 'active' : ''"
+        @click="chooseMvType(index)"
+        >{{ item }}</span
+      >
     </div>
     <div class="wrapper">
       <MvList :mvList="mv_list" :loading="mv_loading" :num="mv_count" />
