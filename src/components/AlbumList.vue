@@ -19,9 +19,11 @@
           class="item">
           <div class="faceImg">
             <el-image :src="item.picUrl + '?param=120y120'">
-              <div V-slot="placeholder" class="image-slot">
-                <i class="iconfont icon-placeholder"></i>
-              </div>
+              <template #placeholder>
+                <div class="image-slot">
+                  <i class="iconfont icon-placeholder"></i>
+                </div>
+              </template>
             </el-image>
           </div>
           <div class="info">

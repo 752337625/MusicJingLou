@@ -4,6 +4,10 @@
 </script>
 <template>
   <Header />
-  <RouterView />
+  <RouterView v-slot="{ Component }">
+    <KeepAlive>
+      <Component :is="Component" />
+    </KeepAlive>
+  </RouterView>
 </template>
 <style scoped lang="less"></style>

@@ -23,9 +23,11 @@
     <div :class="isLogin ? 'user-avatar' : 'login'">
       <div v-if="isLogin" class="logined">
         <el-image :src="avatarUrl" class="avatar">
-          <div slot="placeholder" class="image-slot">
-            <i class="iconfont icon-placeholder"></i>
-          </div>
+          <template #placeholder>
+            <div class="image-slot">
+              <i class="iconfont icon-placeholder"></i>
+            </div>
+          </template>
         </el-image>
         <span class="nickname">{{ nickname }}</span>
         <span class="set"><i class="iconfont icon-set"></i></span>
