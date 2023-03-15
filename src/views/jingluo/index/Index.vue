@@ -1,18 +1,16 @@
 <script lang="ts" setup>
   import { createAsyncComponent } from '/@/utils/createAsyncComponent';
   import useTopAlbum from '/@/hook/useTopAlbum';
-  import useDtList from '/@/hook/useDtList';
   import useSongList from '/@/hook/useSongList';
   import useTopList from '/@/hook/useTopList';
   let Banners = createAsyncComponent(() => import('/@/views/jingluo/index/component/Banners.vue'));
   let HostList = createAsyncComponent(() => import('/@/views/jingluo/index/component/HostList.vue'));
   let MvList = createAsyncComponent(() => import('/@/views/jingluo/index/component/MvList.vue'));
+  let DtList = createAsyncComponent(() => import('/@/views/jingluo/index/component/DtList.vue'));
   let AlbumList = createAsyncComponent(() => import('/@/components/AlbumList.vue'));
-  let HotDtList = createAsyncComponent(() => import('/@/components/HotDtList.vue'));
   let HotSongList = createAsyncComponent(() => import('/@/components/HotSongList.vue'));
   let TopList = createAsyncComponent(() => import('/@/components/TopList.vue'));
   const { album_area, album_index, album_list, album_count, album_loading, chooseAlbumType } = useTopAlbum();
-  const { dj_list, dj_loading, dj_count } = useDtList();
   const { song_list, song_loading, song_count } = useSongList();
   const { top_list, top_song_list, top_num, top_loading, addSongList } = useTopList();
 </script>
@@ -24,27 +22,30 @@
     <HostList />
     <!-- 最新MV -->
     <MvList />
-    <div class="dj-artist">
-      <div class="dj-list">
-        <div class="h_title">
-          <h3>热门电台</h3>
-        </div>
-        <HotDtList :djList="dj_list" :loading="dj_loading" :num="dj_count" />
-      </div>
-    </div>
+    <!-- 热门电台 -->
+    <DtList />
     <div class="album_list">
       <div class="h_title">
         <h3>新碟上架</h3>
-        <span v-for="(item, index) in album_area" :key="item.id" :class="index == album_index ? 'active' : ''" @click="chooseAlbumType(index)">{{
-          item.name
-        }}</span>
+        <span
+          v-for="(item, index) in album_area"
+          :key="item.id"
+          :class="index == album_index ? 'active' : ''"
+          @click="chooseAlbumType(index)"
+          >{{ item.name }}</span
+        >
       </div>
       <div class="wrapper">
         <AlbumList :albumList="album_list" :loading="album_loading" :num="album_count" />
       </div>
     </div>
     <div class="top_list">
-      <TopList :topList="top_list" :songList="top_song_list" :topNum="top_num" :loading="top_loading" @add_song_list="addSongList" />
+      <TopList
+        :topList="top_list"
+        :songList="top_song_list"
+        :topNum="top_num"
+        :loading="top_loading"
+        @add_song_list="addSongList" />
     </div>
 
     <div class="artist-list">
@@ -94,7 +95,6 @@
     }
   }
   .album_list,
-  .dj-list,
   .artist-list {
     padding: 0 20px;
     margin-bottom: 25px;
@@ -106,12 +106,7 @@
   .top_list {
     margin-bottom: 25px;
   }
-  .dj-artist {
-    display: flex;
-  }
-  .dj-list {
-    flex: 1;
-  }
+
   .artist-list {
     flex: 1;
   }

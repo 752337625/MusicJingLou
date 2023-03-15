@@ -16,9 +16,7 @@
         >{{ item.name }}</span
       >
     </div>
-    <div class="wrapper">
-      <PlayList :playList="playlist_list" :loading="playlist_loading" :num="playlist_count" />
-    </div>
+    <PlayList :playList="playlist_list" :loading="playlist_loading" :num="playlist_count" />
   </div>
 </template>
 <style lang="less" scoped>

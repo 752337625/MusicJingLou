@@ -24,18 +24,11 @@
             </el-image>
           </router-link>
           <div class="info">
-            <router-link :to="{ path: '/mvlist/mv', query: { id: item.id } }" class="mv-name">{{
-              item.name
+            <router-link :to="{ path: '/mvlist/mv', query: { id: item.id } }" class="mv-name">{{ item.name }}</router-link>
+            <router-link v-if="!item.publishTime" :to="{ path: '/singer', query: { id: item.artistId } }" class="mv-author">{{
+              item.artistName
             }}</router-link>
-            <router-link
-              v-if="!item.publishTime"
-              :to="{ path: '/singer', query: { id: item.artistId } }"
-              class="mv-author"
-              >{{ item.artistName }}</router-link
-            >
-            <div class="mv-playCount"
-              ><i class="iconfont icon-mvlist"></i> {{ $utils.formartNum(item.playCount) }}</div
-            >
+            <div class="mv-playCount"><i class="iconfont icon-mvlist"></i> {{ $utils.formartNum(item.playCount) }}</div>
             <div v-if="item.publishTime" class="mv-time">发布时间：{{ item.publishTime }}</div>
           </div>
         </div>
@@ -43,14 +36,13 @@
     </template>
   </el-skeleton>
 </template>
-<script>
-  export default {
-    props: {
-      mvList: Array,
-      num: Number,
-      loading: Boolean,
-    },
-  };
+<script lang="ts" setup>
+  import { MvList } from '/@/hook/useMvList';
+  defineProps<{
+    mvList: Array<MvList>;
+    num: number;
+    loading: boolean;
+  }>();
 </script>
 <style scoped lang="less">
   .mv {

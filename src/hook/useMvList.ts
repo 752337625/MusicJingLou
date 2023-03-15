@@ -3,20 +3,30 @@ import { onMounted, reactive, toRefs } from 'vue';
 type CODE = '全部' | '内地' | '港台' | '欧美' | '日本' | '韩国';
 // type NAME = '全部' | '官方版' | '原生' | '现场版' | '网易出品';
 
-interface mvParams {
-  limit: Number;
-  offset: Number;
-  area?: String | CODE;
-  type?: String | 'hot' | 'new';
-  year?: String | Number;
-  month?: String | Number;
+interface MvParams {
+  limit: number;
+  offset: number;
+  area?: string | CODE;
+  type?: string | 'hot' | 'new';
+  year?: string | number;
+  month?: string | number;
+}
+export interface MvList {
+  id: string | number;
+  cover: string;
+  imgurl: string;
+  name: string;
+  artistId: string;
+  artistName: string;
+  playCount: string;
+  publishTime?: string;
 }
 interface MvInfo {
   mv_area: Array<CODE>;
-  mv_list: Array<any>;
-  mv_index: Number;
-  mv_params: mvParams;
-  mv_count: Number;
+  mv_list: Array<MvList>;
+  mv_index: number;
+  mv_params: MvParams;
+  mv_count: number;
   mv_loading: Boolean;
 }
 
