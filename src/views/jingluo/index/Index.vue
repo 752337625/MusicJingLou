@@ -1,16 +1,14 @@
 <script lang="ts" setup>
   import { createAsyncComponent } from '/@/utils/createAsyncComponent';
-  import useTopAlbum from '/@/hook/useTopAlbum';
   import useSongList from '/@/hook/useSongList';
   import useTopList from '/@/hook/useTopList';
   let Banners = createAsyncComponent(() => import('/@/views/jingluo/index/component/Banners.vue'));
   let HostList = createAsyncComponent(() => import('/@/views/jingluo/index/component/HostList.vue'));
   let MvList = createAsyncComponent(() => import('/@/views/jingluo/index/component/MvList.vue'));
   let DtList = createAsyncComponent(() => import('/@/views/jingluo/index/component/DtList.vue'));
-  let AlbumList = createAsyncComponent(() => import('/@/components/AlbumList.vue'));
+  let AlbumList = createAsyncComponent(() => import('/@/views/jingluo/index/component/AlbumList.vue'));
   let HotSongList = createAsyncComponent(() => import('/@/components/HotSongList.vue'));
   let TopList = createAsyncComponent(() => import('/@/components/TopList.vue'));
-  const { album_area, album_index, album_list, album_count, album_loading, chooseAlbumType } = useTopAlbum();
   const { song_list, song_loading, song_count } = useSongList();
   const { top_list, top_song_list, top_num, top_loading, addSongList } = useTopList();
 </script>
@@ -24,21 +22,9 @@
     <MvList />
     <!-- 热门电台 -->
     <DtList />
-    <div class="album_list">
-      <div class="h_title">
-        <h3>新碟上架</h3>
-        <span
-          v-for="(item, index) in album_area"
-          :key="item.id"
-          :class="index == album_index ? 'active' : ''"
-          @click="chooseAlbumType(index)"
-          >{{ item.name }}</span
-        >
-      </div>
-      <div class="wrapper">
-        <AlbumList :albumList="album_list" :loading="album_loading" :num="album_count" />
-      </div>
-    </div>
+    <!-- 新碟上架 -->
+    <AlbumList />
+
     <div class="top_list">
       <TopList
         :topList="top_list"

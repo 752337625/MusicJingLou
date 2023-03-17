@@ -12,11 +12,7 @@
     </template>
     <template #default>
       <div class="album">
-        <router-link
-          v-for="item in albumList"
-          :key="item.id"
-          :to="{ path: '/album', query: { id: item.id } }"
-          class="item">
+        <router-link v-for="item in albumList" :key="item.id" :to="{ path: '/album', query: { id: item.id } }" class="item">
           <div class="faceImg">
             <el-image :src="item.picUrl + '?param=120y120'">
               <template #placeholder>

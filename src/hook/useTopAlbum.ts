@@ -5,34 +5,34 @@ type CODE = 'ZH' | 'EA' | 'KR' | 'JP';
 type NAME = '华语' | '欧美' | '韩国' | '日本';
 
 interface AlbumArea {
-  id: Number;
+  id: number | string;
   code: CODE;
   name: NAME;
 }
 interface AlbumParams {
-  limit: Number;
-  offset: Number;
-  area?: String | CODE;
-  type?: String | 'hot' | 'new';
-  year?: String | Number;
-  month?: String | Number;
+  limit: number;
+  offset: number;
+  area?: string | CODE;
+  type?: string | 'hot' | 'new';
+  year?: string | number;
+  month?: string | number;
 }
 interface AlbumList {
-  picUrl: String;
-  id: String;
-  name: String;
-  type: Array<String>;
+  picUrl: string;
+  id: string;
+  name: string;
+  type: Array<string>;
   artist: {
-    name: String;
+    name: string;
   };
 }
 interface AlbumInfo {
   album_area: Array<AlbumArea>;
   album_list: Array<AlbumList>;
-  album_index: Number;
+  album_index: number;
   album_params: AlbumParams;
-  album_count: Number;
-  album_loading: Boolean;
+  album_count: number;
+  album_loading: boolean;
 }
 
 export default function getHotRecomList() {
@@ -60,7 +60,7 @@ export default function getHotRecomList() {
     album_info['album_list'] = monthData.slice(0, album_info.album_count);
     album_info['album_loading'] = false;
   };
-  const chooseAlbumType = index => {
+  const chooseAlbumType = (index: number) => {
     album_info['album_index'] = index;
     album_info['album_params']['area'] = index !== 0 ? album_info['album_area'][index].code : '';
     album_info['album_loading'] = true;

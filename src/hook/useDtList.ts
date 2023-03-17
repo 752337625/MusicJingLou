@@ -1,8 +1,25 @@
 import { getDtList } from '/@/api/main';
-import { onMounted, reactive, toRefs } from 'vue';
+import { onMounted, shallowReactive, toRefs } from 'vue';
 
+interface DjList {
+  id: string | number;
+  picUrl: string;
+  programCount: string | number;
+  subCount: string | number;
+  rcmdtext?: string;
+  name?: string;
+}
+interface DjParams {
+  limit: number;
+}
+interface DjInfo {
+  dj_list: Array<DjList>;
+  dj_params: DjParams;
+  dj_count: number;
+  dj_loading: boolean;
+}
 export default function useDtList() {
-  const dj_info = reactive({
+  const dj_info: DjInfo = shallowReactive({
     dj_list: [],
     dj_params: { limit: 8 },
     dj_count: 8,
