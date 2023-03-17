@@ -5,8 +5,8 @@
         <div
           v-infinite-scroll="loadMv"
           class="wrapper infinite-list"
-          infinite-scroll-disabled="isLoadMv"
-          infinite-scroll-distance="50">
+          :infinite-scroll-disabled="isLoadMv"
+          :infinite-scroll-distance="300">
           <MvList :mvList="list" :loading="mv_loading" :num="mv_count" />
           <template v-if="isLoading">
             <Loading />
@@ -52,79 +52,26 @@
     </div>
   </div>
 </template>
-
-<script>
-  import { getMvList } from '/@/api/main';
-  import MvList from '/@/components/MvList.vue';
-  import Loading from '/@/components/IconLoading.vue';
-  import { onMounted, watchEffect, reactive, toRefs } from 'vue';
-  export default {
-    name: 'Mvlist',
-    components: {
-      MvList,
-      Loading,
-    },
-    setup() {
-      const info = reactive({
-        area: ['全部', '内地', '港台', '欧美', '日本', '韩国'],
-        type: ['全部', '官方版', '原生', '现场版', '网易出品'],
-        order: ['上升最快', '最新'],
-        areaIndex: 0,
-        typeIndex: 0,
-        orderIndex: 0,
-        params: {
-          area: '',
-          type: '',
-          order: '',
-          limit: 30,
-          offset: 0,
-        },
-        list: [],
-        mv_count: 20,
-        mv_loading: true,
-        isLoading: true,
-        isLoadMv: true,
-      });
-
-      const getMv = async params => {
-        const { code, data, hasMore } = await getMvList(params);
-        if (code !== 200) return ElMessage.error('数据请求失败');
-        info.list = info.params.offset !== 0 ? [...info.list, ...data] : data;
-        info.isLoadMv = !hasMore;
-        info.isLoading = hasMore;
-        info.mv_loading = false;
-      };
-
-      const selectType = (type, index) => {
-        info[type + 'Index'] = index;
-        info.list = [];
-        info.params.offset = 0;
-        info.params[type] = info[type][index];
-        info.mv_loading = true;
-      };
-
-      const loadMv = () => {
-        info.isLoadMv = true;
-        info.params.offset = info.list.length;
-      };
-
-      onMounted(() => {
-        info.params.area = info.area[info.areaIndex];
-        info.params.type = info.type[info.typeIndex];
-        info.params.order = info.order[info.orderIndex];
-      });
-
-      watchEffect(() => {
-        getMv(info.params);
-      });
-
-      return {
-        ...toRefs(info),
-        selectType,
-        loadMv,
-      };
-    },
-  };
+<script lang="ts" setup>
+  import { createAsyncComponent } from '/@/utils/createAsyncComponent';
+  import useMvList from '/@/hook/mv/useMvList';
+  let Loading = createAsyncComponent(() => import('/@/components/IconLoading.vue'));
+  let MvList = createAsyncComponent(() => import('/@/components/MvList.vue'));
+  const {
+    isLoadMv,
+    loadMv,
+    order,
+    orderIndex,
+    typeIndex,
+    mv_loading,
+    mv_count,
+    isLoading,
+    list,
+    area,
+    selectType,
+    type,
+    areaIndex,
+  } = useMvList();
 </script>
 <style lang="less" scoped>
   .mv-container {
