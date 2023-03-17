@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="aside-box">
-        <el-affix :offset="140">
+        <el-affix :offset="140" style="width: 100%; height: 100%">
           <div class="aside-menu">
             <h3 class="aside-title">排序</h3>
             <div class="filter-main">

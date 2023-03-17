@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="aside-box">
-        <el-affix :offset="140">
+        <el-affix :offset="140" style="width: 100%; height: 100%">
           <div class="aside-menu">
             <div class="filter">
               <div class="filter-item">
@@ -77,17 +77,21 @@
   .filter-item {
     font-size: 0;
     padding-bottom: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+    text-align: center;
+    // text-align: center;
+    // display: flex;
+    // flex-wrap: wrap;
+    // justify-content: space-between;
+    // align-items: center;
 
     span {
       display: inline-block;
-      padding: 0 12px;
+      // padding: 0 12px;
       font-size: 14px;
       line-height: 30px;
-      margin-right: 6px;
+      // margin-right: 6px;
       vertical-align: top;
       cursor: pointer;
       border-radius: 3px;
