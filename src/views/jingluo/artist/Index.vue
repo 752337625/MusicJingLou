@@ -2,11 +2,7 @@
   <div class="artist">
     <div class="artist-container">
       <div class="artist-main">
-        <div
-          v-infinite-scroll="loadMore"
-          class="list-container"
-          infinite-scroll-disabled="busy"
-          infinite-scroll-distance="100">
+        <div v-infinite-scroll="loadMore" class="list-container" :infinite-scroll-disabled="busy" :infinite-scroll-distance="200">
           <template v-for="item in list" :key="item.id">
             <ArtistItem :item="item" />
           </template>
@@ -53,103 +49,13 @@
     </div>
   </div>
 </template>
-
-<script>
-  import { getArtistList } from '/@/api/main';
-  import Loading from '/@/components/IconLoading.vue';
-  import ArtistItem from '/@/components/ArtistItem.vue';
-  import { onMounted, watchEffect, reactive, toRefs } from 'vue';
-  export default {
-    name: 'Artist',
-    components: {
-      Loading,
-      ArtistItem,
-    },
-    setup() {
-      const info = reactive({
-        type: [
-          { label: '全部', val: -1 },
-          { label: '男歌手', val: 1 },
-          { label: '女歌手', val: 2 },
-          { label: '乐队', val: 3 },
-        ],
-        area: [
-          { label: '全部', val: -1 },
-          { label: '华语', val: 7 },
-          { label: '欧美', val: 96 },
-          { label: '日本', val: 8 },
-          { label: '韩国', val: 16 },
-          { label: '其他', val: 0 },
-        ],
-        initial: [
-          { label: '热门', val: -1 },
-          { label: '#', val: 0 },
-        ],
-        typeIndex: 0,
-        areaIndex: 0,
-        initialIndex: 0,
-        params: {
-          area: '',
-          type: '',
-          initial: '',
-          limit: 30,
-          offset: 0,
-        },
-        list: [],
-        isLoading: true,
-        busy: true,
-      });
-
-      const renderInitial = () => {
-        const alphabet = [];
-        for (let i = 0; i < 26; i++) {
-          alphabet.push({
-            label: String.fromCharCode(65 + i),
-            val: String.fromCharCode(97 + i),
-          });
-        }
-        info.initial = [info.initial[0], ...alphabet, info.initial[1]];
-      };
-
-      const selectType = (type, index) => {
-        info[type + 'Index'] = index;
-        info.list = [];
-        info.params.offset = 0;
-        info.params[type] = info[type][index].val;
-      };
-
-      const getArtist = async params => {
-        const { code, artists, more } = await getArtistList(params);
-        if (code !== 200) return ElMessage.error('数据请求失败');
-        info.list = info.params.offset !== 0 ? [...info.list, ...artists] : artists;
-        info.busy = !more;
-        info.isLoading = more;
-      };
-
-      const loadMore = () => {
-        info.busy = true;
-        info.params.offset = info.list.length;
-      };
-
-      onMounted(() => {
-        info.params.area = info.area[info.areaIndex].val;
-        info.params.type = info.type[info.typeIndex].val;
-        info.params.initial = info.initial[info.initialIndex].val;
-        renderInitial();
-      });
-
-      watchEffect(() => {
-        getArtist(info.params);
-      });
-
-      return {
-        ...toRefs(info),
-        selectType,
-        getArtist,
-        loadMore,
-      };
-    },
-  };
+<script lang="ts" setup>
+  import { createAsyncComponent } from '/@/utils/createAsyncComponent';
+  import useSongArtist from '/@/hook/artist/useSongArtist';
+  let Loading = createAsyncComponent(() => import('/@/components/IconLoading.vue'));
+  let ArtistItem = createAsyncComponent(() => import('/@/components/ArtistItem.vue'));
+  const { selectType, loadMore, busy, list, isLoading, typeIndex, areaIndex, type, area, initialIndex, initial } =
+    useSongArtist();
 </script>
 <style scoped lang="less">
   .artist-container {
@@ -171,6 +77,10 @@
   .filter-item {
     font-size: 0;
     padding-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
 
     span {
       display: inline-block;
