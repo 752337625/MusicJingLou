@@ -57,7 +57,7 @@
       }
     }
   }
-  .dj-list {
+  .album_list {
     padding: 0 20px;
     margin-bottom: 25px;
     background: #fff;

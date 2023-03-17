@@ -1,5 +1,5 @@
 import { getMvList } from '/@/api/main';
-import { onMounted, reactive, toRefs } from 'vue';
+import { onMounted, shallowReactive, toRefs } from 'vue';
 type CODE = '全部' | '内地' | '港台' | '欧美' | '日本' | '韩国';
 // type NAME = '全部' | '官方版' | '原生' | '现场版' | '网易出品';
 
@@ -31,7 +31,7 @@ interface MvInfo {
 }
 
 export default function useMvList() {
-  const mv_info: MvInfo = reactive({
+  const mv_info: MvInfo = shallowReactive({
     mv_area: ['全部', '内地', '港台', '欧美', '日本', '韩国'],
     mv_list: [],
     mv_index: 0,
@@ -54,9 +54,7 @@ export default function useMvList() {
     getMv(mv_info['mv_params']);
   };
 
-  onMounted(() => {
-    getMv(mv_info['mv_params']);
-  });
+  onMounted(() => getMv(mv_info['mv_params']));
 
   return {
     ...toRefs(mv_info),

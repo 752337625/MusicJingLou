@@ -1,5 +1,5 @@
 import { getPlayList, getHotList } from '/@/api/main';
-import { onMounted, reactive, toRefs } from 'vue';
+import { onMounted, shallowReactive, toRefs } from 'vue';
 
 interface PlayListTags {
   name: string;
@@ -29,7 +29,7 @@ interface PlayListInfo {
 }
 
 export default function useHotList() {
-  const playlist_info: PlayListInfo = reactive({
+  const playlist_info: PlayListInfo = shallowReactive({
     playlist_tags: [],
     playlist_list: [],
     playlist_index: 0,

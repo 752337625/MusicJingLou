@@ -1,15 +1,13 @@
 <script lang="ts" setup>
   import { createAsyncComponent } from '/@/utils/createAsyncComponent';
-  import useSongList from '/@/hook/useSongList';
   import useTopList from '/@/hook/useTopList';
   let Banners = createAsyncComponent(() => import('/@/views/jingluo/index/component/Banners.vue'));
   let HostList = createAsyncComponent(() => import('/@/views/jingluo/index/component/HostList.vue'));
   let MvList = createAsyncComponent(() => import('/@/views/jingluo/index/component/MvList.vue'));
   let DtList = createAsyncComponent(() => import('/@/views/jingluo/index/component/DtList.vue'));
   let AlbumList = createAsyncComponent(() => import('/@/views/jingluo/index/component/AlbumList.vue'));
-  let HotSongList = createAsyncComponent(() => import('/@/components/HotSongList.vue'));
+  let SongList = createAsyncComponent(() => import('/@/views/jingluo/index/component/SongList.vue'));
   let TopList = createAsyncComponent(() => import('/@/components/TopList.vue'));
-  const { song_list, song_loading, song_count } = useSongList();
   const { top_list, top_song_list, top_num, top_loading, addSongList } = useTopList();
 </script>
 <template>
@@ -24,7 +22,6 @@
     <DtList />
     <!-- 新碟上架 -->
     <AlbumList />
-
     <div class="top_list">
       <TopList
         :topList="top_list"
@@ -33,13 +30,8 @@
         :loading="top_loading"
         @add_song_list="addSongList" />
     </div>
-
-    <div class="artist-list">
-      <div class="h_title">
-        <h3>热门歌手</h3>
-      </div>
-      <HotSongList :songList="song_list" :loading="song_loading" :num="song_count" />
-    </div>
+    <!--热门歌手  -->
+    <SongList />
   </div>
 </template>
 
@@ -80,20 +72,8 @@
       }
     }
   }
-  .album_list,
-  .artist-list {
-    padding: 0 20px;
-    margin-bottom: 25px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
-  }
 
   .top_list {
     margin-bottom: 25px;
-  }
-
-  .artist-list {
-    flex: 1;
   }
 </style>

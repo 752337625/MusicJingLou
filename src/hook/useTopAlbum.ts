@@ -1,4 +1,4 @@
-import { reactive, onMounted, toRefs } from 'vue';
+import { shallowReactive, onMounted, toRefs } from 'vue';
 import { getTopAlbumList } from '/@/api/main';
 
 type CODE = 'ZH' | 'EA' | 'KR' | 'JP';
@@ -36,7 +36,7 @@ interface AlbumInfo {
 }
 
 export default function getHotRecomList() {
-  const album_info: AlbumInfo = reactive({
+  const album_info: AlbumInfo = shallowReactive({
     album_area: [
       { id: 2, code: 'ZH', name: '华语' },
       { id: 3, code: 'EA', name: '欧美' },
@@ -67,9 +67,7 @@ export default function getHotRecomList() {
     getAlbumList(album_info['album_params']);
   };
 
-  onMounted(() => {
-    getAlbumList(album_info['album_params']);
-  });
+  onMounted(() => getAlbumList(album_info['album_params']));
 
   return {
     ...toRefs(album_info),

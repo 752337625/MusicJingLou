@@ -32,8 +32,6 @@ export default function useDtList() {
     dj_info['dj_loading'] = false;
   };
 
-  onMounted(() => {
-    getHotDj(dj_info['dj_params']);
-  });
+  onMounted(() => getHotDj(dj_info['dj_params']));
   return { ...toRefs(dj_info) };
 }

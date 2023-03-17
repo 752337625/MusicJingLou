@@ -1,7 +1,7 @@
 import { getToplist, getTopRankList } from '/@/api/main';
-import { onMounted, reactive, toRefs, getCurrentInstance } from 'vue';
+import { onMounted, shallowReactive, toRefs, getCurrentInstance } from 'vue';
 export default function useTopList() {
-  const top_info = reactive({
+  const top_info = shallowReactive({
     top_list: [],
     top_song_list: [],
     song_params: { id: '', s: 8 },
