@@ -37,9 +37,18 @@
   </el-skeleton>
 </template>
 <script lang="ts" setup>
-  import { MvList } from '/@/hook/useMvList';
+  // interface List {
+  //   id: number | string;
+  //   name: string;
+  //   artistId: string;
+  //   playCount: number;
+  //   artistName: string;
+  //   publishTime?: string;
+  //   cover?: string;
+  //   imgurl?: string;
+  // }
   defineProps<{
-    mvList: Array<MvList>;
+    mvList: Array<any>;
     num: number;
     loading: boolean;
   }>();

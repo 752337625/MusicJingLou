@@ -20,6 +20,15 @@ interface Params {
   limit: number;
   offset: number;
 }
+interface List {
+  id: number | string;
+  picUrl: string;
+  name: string;
+  followed: boolean;
+  albumSize: number;
+  musicSize: number;
+  fansCount: number;
+}
 interface Info {
   type: Array<Type>;
   area: Array<Area>;
@@ -28,7 +37,7 @@ interface Info {
   areaIndex: number | string;
   initialIndex: number | string;
   params: Params;
-  list: Array<any>;
+  list: Array<List>;
   isLoading: boolean;
   busy: boolean;
 }

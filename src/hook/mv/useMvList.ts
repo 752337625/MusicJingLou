@@ -21,6 +21,16 @@ interface Params {
   limit: number;
   offset: number;
 }
+interface List {
+  id: number | string;
+  name: string;
+  artistId: string;
+  playCount: number;
+  artistName: string;
+  publishTime?: string;
+  cover?: string;
+  imgurl?: string;
+}
 interface Info {
   type: Array<LABEL>;
   area: Array<LABEL>;
@@ -29,7 +39,7 @@ interface Info {
   typeIndex: number | string;
   orderIndex: number | string;
   params: Params;
-  list: Array<any>;
+  list: Array<List>;
   mv_count: number;
   mv_loading: boolean;
   isLoading: boolean;
