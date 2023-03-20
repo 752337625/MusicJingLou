@@ -44,8 +44,7 @@
       watch(
         () => info['msg'],
         () => {
-          info['msg'] =
-            info['maxLen'] >= info['msg'] ? info['msg'] : info['msg'].substring(0, info['maxLen']);
+          info['msg'] = info['maxLen'] >= info['msg'] ? info['msg'] : info['msg'].substring(0, info['maxLen']);
         },
       );
 

@@ -26,10 +26,7 @@
               {{ item.name }}
             </router-link>
             <template v-if="typeSize !== 'mini'">
-              <router-link
-                v-if="item.mvId"
-                class="mv-name"
-                :to="{ path: '/mvlist/mv', query: { id: item.mvId } }">
+              <router-link v-if="item.mvId" class="mv-name" :to="{ path: '/mvlist/mv', query: { id: item.mvId } }">
                 <i class="iconfont icon-mv"></i>
               </router-link>
               <i v-if="item.vip" class="iconfont icon-vip"></i>
@@ -46,33 +43,22 @@
             >
           </div>
           <div v-if="typeSize !== 'mini'" class="columnAlbum">
-            <router-link
-              v-if="item.album"
-              class="songlist-album"
-              :to="{ path: '/album', query: { id: item.album.id } }"
-              >{{ item.album.name }}</router-link
-            >
+            <router-link v-if="item.album" class="songlist-album" :to="{ path: '/album', query: { id: item.album.id } }">{{
+              item.album.name
+            }}</router-link>
           </div>
           <div class="columnTime">
             <div class="songlist-time">
               {{ item.duration }}
             </div>
             <div class="songlist-oper">
-              <i
-                v-if="typeSize !== 'mini'"
-                class="iconfont icon-add"
-                title="添加到列表"
-                @click="addSongList(item)"></i>
+              <i v-if="typeSize !== 'mini'" class="iconfont icon-add" title="添加到列表" @click="addSongList(item)"></i>
               <!-- <el-popover placement="bottom" trigger="click" ref="popAddList">
                                 <i class="iconfont icon-add-list" title="添加到歌单" slot="reference" @click="closeAddListPop"></i>
                                 <add-list :tracks="item.id" @closeAddListPop="closeAddListPop"></add-list>
                             </el-popover> -->
               <i class="iconfont icon-collect" @click="likeSong(item)"></i>
-              <i
-                v-if="typeSize === 'mini'"
-                class="iconfont icon-del"
-                title="删除"
-                @click.stop="delList(index)"></i>
+              <i v-if="typeSize === 'mini'" class="iconfont icon-del" title="删除" @click.stop="delList(index)"></i>
             </div>
           </div>
         </div>
@@ -154,10 +140,7 @@
       const list = computed(() => {
         if (!props.isScroll) {
           // 分页加载数据
-          return props.songList.slice(
-            (info.currentPage - 1) * info.pageSize,
-            info.currentPage * info.pageSize,
-          );
+          return props.songList.slice((info.currentPage - 1) * info.pageSize, info.currentPage * info.pageSize);
         } else {
           return props.songList;
         }
@@ -195,11 +178,7 @@
       // 序号及播放状态
       const playIcon = computed(() => {
         return item => {
-          return [
-            'iconfont',
-            'playicon',
-            isPlayed.value && item.id === curSongInfo.value.id ? 'icon-pause' : 'icon-play',
-          ];
+          return ['iconfont', 'playicon', isPlayed.value && item.id === curSongInfo.value.id ? 'icon-pause' : 'icon-play'];
         };
       });
 
@@ -260,9 +239,7 @@
                 info.curScroll = Math.abs(info.curScroll) > 0 ? info.curScroll + 50 : 0;
               } else {
                 info.curScroll =
-                  Math.abs(info.curScroll) < ((props.songList.length - 8) / 2) * 100
-                    ? info.curScroll - 50
-                    : info.curScroll;
+                  Math.abs(info.curScroll) < ((props.songList.length - 8) / 2) * 100 ? info.curScroll - 50 : info.curScroll;
               }
             },
             { passive: true },

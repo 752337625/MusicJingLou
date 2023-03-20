@@ -33,14 +33,7 @@ import { configStyleImportPlugin } from './styleImport';
 
 // import { configImageminPlugin } from './imagemin'; // success
 export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
-  const {
-    VITE_USE_LEGACY,
-    VITE_BUILD_COMPRESS,
-    VITE_USE_PWA,
-    VITE_SETUP_EXTEND,
-    VITE_USE_MOCK,
-    VITE_USE_ERUDA,
-  } = viteEnv;
+  const { VITE_USE_LEGACY, VITE_BUILD_COMPRESS, VITE_USE_PWA, VITE_SETUP_EXTEND, VITE_USE_MOCK, VITE_USE_ERUDA } = viteEnv;
   const vitePlugins: (PluginOption | PluginOption[])[] = [
     vue(),
     Vuejsx(),

@@ -7,10 +7,7 @@
             <div class="info-top">
               <h3 class="song-name">
                 {{ songInfo.name }}
-                <router-link
-                  v-if="songInfo.mvId"
-                  class="mv-name"
-                  :to="{ path: '/mvlist/mv', query: { id: songInfo.mvId } }">
+                <router-link v-if="songInfo.mvId" class="mv-name" :to="{ path: '/mvlist/mv', query: { id: songInfo.mvId } }">
                   <i class="iconfont icon-mvlist"></i>
                 </router-link>
                 <i v-if="songInfo.vip" class="iconfont icon-vip"></i>
@@ -26,11 +23,9 @@
               >
               <p class="song-related">
                 <span
-                  >专辑：<router-link
-                    class="song-album"
-                    :to="{ path: '/album', query: { id: songInfo.album.id } }"
-                    >{{ songInfo.album.name }}</router-link
-                  ></span
+                  >专辑：<router-link class="song-album" :to="{ path: '/album', query: { id: songInfo.album.id } }">{{
+                    songInfo.album.name
+                  }}</router-link></span
                 >
                 <span
                   >发行时间：<em>{{ songInfo.publishTime }}</em></span
@@ -44,15 +39,10 @@
             <div class="info-bottom">
               <div class="song-oper">
                 <span :class="['play-btn', 'play-all', songDisable]" @click="plyaing(songInfo)"
-                  ><i :class="['iconfont', playFontIcon]"></i>
-                  {{ songInfo.vip ? 'VIP尊享' : '立即播放' }}</span
+                  ><i :class="['iconfont', playFontIcon]"></i> {{ songInfo.vip ? 'VIP尊享' : '立即播放' }}</span
                 >
-                <span class="play-btn play-collect" @click="showAddList"
-                  ><i class="iconfont icon-collect"></i> 收藏</span
-                >
-                <span class="play-btn play-comment" @click="jumpComment"
-                  ><i class="iconfont icon-comment"></i> 评论</span
-                >
+                <span class="play-btn play-collect" @click="showAddList"><i class="iconfont icon-collect"></i> 收藏</span>
+                <span class="play-btn play-comment" @click="jumpComment"><i class="iconfont icon-comment"></i> 评论</span>
               </div>
             </div>
           </div>
@@ -61,9 +51,7 @@
             <div class="simi-main">
               <div v-for="simiItem in simiSong" :key="simiItem.id" class="simi-item">
                 <div class="simi-info">
-                  <router-link
-                    class="simi-name"
-                    :to="{ path: '/music/song', query: { id: simiItem.id } }">
+                  <router-link class="simi-name" :to="{ path: '/music/song', query: { id: simiItem.id } }">
                     {{ simiItem.name }}
                   </router-link>
                   <div class="simi-author"
@@ -78,10 +66,7 @@
                 </div>
                 <div class="simi-song-status">
                   <i v-if="simiItem.vip" class="iconfont icon-vip"></i>
-                  <i
-                    v-else
-                    :class="['iconfont', playSimiIcon(simiItem)]"
-                    @click="plyaing(simiItem)"></i>
+                  <i v-else :class="['iconfont', playSimiIcon(simiItem)]" @click="plyaing(simiItem)"></i>
                   <i class="iconfont icon-add" title="添加到列表"></i>
                 </div>
               </div>
@@ -133,9 +118,7 @@
               <div class="playlist-name">{{ item.name }}</div>
               <div class="playlist-author">
                 By.
-                <router-link :to="{ path: '/user', query: { id: item.creator.userId } }">{{
-                  item.creator.nickname
-                }}</router-link>
+                <router-link :to="{ path: '/user', query: { id: item.creator.userId } }">{{ item.creator.nickname }}</router-link>
               </div>
             </div>
           </router-link>
@@ -183,17 +166,11 @@
       const playList = computed(() => songStore.getPlayList);
       const playIndex = computed(() => songStore.getPlayIndex);
       const curSongInfo = computed(() => playList.value[playIndex.value]);
-      const isCurSong = computed(
-        () => isPlayed.value && curSongInfo.value && curSongInfo.value.id === info.sId,
-      );
+      const isCurSong = computed(() => isPlayed.value && curSongInfo.value && curSongInfo.value.id === info.sId);
       // 当前播放状态
-      const playFontIcon = computed(() =>
-        isCurSong.value ? 'icon-audio-pause' : 'icon-audio-play',
-      );
+      const playFontIcon = computed(() => (isCurSong.value ? 'icon-audio-pause' : 'icon-audio-play'));
       // 若是无版权获取vip歌曲 播放按钮置灰
-      const songDisable = computed(() =>
-        info.songInfo.license || info.songInfo.vip ? 'disable' : '',
-      );
+      const songDisable = computed(() => (info.songInfo.license || info.songInfo.vip ? 'disable' : ''));
 
       // 获取歌曲详情
       const getSongDetail = async () => {

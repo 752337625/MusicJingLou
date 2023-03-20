@@ -30,23 +30,18 @@
                   </template>
                 </el-image>
                 <div class="cover-name">{{ rankInfo.creator.nickname }}</div>
-                <div class="cover-date">{{
-                  $utils.formartDate(rankInfo.createTime, 'yyyy-MM-dd')
-                }}</div>
+                <div class="cover-date">{{ $utils.formartDate(rankInfo.createTime, 'yyyy-MM-dd') }}</div>
               </div>
             </div>
             <div class="cover-digital">
               <span class="cover-playCount"
-                ><i class="iconfont icon-playnum"></i>
-                {{ $utils.formartNum(rankInfo.playCount) }}次</span
+                ><i class="iconfont icon-playnum"></i> {{ $utils.formartNum(rankInfo.playCount) }}次</span
               >
               <span class="cover-collect"
-                ><i class="iconfont icon-collect"></i>
-                {{ $utils.formartNum(rankInfo.subscribedCount) }}</span
+                ><i class="iconfont icon-collect"></i> {{ $utils.formartNum(rankInfo.subscribedCount) }}</span
               >
               <span class="cover-comment"
-                ><i class="iconfont icon-comment"></i>
-                {{ $utils.formartNum(rankInfo.commentCount) }}</span
+                ><i class="iconfont icon-comment"></i> {{ $utils.formartNum(rankInfo.commentCount) }}</span
               >
             </div>
             <div class="cover-desc">
@@ -60,14 +55,9 @@
             <h4
               >歌曲列表 <em>{{ total + '首歌' }}</em></h4
             >
-            <span class="play-all" @click="playAllSongs"
-              ><i class="iconfont icon-audio-play"></i> 播放全部</span
-            >
-            <span
-              :class="['collect', rankInfo.subscribed ? 'active' : '']"
-              @click="subPlayList(rankInfo)"
-              ><i
-                :class="['iconfont', 'icon-collect' + (rankInfo.subscribed ? '-active' : '')]"></i>
+            <span class="play-all" @click="playAllSongs"><i class="iconfont icon-audio-play"></i> 播放全部</span>
+            <span :class="['collect', rankInfo.subscribed ? 'active' : '']" @click="subPlayList(rankInfo)"
+              ><i :class="['iconfont', 'icon-collect' + (rankInfo.subscribed ? '-active' : '')]"></i>
               {{ rankInfo.subscribed ? '已收藏' : '收藏' }}</span
             >
           </div>
@@ -81,15 +71,9 @@
       </div>
       <div class="rank-aside">
         <div class="aside-menu">
-          <span :class="type === 'Top' ? 'active' : ''" @click="selectType('Top')"
-            ><em>TOP榜</em></span
-          >
-          <span :class="type === 'Feature' ? 'active' : ''" @click="selectType('Feature')"
-            ><em>特色榜</em></span
-          >
-          <span :class="type === 'Other' ? 'active' : ''" @click="selectType('Other')"
-            ><em>场景榜</em></span
-          >
+          <span :class="type === 'Top' ? 'active' : ''" @click="selectType('Top')"><em>TOP榜</em></span>
+          <span :class="type === 'Feature' ? 'active' : ''" @click="selectType('Feature')"><em>特色榜</em></span>
+          <span :class="type === 'Other' ? 'active' : ''" @click="selectType('Other')"><em>场景榜</em></span>
         </div>
         <div class="type-main">
           <div

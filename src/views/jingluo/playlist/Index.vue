@@ -13,9 +13,7 @@
 
           <el-popover :width="'auto'" trigger="click">
             <template #reference>
-              <span
-                v-if="item.children.length > 9"
-                :class="['item-box', 'filter-more', moreTxt[index] ? 'active' : '']"
+              <span v-if="item.children.length > 9" :class="['item-box', 'filter-more', moreTxt[index] ? 'active' : '']"
                 ><em>{{ moreTxt[index] ? curType : '更多' }}<i class="iconfont icon-arrow"></i></em
               ></span>
               <span v-else></span>
@@ -36,16 +34,11 @@
       <div class="list-head">
         <h2
           >{{ curType }}
-          <em v-if="curType !== allList.name" class="filter-close" @click="closed"
-            ><i class="iconfont icon-closed"></i></em
+          <em v-if="curType !== allList.name" class="filter-close" @click="closed"><i class="iconfont icon-closed"></i></em
         ></h2>
         <div class="type">
-          <span :class="params.order === 'hot' ? 'active' : ''" @click="selectOrder('hot')"
-            >热门</span
-          >
-          <span :class="params.order === 'new' ? 'active' : ''" @click="selectOrder('new')"
-            >最新</span
-          >
+          <span :class="params.order === 'hot' ? 'active' : ''" @click="selectOrder('hot')">热门</span>
+          <span :class="params.order === 'new' ? 'active' : ''" @click="selectOrder('new')">最新</span>
         </div>
       </div>
       <div
@@ -138,8 +131,7 @@
       const getPlayList = async params => {
         const { code, playlists, total } = await PlayListApi(params);
         if (code !== 200) return ElMessage.error('数据请求失败');
-        info.playlist_list =
-          info.params.offset !== 0 ? [...info.playlist_list, ...playlists] : playlists;
+        info.playlist_list = info.params.offset !== 0 ? [...info.playlist_list, ...playlists] : playlists;
         info.busy = info.playlist_list.length >= total;
         info.playlist_loading = false;
       };

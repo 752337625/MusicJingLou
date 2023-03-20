@@ -35,10 +35,7 @@ export abstract class AxiosTransform {
   /**
    * @description: 请求拦截器
    */
-  requestInterceptors?: (
-    config: InternalAxiosRequestConfig,
-    options: CreateAxiosOptions,
-  ) => InternalAxiosRequestConfig;
+  requestInterceptors?: (config: InternalAxiosRequestConfig, options: CreateAxiosOptions) => InternalAxiosRequestConfig;
   /**
    * @description: 请求失败错误处理
    */

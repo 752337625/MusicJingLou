@@ -2,9 +2,7 @@
 const { protocol } = require('electron');
 const { SCHEME } = require('../config');
 function creatProtocol() {
-  protocol.registerSchemesAsPrivileged([
-    { scheme: SCHEME, privileges: { secure: true, standard: true, bypassCSP: true } },
-  ]);
+  protocol.registerSchemesAsPrivileged([{ scheme: SCHEME, privileges: { secure: true, standard: true, bypassCSP: true } }]);
 }
 module.exports = {
   creatProtocol,

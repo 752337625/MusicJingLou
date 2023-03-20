@@ -26,14 +26,12 @@
               </template>
             </el-image>
             <span class="playCount"
-              ><i class="iconfont icon-playnum"></i
-              ><em>{{ $utils.formartNum(item.playCount) }}</em> / {{ item.trackCount + '首' }}</span
+              ><i class="iconfont icon-playnum"></i><em>{{ $utils.formartNum(item.playCount) }}</em> /
+              {{ item.trackCount + '首' }}</span
             >
           </router-link>
           <div class="info">
-            <router-link
-              :to="{ path: '/playlist/detail', query: { id: item.id } }"
-              class="info_name"
+            <router-link :to="{ path: '/playlist/detail', query: { id: item.id } }" class="info_name"
               >{{ item.name }}
             </router-link>
             <div class="tags">
@@ -129,12 +127,7 @@
       line-height: 30px;
       padding-right: 10px;
       border-radius: 0 4px 0 0;
-      background: linear-gradient(
-        to right,
-        rgba(0, 0, 0, 0) 0%,
-        rgba(0, 0, 0, 0.5) 97%,
-        rgba(0, 0, 0, 0.5) 100%
-      );
+      background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 97%, rgba(0, 0, 0, 0.5) 100%);
       .icon-playnum {
         color: #fff;
       }

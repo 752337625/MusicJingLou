@@ -26,9 +26,7 @@
                 >{{ k !== 0 ? ' / ' + author.name : author.name }}</router-link
               ></div
             >
-            <div class="album-time"
-              >发行时间：{{ $utils.formartDate(details.publishTime, 'yyyy-MM-dd') }}</div
-            >
+            <div class="album-time">发行时间：{{ $utils.formartDate(details.publishTime, 'yyyy-MM-dd') }}</div>
             <div class="album-company">发行公司：{{ details.company }}</div>
             <div v-if="details.description" class="album-desc">
               <h5
@@ -45,9 +43,7 @@
             <h4
               >包含歌曲列表 <em>{{ details.size + '首歌' }}</em></h4
             >
-            <span class="play-all" @click="playAllSongs"
-              ><i class="iconfont icon-audio-play"></i> 播放全部</span
-            >
+            <span class="play-all" @click="playAllSongs"><i class="iconfont icon-audio-play"></i> 播放全部</span>
             <span :class="['collect', dynamic.isSub ? 'active' : '']" @click="subAlbum"
               ><i :class="['iconfont', 'icon-collect' + (dynamic.isSub ? '-active' : '')]"></i>
               {{ dynamic.isSub ? '已收藏' : '收藏' }}</span
@@ -119,13 +115,7 @@
   import { getCurrentInstance, onMounted, reactive, toRefs } from 'vue';
   import { onBeforeRouteUpdate, useRoute } from 'vue-router';
   import useSongStore from '/@/store/modules/song';
-  import {
-    getArtistAlbum as artistAlbum,
-    getAlbum as albumFn,
-    getDynamic,
-    getSub,
-    getSubscribers,
-  } from '/@/api/main';
+  import { getArtistAlbum as artistAlbum, getAlbum as albumFn, getDynamic, getSub, getSubscribers } from '/@/api/main';
   export default {
     components: {
       SongList,

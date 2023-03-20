@@ -10,9 +10,7 @@
     </router-link>
     <div class="info">
       <div class="info-header">
-        <router-link :to="{ path: '/singer', query: { id: item.id } }" class="name">{{
-          item.name
-        }}</router-link>
+        <router-link :to="{ path: '/singer', query: { id: item.id } }" class="name">{{ item.name }}</router-link>
         <i class="iconfont icon-collect" :class="{ active: item.followed }"></i>
       </div>
       <div class="info-num">

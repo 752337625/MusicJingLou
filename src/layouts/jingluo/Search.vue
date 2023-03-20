@@ -25,11 +25,7 @@
         </el-option>
       </div>
       <template v-else>
-        <el-option-group
-          v-for="list in suggestInfo"
-          :key="listType[list.label]"
-          :label="listType[list.label]"
-          class="aaa">
+        <el-option-group v-for="list in suggestInfo" :key="listType[list.label]" :label="listType[list.label]" class="aaa">
           <el-option
             v-for="(item, index) in list.info"
             :key="list.label + index"
@@ -40,9 +36,7 @@
             {{ item.name }}
             <template v-if="list.label === 'songs'">
               -
-              <span v-for="(a, i) in item.artists" :key="i" class="artists">{{
-                (i !== 0 ? ' / ' : '') + a.name
-              }}</span>
+              <span v-for="(a, i) in item.artists" :key="i" class="artists">{{ (i !== 0 ? ' / ' : '') + a.name }}</span>
             </template>
             <template v-else-if="list.label === 'albums'">
               - <span class="artists">{{ item.artist.name }}</span>

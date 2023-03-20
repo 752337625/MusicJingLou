@@ -2,9 +2,7 @@
   <div>
     <div class="lyrics-main" :style="{ maxHeight: maxH + 'px' }">
       <div v-if="lyricObj.length" ref="lyrics" class="lyrics" :style="transform">
-        <p v-for="(item, index) in lyricObj" :key="index" :class="[isCurLyric(index)]">{{
-          item.txt
-        }}</p>
+        <p v-for="(item, index) in lyricObj" :key="index" :class="[isCurLyric(index)]">{{ item.txt }}</p>
       </div>
       <div v-else class="lyric-empty">
         <p v-if="lyric">纯音乐，无歌词</p>

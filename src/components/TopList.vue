@@ -19,14 +19,11 @@
       <div class="wrapper">
         <div v-for="item in topList" :key="item.id" class="toplist_item">
           <div class="toplist_hd">
-            <router-link
-              :to="{ path: '/rank', query: { rId: item.id, type: 'Top' } }"
-              class="toplist_name"
-              >{{ item.name }}</router-link
-            >
+            <router-link :to="{ path: '/rank', query: { rId: item.id, type: 'Top' } }" class="toplist_name">{{
+              item.name
+            }}</router-link>
             <h5 class="toplist_update">
-              最近更新：{{ $utils.formartDate(item.updateTime, 'MM月dd日')
-              }}<span>（{{ item.updateFrequency }}）</span>
+              最近更新：{{ $utils.formartDate(item.updateTime, 'MM月dd日') }}<span>（{{ item.updateFrequency }}）</span>
             </h5>
           </div>
           <div class="toplist_wrapper">
@@ -45,11 +42,9 @@
                 </el-image>
               </div>
               <div class="songinfo">
-                <router-link
-                  :to="{ path: '/music/song', query: { id: songItem.id } }"
-                  class="song_title"
-                  >{{ songItem.name }}</router-link
-                >
+                <router-link :to="{ path: '/music/song', query: { id: songItem.id } }" class="song_title">{{
+                  songItem.name
+                }}</router-link>
                 <div class="song_author">
                   <router-link
                     v-for="(author, k) in songItem.singer"
@@ -61,10 +56,7 @@
                 </div>
               </div>
               <div v-if="!songItem.vip && !songItem.license" class="songoperate">
-                <i
-                  class="iconfont icon-add"
-                  title="添加到列表"
-                  @click="$emit('addSongList', songItem)"></i>
+                <i class="iconfont icon-add" title="添加到列表" @click="$emit('addSongList', songItem)"></i>
                 <i class="iconfont icon-fav" title="添加到收藏"></i>
               </div>
             </div>

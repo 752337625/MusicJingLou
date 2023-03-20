@@ -51,10 +51,7 @@ const transform: AxiosTransform = {
           config.params = undefined;
         }
         if (joinParamsToUrl) {
-          config.url = setObjToUrlParams(
-            config.url as string,
-            Object.assign({}, config.params, config.data),
-          );
+          config.url = setObjToUrlParams(config.url as string, Object.assign({}, config.params, config.data));
         }
       } else {
         // 兼容restful风格
@@ -75,10 +72,7 @@ const transform: AxiosTransform = {
   /**
    * @description: 请求拦截器处理
    */
-  requestInterceptors: (
-    config: InternalAxiosRequestConfig,
-    _options: CreateAxiosOptions,
-  ): InternalAxiosRequestConfig => {
+  requestInterceptors: (config: InternalAxiosRequestConfig, _options: CreateAxiosOptions): InternalAxiosRequestConfig => {
     // console.log(options);
     // 请求之前处理config
     // const token = getToken();

@@ -35,13 +35,8 @@
     </el-form>
     <div class="comment_area">
       <template v-if="comments.length">
-        <div
-          v-for="(item, index) in comments"
-          :key="item.commentId + index + ''"
-          class="comment_item">
-          <router-link
-            :to="{ path: '/user', query: { id: item.user.userId } }"
-            class="comment_avatar">
+        <div v-for="(item, index) in comments" :key="item.commentId + index + ''" class="comment_item">
+          <router-link :to="{ path: '/user', query: { id: item.user.userId } }" class="comment_avatar">
             <el-image :src="item.user.avatarUrl + '?param=120y120'">
               <template #placeholder>
                 <div class="image-slot">
@@ -51,16 +46,11 @@
             </el-image>
           </router-link>
           <div class="comment_info">
-            <router-link :to="{ path: '/user', query: { id: item.user.userId } }">{{
-              item.user.nickname
-            }}</router-link>
+            <router-link :to="{ path: '/user', query: { id: item.user.userId } }">{{ item.user.nickname }}</router-link>
             <div class="comment_content">
               {{ item.content }}
             </div>
-            <div
-              v-for="replyItem in item.beReplied"
-              :key="replyItem.beRepliedCommentId"
-              class="comment_reply">
+            <div v-for="replyItem in item.beReplied" :key="replyItem.beRepliedCommentId" class="comment_reply">
               <router-link :to="{ path: '/user', query: { id: replyItem.user.userId } }">{{
                 replyItem.user.nickname
               }}</router-link
@@ -69,18 +59,13 @@
             <div class="comment_footer">
               <div class="comment_time">{{ $utils.formatMsgTime(item.time) }}</div>
               <div class="comment_oper">
-                <em
-                  v-if="userInfo && userInfo.userId === item.user.userId"
-                  class="comment_del"
-                  @click="delComment(item)"
+                <em v-if="userInfo && userInfo.userId === item.user.userId" class="comment_del" @click="delComment(item)"
                   ><i class="iconfont icon-del"></i
                 ></em>
                 <span :class="[item.liked ? 'active' : '']" @click="likeComment(item)"
                   ><i class="iconfont icon-praise"></i>({{ item.likedCount }})</span
                 >
-                <span class="replyComment" @click="replyComment(item, index)"
-                  ><i class="iconfont icon-comment"></i
-                ></span>
+                <span class="replyComment" @click="replyComment(item, index)"><i class="iconfont icon-comment"></i></span>
               </div>
             </div>
             <div v-if="item.isHot" class="isHot">
@@ -92,10 +77,7 @@
           </div>
         </div>
         <div class="pagination">
-          <el-pagination
-            layout="prev, pager, next"
-            :total="total"
-            @current-change="currentChange" />
+          <el-pagination layout="prev, pager, next" :total="total" @current-change="currentChange" />
         </div>
       </template>
       <div v-else class="comments_status">
@@ -250,8 +232,7 @@
           store.commit('setLoginDialog', true);
           return;
         }
-        info.replyCommentId =
-          info.replyCommentId === item.commentId && info.replyIndex === index ? 0 : item.commentId;
+        info.replyCommentId = info.replyCommentId === item.commentId && info.replyIndex === index ? 0 : item.commentId;
         info.replyIndex = index;
       };
 

@@ -1,10 +1,4 @@
-import type {
-  AxiosRequestConfig,
-  AxiosInstance,
-  AxiosResponse,
-  AxiosError,
-  InternalAxiosRequestConfig,
-} from 'axios';
+import type { AxiosRequestConfig, AxiosInstance, AxiosResponse, AxiosError, InternalAxiosRequestConfig } from 'axios';
 import type { RequestOptions, Result, UploadFileParams } from '../typings/axios';
 import type { CreateAxiosOptions } from './axiosTransform';
 import axios from 'axios';
@@ -83,12 +77,7 @@ export class DefHttp {
     if (!transform) {
       return;
     }
-    const {
-      requestInterceptors,
-      requestInterceptorsCatch,
-      responseInterceptors,
-      responseInterceptorsCatch,
-    } = transform;
+    const { requestInterceptors, requestInterceptorsCatch, responseInterceptors, responseInterceptorsCatch } = transform;
 
     const axiosCanceler = new AxiosCanceler();
 
