@@ -21,7 +21,7 @@
               >歌手：<router-link
                 v-for="(author, k) in details.artists"
                 :key="author.name"
-                :to="{ path: '/singer', query: { id: author.id } }"
+                :to="{ path: '/music/singer', query: { id: author.id } }"
                 class="song_name"
                 >{{ k !== 0 ? ' / ' + author.name : author.name }}</router-link
               ></div
@@ -77,7 +77,7 @@
         <div class="album-aside album-other">
           <h3 class="aside-title"
             >{{ details.artists[0].name }}的其他专辑<router-link
-              :to="{ path: '/singer', query: { id: details.artists[0].id, type: 'album' } }"
+              :to="{ path: '/music/singer', query: { id: details.artists[0].id, type: 'album' } }"
               class="album-more"
               >全部>></router-link
             ></h3
@@ -114,6 +114,7 @@
   //   import CommentList from '/@/components/Comments.vue';
   import { getCurrentInstance, onMounted, reactive, toRefs } from 'vue';
   import { onBeforeRouteUpdate, useRoute } from 'vue-router';
+  import { ComponentInternalInstance } from 'vue';
   import useSongStore from '/@/store/modules/song';
   import { getArtistAlbum as artistAlbum, getAlbum as albumFn, getDynamic, getSub, getSubscribers } from '/@/api/main';
   export default {
@@ -124,13 +125,9 @@
     setup() {
       const songStore = useSongStore();
       const route = useRoute();
-      const {
-        appContext: {
-          config: {
-            globalProperties: { $utils },
-          },
-        },
-      } = getCurrentInstance();
+       const {
+    appContext: { config },
+  } = getCurrentInstance() as ComponentInternalInstance;
       const info = reactive({
         // 歌单详情
         albumId: '',
@@ -157,7 +154,7 @@
         if (code !== 200) return ElMessage.error('数据请求失败');
         info.details = album;
         const privileges = songs.map(item => item.privilege);
-        info.songList = $utils.formatSongs(songs, privileges);
+        info.songList = config.globalProperties.$utils.formatSongs(songs, privileges);
         getArtistAlbum();
       };
 

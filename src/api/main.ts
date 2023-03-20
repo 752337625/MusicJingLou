@@ -22,7 +22,11 @@ enum Api {
   GetSimiSong = '/simi/song',
   GetSimiPlaylist = '/simi/playlist',
   GetLyric = '/lyric',
+  GetArtists = '/artists',
 }
+export const getArtists = params => {
+  return defHttp.get({ url: Api.GetArtists, params });
+};
 export const getLyric = params => {
   return defHttp.get({ url: Api.GetLyric, params });
 };

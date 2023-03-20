@@ -1,5 +1,7 @@
 import { getToplist, getTopRankList } from '/@/api/main';
 import { onMounted, shallowReactive, toRefs, getCurrentInstance } from 'vue';
+import { ComponentInternalInstance } from 'vue';
+
 export default function useTopList() {
   const top_info = shallowReactive({
     top_list: [],
@@ -8,14 +10,9 @@ export default function useTopList() {
     top_num: 6,
     top_loading: true,
   });
-  // @ts-ignore
   const {
-    appContext: {
-      config: {
-        globalProperties: { $utils },
-      },
-    },
-  } = getCurrentInstance();
+    appContext: { config },
+  } = getCurrentInstance() as ComponentInternalInstance;
   const getHottop = async () => {
     const { list } = await getToplist();
     top_info['top_list'] = list.splice(0, 4);
@@ -24,7 +21,7 @@ export default function useTopList() {
         ...top_info['song_params'],
         id: item.id,
       });
-      top_info['top_song_list'][item.id] = $utils.formatSongs(
+      top_info['top_song_list'][item.id] = config.globalProperties.$utils.formatSongs(
         playlist.tracks.splice(0, top_info['top_num']),
         privileges.splice(0, top_info['top_num']),
       );

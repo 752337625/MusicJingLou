@@ -25,9 +25,12 @@
           </router-link>
           <div class="info">
             <router-link :to="{ path: '/mvlist/mv', query: { id: item.id } }" class="mv-name">{{ item.name }}</router-link>
-            <router-link v-if="!item.publishTime" :to="{ path: '/singer', query: { id: item.artistId } }" class="mv-author">{{
-              item.artistName
-            }}</router-link>
+            <router-link
+              v-if="!item.publishTime"
+              :to="{ path: '/music/singer', query: { id: item.artistId } }"
+              class="mv-author"
+              >{{ item.artistName }}</router-link
+            >
             <div class="mv-playCount"><i class="iconfont icon-mvlist"></i> {{ $utils.formartNum(item.playCount) }}</div>
             <div v-if="item.publishTime" class="mv-time">发布时间：{{ item.publishTime }}</div>
           </div>

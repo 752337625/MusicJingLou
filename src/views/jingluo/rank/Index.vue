@@ -119,11 +119,7 @@
     },
     setup() {
       const {
-        appContext: {
-          config: {
-            globalProperties: { $utils },
-          },
-        },
+        appContext: { config },
       } = getCurrentInstance();
       const route = useRoute();
       const router = useRouter();
@@ -166,7 +162,7 @@
         const { code, playlist, privileges } = await getTopRankList({ id: info.rId, s: -1 });
         if (code !== 200) return ElMessage.error('数据请求失败');
         info['rankInfo'] = playlist;
-        info['songList'] = $utils.formatSongs(playlist.tracks, privileges);
+        info['songList'] = config.$utils.formatSongs(playlist.tracks, privileges);
         info['total'] = info.songList.length;
         info['isLoading'] = false;
       };

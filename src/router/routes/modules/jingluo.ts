@@ -73,5 +73,16 @@ export default {
         // 	hideMenu: true,
       },
     },
+    {
+      path: 'singer',
+      name: 'singer',
+      component: () => import('/@/views/jingluo/singer/Index.vue'),
+      meta: {
+        title: '音乐',
+        // 	// title: t('routes.dashboard.about'),
+        // 	icon: 'simple-icons:about-dot-me',
+        // 	hideMenu: true,
+      },
+    },
   ],
 };
