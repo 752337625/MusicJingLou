@@ -1,5 +1,6 @@
 import { getMvList } from '/@/api/main';
 import { onMounted, shallowReactive, toRefs } from 'vue';
+
 type CODE = '全部' | '内地' | '港台' | '欧美' | '日本' | '韩国';
 // type NAME = '全部' | '官方版' | '原生' | '现场版' | '网易出品';
 

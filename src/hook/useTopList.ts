@@ -14,13 +14,15 @@ export default function useTopList() {
     appContext: { config },
   } = getCurrentInstance() as ComponentInternalInstance;
   const getHottop = async () => {
-    const { list } = await getToplist();
+    const { list, code } = await getToplist();
+    if (code !== 200) return ElMessage.error('数据请求失败');
     top_info['top_list'] = list.splice(0, 4);
     top_info['top_list'].forEach(async item => {
-      const { playlist, privileges } = await getTopRankList({
+      const { playlist, privileges, code } = await getTopRankList({
         ...top_info['song_params'],
         id: item.id,
       });
+      if (code !== 200) return ElMessage.error('数据请求失败');
       top_info['top_song_list'][item.id] = config.globalProperties.$utils.formatSongs(
         playlist.tracks.splice(0, top_info['top_num']),
         privileges.splice(0, top_info['top_num']),

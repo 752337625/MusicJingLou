@@ -1,14 +1,14 @@
 <script setup>
   import { createAsyncComponent } from '/@/utils/createAsyncComponent';
   import { computed } from 'vue';
-  import useLoginStore from '/@/store/modules/login';
+  import useSongStore from '/@/store/modules/song';
   let Search = createAsyncComponent(() => import('/@/layouts/jingluo/Search.vue'));
-  const loginStore = useLoginStore();
-  const isLogin = computed(() => loginStore.getIsLogin);
+  const songStore = useSongStore();
+  const isLogin = computed(() => songStore.getIsLogin);
   // 头像
-  const avatarUrl = computed(() => loginStore.getAvatarUrl);
+  const avatarUrl = computed(() => songStore.getAvatarUrl);
   // 名称
-  const nickname = computed(() => loginStore.getNickname);
+  const nickname = computed(() => songStore.getNickname);
   const loginDialog = () => {
     console.log(1);
   };

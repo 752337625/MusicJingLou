@@ -1,5 +1,6 @@
 import { getSongList } from '/@/api/main';
 import { onMounted, shallowReactive, toRefs } from 'vue';
+
 interface SongList {
   id: string | number;
   picUrl: string;
@@ -22,7 +23,8 @@ export default function useSongList() {
   });
 
   const getHotSong = async params => {
-    const { artists } = await getSongList(params);
+    const { code, artists } = await getSongList(params);
+    if (code !== 200) return ElMessage.error('数据请求失败');
     song_info['song_list'] = artists;
     song_info['song_loading'] = false;
   };

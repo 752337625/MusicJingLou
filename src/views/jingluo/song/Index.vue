@@ -79,7 +79,7 @@
         </div>
       </div>
       <div ref="cBox" class="song-comments">
-        <!-- <comment-list :type="commentType" :sId="sId"></comment-list> -->
+        <CommentList :type="commentType" :sId="sId" />
       </div>
     </div>
     <div class="aside-box">
@@ -128,147 +128,27 @@
   </div>
 </template>
 
-<script>
-  import Lyrics from '/@/components/Lyrics.vue';
-  // import CommentList from '/@/components/Comments.vue';
-  import { reactive, toRefs, onMounted, computed, ref, getCurrentInstance } from 'vue';
-  import { onBeforeRouteUpdate, useRoute } from 'vue-router';
-  import { getDetail, getSimiSong as simiSong, getSimiPlaylist as simiPlayList } from '/@/api/main';
-  import useSongStore from '/@/store/modules/song';
-  export default {
-    name: 'SongDetail',
-    components: {
-      Lyrics,
-      // CommentList,
-    },
-    setup() {
-      const {
-        appContext: {
-          config: {
-            globalProperties: { $utils },
-          },
-        },
-      } = getCurrentInstance();
-      const songStore = useSongStore();
-      const route = useRoute();
-      const info = reactive({
-        songInfo: null,
-        sId: 0, // 歌曲的ID
-        coverDesc: '',
-        simiSong: [],
-        playlists: [],
-        mlogMv: [],
-        commentType: 0, // 0: 歌曲 1: mv 2: 歌单 3: 专辑  4: 电台 5: 视频 6: 动态
-      });
-      const cBox = ref(null);
-      const isLogin = computed(() => songStore.getIsLogin);
-      const isPlayed = computed(() => songStore.getIsPlayed);
-      const playList = computed(() => songStore.getPlayList);
-      const playIndex = computed(() => songStore.getPlayIndex);
-      const curSongInfo = computed(() => playList.value[playIndex.value]);
-      const isCurSong = computed(() => isPlayed.value && curSongInfo.value && curSongInfo.value.id === info.sId);
-      // 当前播放状态
-      const playFontIcon = computed(() => (isCurSong.value ? 'icon-audio-pause' : 'icon-audio-play'));
-      // 若是无版权获取vip歌曲 播放按钮置灰
-      const songDisable = computed(() => (info.songInfo.license || info.songInfo.vip ? 'disable' : ''));
-
-      // 获取歌曲详情
-      const getSongDetail = async () => {
-        const { privileges, code, songs } = await getDetail({
-          ids: info.sId,
-          timestamp: new Date().valueOf(),
-        });
-        if (code !== 200) return ElMessage.error('数据请求失败');
-        // 是否有版权播放
-        songs[0].license = !privileges[0].cp;
-        info['songInfo'] = $utils.formatSongs(songs, privileges)[0];
-        // 显示歌曲简介
-        info['coverDesc'] = info['songInfo'].alia.join(' / ');
-      };
-      // 播放音乐
-      const plyaing = params => {
-        // 若当前唔歌曲 或者 当前播放歌曲不是本页显示的歌曲  立即播放当前页面歌曲
-        if (!curSongInfo.value || curSongInfo.value.id !== params.id) {
-          // 无版权及vip不可播放
-          if (params.license) return ElMessage.error('由于版权保护，您所在的地区暂时无法使用。');
-          if (params.vip) return ElMessage.error('付费歌曲，请在网易云音乐播放');
-          songStore.setPlayAll({ list: [params] });
-          songStore.setIsShowPlayListTips(true);
-        } else {
-          songStore.setPlayStatus(!isPlayed.value);
-        }
-      };
-
-      // 获取相似音乐
-      const getSimiSong = async () => {
-        const { code, songs } = await simiSong({ id: info.sId });
-        if (code !== 200) return ElMessage.error('数据请求失败');
-
-        info['simiSong'] = songs.map(item => {
-          return {
-            id: String(item.id),
-            name: item.name,
-            mvId: item.mvid,
-            singer: item.artists,
-            album: item.album,
-            alia: item.alias,
-            duration: $utils.formatSongTime(item.duration),
-            url: `https://music.163.com/song/media/outer/url?id=${item.id}.mp3`,
-            vip: item.fee === 1,
-            license: item.license,
-            publishTime: item.publishTime,
-          };
-        });
-      };
-      const playSimiIcon = computed(() => {
-        return function (item) {
-          return curSongInfo.value && String(item.id) === curSongInfo.value.id && isPlayed.value
-            ? 'icon-audio-pause'
-            : 'icon-audio-play';
-        };
-      });
-
-      // 包含这首歌的歌单
-      const getSimiPlayList = async () => {
-        const { code, playlists } = await simiPlayList({ id: info.sId });
-        if (code !== 200) return ElMessage.error('数据请求失败');
-        info['playlists'] = playlists;
-      };
-
-      const jumpComment = () => {
-        cBox.value.scrollIntoView(true);
-      };
-      const init = () => {
-        if (info['sId']) {
-          getSongDetail();
-          getSimiSong();
-          getSimiPlayList();
-        }
-      };
-      onBeforeRouteUpdate(to => {
-        info['sId'] = to.query.id;
-        init();
-      });
-
-      onMounted(() => {
-        info['sId'] = route.query.id;
-        init();
-      });
-
-      return {
-        ...toRefs(info),
-        getSimiPlayList,
-        playSimiIcon,
-        playFontIcon,
-        songDisable,
-        jumpComment,
-        isCurSong,
-        isLogin,
-        plyaing,
-        cBox,
-      };
-    },
-  };
+<script lang="ts" setup>
+  import { createAsyncComponent } from '/@/utils/createAsyncComponent';
+  import useSong from '/@/hook/song/useSong';
+  let Lyrics = createAsyncComponent(() => import('/@/components/Lyrics.vue'));
+  let CommentList = createAsyncComponent(() => import('/@/components/Comments.vue'));
+  const {
+    songInfo,
+    sId, // 歌曲的ID
+    coverDesc,
+    simiSong,
+    playlists,
+    playSimiIcon,
+    playFontIcon,
+    songDisable,
+    isCurSong,
+    cBox,
+    commentType,
+    plyaing,
+    jumpComment,
+    showAddList,
+  } = useSong();
 </script>
 <style lang="less" scoped>
   .song-container {
@@ -362,7 +242,7 @@
       width: 190px;
       height: 190px;
       border-radius: 100%;
-      animation: soundPaying 15s linear infinite;
+      animation: sound-paying 15s linear infinite;
       animation-play-state: paused;
     }
 
@@ -399,7 +279,7 @@
       color: #fff;
     }
   }
-  @keyframes soundPaying {
+  @keyframes sound-paying {
     from {
       -webkit-transform: rotate(10deg);
       transform: rotate(10deg);
@@ -416,7 +296,7 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 20px;
-    height: 270px;
+    // height: 270px;
     margin: 0 20px 20px 0;
     background-color: #fff;
     box-shadow: 0 20px 27px rgb(0 0 0 / 5%);

@@ -7,11 +7,9 @@
       <div v-if="userInfo" class="userInfo">
         <span>{{ userInfo.nickname }}</span>
         <el-image :src="userInfo.avatarUrl" class="avatar">
-          <template #placeholder>
-            <div class="image-slot">
-              <i class="iconfont icon-placeholder"></i>
-            </div>
-          </template>
+          <div slot="placeholder" class="image-slot">
+            <i class="iconfont icon-placeholder"></i>
+          </div>
         </el-image>
       </div>
     </div>
@@ -38,11 +36,9 @@
         <div v-for="(item, index) in comments" :key="item.commentId + index + ''" class="comment_item">
           <router-link :to="{ path: '/user', query: { id: item.user.userId } }" class="comment_avatar">
             <el-image :src="item.user.avatarUrl + '?param=120y120'">
-              <template #placeholder>
-                <div class="image-slot">
-                  <i class="iconfont icon-placeholder"></i>
-                </div>
-              </template>
+              <div slot="placeholder" class="image-slot">
+                <i class="iconfont icon-placeholder"></i>
+              </div>
             </el-image>
           </router-link>
           <div class="comment_info">
@@ -72,7 +68,7 @@
               <i class="iconfont icon-choicest"></i>
             </div>
             <transition name="fade" mode="out-in">
-              <reply-comment v-if="isShowReply(item, index)" :params="item" @reply-msg="replyMsg" />
+              <Reply v-if="isShowReply(item, index)" :params="item" @reply-msg="replyMsg" />
             </transition>
           </div>
         </div>
@@ -90,219 +86,25 @@
     </div>
   </div>
 </template>
-
-<script>
-  // import { getCurrentInstance, computed, onMounted, watch, reactive, toRefs } from 'vue';
-  // import useLogingStore from '/@/store/modules/login';
-  // import ReplyComment from '/@/components/Reply.vue';
-  export default {
-    name: 'Comments',
-    components: {
-      ReplyComment,
-    },
-    props: {
-      sId: {
-        type: [Number, String],
-        default: 0,
-      },
-      type: {
-        type: Number,
-        default: 0,
-      },
-    },
-    setup(props) {
-      const { proxy } = getCurrentInstance();
-      const logingStore = useLogingStore();
-      const info = reactive({
-        msg: '',
-        maxLen: 140,
-        curId: props.sId,
-        limit: 20,
-        offset: 0,
-        before: 0,
-        hotComments: [],
-        comments: [],
-        total: 0,
-        currentPage: 0,
-        isEmpty: false,
-        replyCommentId: 0,
-        replyIndex: -1,
-      });
-
-      const userInfo = computed(() => logingStore.getUserInfo);
-      const isLogin = computed(() => logingStore.getIsLogin);
-      const isShowReply = computed(() => {
-        return function (item, index) {
-          return item.commentId === info.replyCommentId && info.replyIndex === index;
-        };
-      });
-      const msgHandler = res => {
-        if (res.code !== 200) {
-          return proxy.$msg.error('数据请求失败');
-        }
-        info.total = res.total;
-        info.hotComments = res.hotComments || [];
-        info.hotComments.map(item => {
-          item.isHot = true;
-          return item;
-        });
-        info.comments = [...info.hotComments, ...res.comments];
-        // 当前评论是否为空
-        info.isEmpty = info.before === 0 && !info.comments.length;
-      };
-      const getCommentList = async type => {
-        const { data: res } = await proxy.$http[type]({
-          id: info.curId,
-          limit: info.limit,
-          offset: info.offset,
-          before: info.before,
-          timestamp: new Date().valueOf(),
-        });
-
-        msgHandler(res);
-      };
-      // 获取页面评论
-      const getComment = () => {
-        // 0: 歌曲 1: mv 2: 歌单 3: 专辑  4: 电台 5: 视频 6: 动态
-        switch (props.type) {
-          case 0:
-            getCommentList('commentSong');
-            break;
-          case 1:
-            getCommentList('commentMv');
-            break;
-          case 3:
-            getCommentList('albumComment');
-            break;
-          case 5:
-            getCommentList('commentVideo');
-            break;
-        }
-      };
-
-      // 发布/删除/回复评论
-      const commentHandler = async (_t, _content, _commentId) => {
-        // const params = {
-        //   t: t, // 0删除 1发送 2回复
-        //   type: props.type, // 0: 歌曲 1: mv 2: 歌单 3: 专辑  4: 电台 5: 视频 6: 动态
-        //   id: info.curId, // 对应资源id
-        //   content: content, // 发送的内容/对应内容的id
-        //   commentId: commentId, // 回复的评论id
-        // };
-        // const { data: res, code } = await proxy.$http.comment(params);
-        // if (code !== 200) return ElMessage.error('数据请求失败');
-        // info.msg = '';
-        // getComment();
-        // if (t === 0) {
-        //   ElMessage.success('删除评论成功！');
-        // } else if (t === 1) {
-        //   ElMessage.success('评论成功！');
-        // } else if (t === 2) {
-        //   ElMessage.success('回复评论成功！');
-        //   info.replyCommentId = 0;
-        //   info.replyIndex = -1;
-        // }
-      };
-
-      // 发布评论
-      const subComment = async () => {
-        if (!isLogin.value) {
-          store.commit('setLoginDialog', true);
-          return;
-        }
-        commentHandler(1, info.msg);
-      };
-
-      // 删除评论
-      const delComment = item => {
-        proxy.$msgBox
-          .confirm('确定删除评论？', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            center: true,
-          })
-          .then(() => {
-            commentHandler(0, '', item.commentId);
-          });
-      };
-
-      // 回复评论
-      const replyComment = (item, index) => {
-        if (!isLogin.value) {
-          store.commit('setLoginDialog', true);
-          return;
-        }
-        info.replyCommentId = info.replyCommentId === item.commentId && info.replyIndex === index ? 0 : item.commentId;
-        info.replyIndex = index;
-      };
-
-      const replyMsg = msg => {
-        if (!isLogin.value) {
-          store.commit('setLoginDialog', true);
-          return;
-        }
-        commentHandler(2, msg, info.replyCommentId);
-      };
-
-      // 给评论点赞
-      const likeComment = async item => {
-        if (!isLogin.value) {
-          store.commit('setLoginDialog', true);
-          return;
-        }
-
-        const { data: res } = await proxy.$http.commentLike({
-          id: info.curId,
-          cid: item.commentId,
-          t: Number(!item.liked),
-          type: props.type,
-        });
-
-        if (res.code !== 200) {
-          return proxy.$msg.error('数据请求失败');
-        }
-        getComment();
-      };
-
-      // 留言分页
-      const currentChange = page => {
-        info.offset = (page - 1) * info.limit;
-      };
-
-      onMounted(() => {
-        getComment();
-      });
-
-      watch(
-        () => props.sId,
-        newVal => {
-          info['curId'] = newVal;
-          info['offset'] = 0;
-          getComment();
-        },
-      );
-
-      watch(
-        () => info.msg,
-        () => {
-          info.msg = info.maxLen >= info.msg ? info.msg : info.msg.substring(0, info.maxLen);
-        },
-      );
-
-      return {
-        ...toRefs(info),
-        userInfo,
-        isLogin,
-        subComment,
-        delComment,
-        replyMsg,
-        replyComment,
-        likeComment,
-        isShowReply,
-        currentChange,
-      };
-    },
-  };
+<script lang="ts" setup>
+  import { createAsyncComponent } from '/@/utils/createAsyncComponent';
+  import useComments from '/@/hook/useComments';
+  let Reply = createAsyncComponent(() => import('/@/components/Reply.vue'));
+  let {
+    msg,
+    maxLen,
+    comments,
+    total,
+    isEmpty,
+    userInfo,
+    subComment,
+    delComment,
+    replyMsg,
+    replyComment,
+    likeComment,
+    isShowReply,
+    currentChange,
+  } = useComments();
 </script>
 <style scoped lang="less">
   .comments {
@@ -466,7 +268,7 @@
         color: #999;
 
         &:hover {
-          color: var(--color-text);
+          color: @--color-text;
         }
       }
     }
@@ -512,7 +314,7 @@
 
           &.active,
           &.active .iconfont {
-            color: var(--color-text);
+            color: @--color-text;
           }
         }
       }
@@ -527,7 +329,7 @@
 
       .icon-choicest {
         font-size: 60px;
-        color: var(--color-text);
+        color: @--color-text;
         opacity: 0.8;
       }
     }

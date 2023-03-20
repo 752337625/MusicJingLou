@@ -23,7 +23,7 @@ export default {
       name: 'artist',
       component: () => import('/@/views/jingluo/artist/Index.vue'),
       meta: {
-        title: '歌手',
+        title: '艺术家',
         // 	// title: t('routes.dashboard.about'),
         // 	icon: 'simple-icons:about-dot-me',
         // 	hideMenu: true,
@@ -78,7 +78,7 @@ export default {
       name: 'singer',
       component: () => import('/@/views/jingluo/singer/Index.vue'),
       meta: {
-        title: '音乐',
+        title: '歌手',
         // 	// title: t('routes.dashboard.about'),
         // 	icon: 'simple-icons:about-dot-me',
         // 	hideMenu: true,

@@ -23,7 +23,32 @@ enum Api {
   GetSimiPlaylist = '/simi/playlist',
   GetLyric = '/lyric',
   GetArtists = '/artists',
+  GetCommentMusic = '/comment/music',
+  GetCommentMv = '/comment/mv',
+  GetCommentAlbum = '/comment/album',
+  GetCommentVideo = '/comment/video',
+  GetComment = '/comment',
+  GetCommentLike = '/comment/like',
 }
+export const getCommentLike = params => {
+  return defHttp.get({ url: Api.GetCommentLike, params });
+};
+export const getComment = params => {
+  return defHttp.get({ url: Api.GetComment, params });
+};
+export const getCommentVideo = params => {
+  return defHttp.get({ url: Api.GetCommentVideo, params });
+};
+export const getCommentAlbum = params => {
+  return defHttp.get({ url: Api.GetCommentAlbum, params });
+};
+
+export const getCommentMv = params => {
+  return defHttp.get({ url: Api.GetCommentMv, params });
+};
+export const getCommentMusic = params => {
+  return defHttp.get({ url: Api.GetCommentMusic, params });
+};
 export const getArtists = params => {
   return defHttp.get({ url: Api.GetArtists, params });
 };

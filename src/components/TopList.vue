@@ -19,7 +19,7 @@
       <div class="wrapper">
         <div v-for="item in topList" :key="item.id" class="toplist_item">
           <div class="toplist_hd">
-            <router-link :to="{ path: '/rank', query: { rId: item.id, type: 'Top' } }" class="toplist_name">{{
+            <router-link :to="{ path: '/music/rank', query: { rId: item.id, type: 'Top' } }" class="toplist_name">{{
               item.name
             }}</router-link>
             <h5 class="toplist_update">

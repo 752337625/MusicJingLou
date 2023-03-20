@@ -20,40 +20,9 @@
   </div>
 </template>
 
-<script>
-  import { reactive, toRefs, watch } from 'vue';
-  export default {
-    props: {
-      params: {
-        type: Object,
-        default: () => {
-          return {};
-        },
-      },
-    },
-    setup(props, { emit }) {
-      const info = reactive({
-        msg: '',
-        maxLen: 140,
-      });
-
-      const subReplyComment = () => {
-        emit('replyMsg', info['msg']);
-      };
-
-      watch(
-        () => info['msg'],
-        () => {
-          info['msg'] = info['maxLen'] >= info['msg'] ? info['msg'] : info['msg'].substring(0, info['maxLen']);
-        },
-      );
-
-      return {
-        ...toRefs(info),
-        subReplyComment,
-      };
-    },
-  };
+<script lang="ts" setup>
+  import useReply from '/@/hook/useReply';
+  const { params, msg, maxLen, subReplyComment } = useReply();
 </script>
 <style scoped lang="less">
   .reply-comment {

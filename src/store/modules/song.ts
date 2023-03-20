@@ -15,19 +15,53 @@ const findIndex = (list, playList) => {
     return d.id === list.id;
   });
 };
+
+interface UserInfo {
+  avatarUrl: string;
+  nickname: string;
+  userId: string;
+}
+interface SongStore {
+  songList: Array<any>;
+  loginDialogVisible: boolean; // 登录弹窗显示与隐藏
+  isShowPlayListTips: boolean;
+  playList: Array<any>;
+  isPlayed: boolean;
+  playIndex: number;
+  isLogin: boolean;
+  userInfo: UserInfo;
+}
 const useSongStore = defineStore({
   id: 'app-song',
-  state: () => {
+  state: (): SongStore => {
     return {
-      isLogin: false,
       songList: [],
+      loginDialogVisible: false, // 登录弹窗显示与隐藏
       isShowPlayListTips: false,
       playList: [],
       isPlayed: false,
       playIndex: 0,
+      isLogin: false,
+      userInfo: {
+        avatarUrl: '',
+        nickname: '',
+        userId: '',
+      },
     };
   },
   getters: {
+    getLoginDialogVisible: state => {
+      return state.loginDialogVisible;
+    },
+    getAvatarUrl: state => {
+      return state.userInfo.avatarUrl ?? '暂无数据';
+    },
+    getNickname: state => {
+      return state.userInfo.nickname ?? '暂无数据';
+    },
+    getUserInfo: state => {
+      return state?.userInfo ?? null;
+    },
     getIsLogin: state => {
       return state.isLogin;
     },
@@ -42,6 +76,9 @@ const useSongStore = defineStore({
     },
   },
   actions: {
+    setLoginDialogVisible(flag) {
+      this.loginDialogVisible = flag;
+    },
     setSelectPlay({ list }) {
       const playList = concatPlayList(list, this.playList);
       this.setPlayStatus(true);
@@ -74,6 +111,16 @@ const useSongStore = defineStore({
     },
     setIsShowPlayListTips(flag) {
       this.isShowPlayListTips = flag;
+    },
+    //设置当前系统设置国际化
+    setUserInfo(userInfo) {
+      this.userInfo = userInfo;
+    },
+    setAvatarUrl(avatarUrl) {
+      this.userInfo.avatarUrl = avatarUrl;
+    },
+    setNickname(nickname) {
+      this.userInfo.nickname = nickname;
     },
   },
 });
