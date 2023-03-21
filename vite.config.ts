@@ -97,7 +97,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         // managed by `vite-plugin-optimize-persist`
         // 'dayjs',
         // '@iconify/iconify',
-
         'element-plus/es/components/container/style/css',
         'element-plus/es/components/loading/style/css',
         'element-plus/es/components/footer/style/css',
@@ -114,6 +113,8 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         'element-plus/es/components/select/style/css',
         'element-plus/es/components/option-group/style/css',
         'element-plus/es/components/option/style/css',
+        'element-plus/es/components/form/style/css',
+        'element-plus/es/components/message-box/style/css',
       ],
     },
   };
