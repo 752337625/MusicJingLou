@@ -117,6 +117,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         'element-plus/es/components/message-box/style/css',
         'element-plus/es/components/tooltip/style/css',
         'element-plus/es/components/icon/style/css',
+        'element-plus/es/components/pagination/style/css',
       ],
     },
   };
