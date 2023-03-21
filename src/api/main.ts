@@ -32,7 +32,15 @@ enum Api {
   GetMvDetail = '/mv/detail',
   GetMvUrl = '/mv/url',
   GetSimiMv = '/simi/mv',
+  GetRelatedPlaylist = '/related/playlist',
+  GetCommentPlaylist = '/comment/playlist',
 }
+export const getCommentPlaylist = params => {
+  return defHttp.get({ url: Api.GetCommentPlaylist, params });
+};
+export const getRelatedPlaylist = params => {
+  return defHttp.get({ url: Api.GetRelatedPlaylist, params });
+};
 export const getSimiMv = params => {
   return defHttp.get({ url: Api.GetSimiMv, params });
 };

@@ -95,5 +95,16 @@ export default {
         // 	hideMenu: true,
       },
     },
+    {
+      path: 'detail',
+      name: 'detail',
+      component: () => import('/@/views/jingluo/detail/Index.vue'),
+      meta: {
+        title: '详情',
+        // 	// title: t('routes.dashboard.about'),
+        // 	icon: 'simple-icons:about-dot-me',
+        // 	hideMenu: true,
+      },
+    },
   ],
 };

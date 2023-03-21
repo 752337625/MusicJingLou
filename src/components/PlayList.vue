@@ -17,7 +17,7 @@
     <template #default>
       <div class="playlist">
         <div v-for="item in playList" :key="item.id" class="item">
-          <router-link :to="{ path: '/playlist/detail', query: { id: item.id } }" class="faceImg">
+          <router-link :to="{ path: '/music/detail', query: { id: item.id } }" class="faceImg">
             <el-image :src="item.coverImgUrl" lazy>
               <template #placeholder>
                 <div class="image-slot">
@@ -31,9 +31,7 @@
             >
           </router-link>
           <div class="info">
-            <router-link :to="{ path: '/music/playlist/detail', query: { id: item.id } }" class="info_name"
-              >{{ item.name }}
-            </router-link>
+            <router-link :to="{ path: '/music/detail', query: { id: item.id } }" class="info_name">{{ item.name }} </router-link>
             <div class="tags">
               <router-link
                 v-for="(tag, index) in item.tags"

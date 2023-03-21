@@ -106,7 +106,7 @@
             v-for="item in playlists"
             :key="item.id"
             class="playlist-item"
-            :to="{ path: '/playlist/detail', query: { id: item.id } }">
+            :to="{ path: '/music/detail', query: { id: item.id } }">
             <el-image :src="item.coverImgUrl">
               <template #placeholder>
                 <div class="image-slot">
