@@ -21,7 +21,7 @@ function createWindow() {
   global.win = new BrowserWindow({
     center: true,
     show: false,
-    minWidth: 1022,
+    minWidth: 1500,
     minHeight: 670,
     resizable: true,
     alwaysOnTop: false, // 窗口是否永远在其他窗口上面
