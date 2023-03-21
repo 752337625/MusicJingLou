@@ -2,7 +2,7 @@
   import { createAsyncComponent } from '/@/utils/createAsyncComponent';
   let Sidebar = createAsyncComponent(() => import('/@/layouts/jingluo/Sidebar.vue'));
   let Main = createAsyncComponent(() => import('/@/layouts/jingluo/Main.vue'));
-  // let PlayBar = createAsyncComponent(() => import('/@/components/PlayBar.vue'));
+  let PlayBar = createAsyncComponent(() => import('/@/layouts/jingluo/PlayBarTmp/PlayBar.vue'));
 </script>
 <template>
   <el-container class="jingluo">
@@ -12,7 +12,7 @@
     <el-main>
       <Main />
     </el-main>
-    <!-- <PlayBar /> -->
+    <PlayBar />
   </el-container>
 </template>
 <style lang="less" scoped>
@@ -24,23 +24,4 @@
   .el-aside {
     width: 270px;
   }
-
-  // .el-header,
-  // .el-footer {
-  // 	height: 50px;
-  // 	line-height: 50px;
-  // 	padding: 0;
-  // }
-  // .el-header {
-  // 	background-color: @jl-layout-background-color;
-  // 	color: @jl-layout-color;
-  // }
-  // .el-main {
-  // 	display: flex;
-  // 	overflow: hidden;
-  // 	padding: 0;
-  // }
-  // .el-footer {
-  // 	border-top: 1px solid #ddd;
-  // }
 </style>

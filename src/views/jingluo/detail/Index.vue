@@ -23,7 +23,7 @@
                   v-for="item in collects"
                   :key="item.userId"
                   class="collect-author"
-                  :to="{ path: '/singer', query: { id: item.userId } }">
+                  :to="{ path: '/music/singer', query: { id: item.userId } }">
                   <el-image :src="item.avatarUrl">
                     <template #placeholder>
                       <div class="image-slot">
@@ -50,7 +50,7 @@
                 <router-link
                   v-for="(tag, index) in details.tags"
                   :key="index"
-                  :to="{ path: '/playlist', query: { cat: tag } }"
+                  :to="{ path: '/music/playlist', query: { cat: tag } }"
                   class="tag"
                   >#{{ tag }}</router-link
                 >
@@ -107,7 +107,7 @@
               v-for="item in playlists"
               :key="item.id"
               class="recom-item"
-              :to="{ path: '/playlist/detail', query: { id: item.id } }">
+              :to="{ path: '/music/detail', query: { id: item.id } }">
               <el-image :src="item.coverImgUrl">
                 <template #placeholder>
                   <div class="image-slot">
@@ -119,7 +119,7 @@
                 <div class="recom-name">{{ item.name }}</div>
                 <div class="recom-author">
                   By.
-                  <router-link :to="{ path: '/user', query: { id: item.creator.userId } }">{{
+                  <router-link :to="{ path: '/music/user', query: { id: item.creator.userId } }">{{
                     item.creator.nickname
                   }}</router-link>
                 </div>
@@ -131,7 +131,7 @@
           <h3 class="aside-title">歌单评论</h3>
           <div class="aside-main comment-main">
             <div v-for="item in comments" :key="item.commentId" class="comment-item">
-              <router-link :to="{ path: '/user', query: { id: item.commentId } }">
+              <router-link :to="{ path: '/music/user', query: { id: item.commentId } }">
                 <el-image :src="item.user.avatarUrl">
                   <template #placeholder>
                     <div class="image-slot">
@@ -142,7 +142,7 @@
               </router-link>
               <div class="comment-info">
                 <div class="comment-userInfo"
-                  ><router-link :to="{ path: '/user', query: { id: item.commentId } }" class="comment-name">{{
+                  ><router-link :to="{ path: '/music/user', query: { id: item.commentId } }" class="comment-name">{{
                     item.user.nickname
                   }}</router-link
                   ><span class="comment-date">{{ $utils.formatMsgTime(item.time) }}</span></div

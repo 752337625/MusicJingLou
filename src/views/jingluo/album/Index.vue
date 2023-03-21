@@ -21,7 +21,7 @@
               >歌手：<router-link
                 v-for="(author, k) in details.artists"
                 :key="author.name"
-                :to="{ path: '/singer', query: { id: author.id } }"
+                :to="{ path: '/music/singer', query: { id: author.id } }"
                 class="song_name"
                 >{{ k !== 0 ? ' / ' + author.name : author.name }}</router-link
               ></div
@@ -61,7 +61,7 @@
         <div class="album-aside album-other">
           <h3 class="aside-title">
             {{ details.artists[0].name }}的其他专辑
-            <router-link :to="{ path: '/singer', query: { id: artistsId, type: 'album' } }" class="album-more">
+            <router-link :to="{ path: '/music/singer', query: { id: artistsId, type: 'album' } }" class="album-more">
               全部>>
             </router-link>
           </h3>

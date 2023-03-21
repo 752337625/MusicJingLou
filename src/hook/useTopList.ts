@@ -1,7 +1,6 @@
 import { getToplist, getTopRankList } from '/@/api/main';
 import { onMounted, shallowReactive, toRefs, getCurrentInstance } from 'vue';
 import { ComponentInternalInstance } from 'vue';
-
 export default function useTopList() {
   const top_info = shallowReactive({
     top_list: [],

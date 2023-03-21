@@ -102,7 +102,7 @@ export default function useDetail() {
 
   // 未登录状态，点击登录按钮，显示登录框
   const loginDialog = () => {
-    store.dispatch('loginSuc', true);
+    songStore.setLoginDialogVisible(true);
   };
 
   // 订阅该歌单的用户列表

@@ -1,26 +1,15 @@
-import { shallowReactive, toRefs, watch, withDefaults } from 'vue';
+import { shallowReactive, toRefs, watch } from 'vue';
 
 interface Info {
   msg: string;
   maxLen: number;
 }
 export default function useReply() {
-  const props = withDefaults(
-    defineProps<{
-      params: {
-        user: { nickname: string };
-      };
-    }>(),
-    {
-      params: () => {
-        return {
-          user: {
-            nickname: '',
-          },
-        };
-      },
-    },
-  );
+  const props = defineProps<{
+    params: {
+      user: { nickname: string };
+    };
+  }>();
   const emit = defineEmits(['replyMsg', 'delete']);
   const info: Info = shallowReactive({
     msg: '',

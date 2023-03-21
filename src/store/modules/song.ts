@@ -1,6 +1,6 @@
 import utils from '/@/utils/util';
 // 合并歌曲到播放列表查重
-const concatPlayList = (list, playList = []) => {
+const concatPlayList = (list, playList: Array<any>) => {
   // filter过滤无版权及vip歌曲
   return utils.concatPlayList(
     list.filter(item => {
@@ -10,16 +10,16 @@ const concatPlayList = (list, playList = []) => {
   );
 };
 // 当前歌曲在播放列表的索引
-const findIndex = (list, playList) => {
+const findIndex = (list, playList: Array<any>) => {
   return playList.findIndex(d => {
     return d.id === list.id;
   });
 };
 
 interface UserInfo {
-  avatarUrl: string;
-  nickname: string;
-  userId: string;
+  avatarUrl?: string;
+  nickname?: string;
+  userId?: string;
 }
 interface SongStore {
   songList: Array<any>;
@@ -29,7 +29,7 @@ interface SongStore {
   isPlayed: boolean;
   playIndex: number;
   isLogin: boolean;
-  userInfo: UserInfo;
+  userInfo: UserInfo | null;
 }
 const useSongStore = defineStore({
   id: 'app-song',
@@ -42,11 +42,7 @@ const useSongStore = defineStore({
       isPlayed: false,
       playIndex: 0,
       isLogin: false,
-      userInfo: {
-        avatarUrl: '',
-        nickname: '',
-        userId: '',
-      },
+      userInfo: null,
     };
   },
   getters: {
@@ -54,10 +50,13 @@ const useSongStore = defineStore({
       return state.loginDialogVisible;
     },
     getAvatarUrl: state => {
-      return state.userInfo.avatarUrl ?? '暂无数据';
+      return state.userInfo?.avatarUrl ?? '暂无数据';
+    },
+    getIsShowPlayListTips: state => {
+      return state.isShowPlayListTips;
     },
     getNickname: state => {
-      return state.userInfo.nickname ?? '暂无数据';
+      return state.userInfo?.nickname ?? '暂无数据';
     },
     getUserInfo: state => {
       return state?.userInfo ?? null;
@@ -78,6 +77,9 @@ const useSongStore = defineStore({
   actions: {
     setLoginDialogVisible(flag) {
       this.loginDialogVisible = flag;
+    },
+    setPlayIndex(index) {
+      this.playIndex = index;
     },
     setSelectPlay({ list }) {
       const playList = concatPlayList(list, this.playList);
@@ -117,10 +119,10 @@ const useSongStore = defineStore({
       this.userInfo = userInfo;
     },
     setAvatarUrl(avatarUrl) {
-      this.userInfo.avatarUrl = avatarUrl;
+      this.userInfo!.avatarUrl = avatarUrl;
     },
     setNickname(nickname) {
-      this.userInfo.nickname = nickname;
+      this.userInfo!.nickname = nickname;
     },
   },
 });

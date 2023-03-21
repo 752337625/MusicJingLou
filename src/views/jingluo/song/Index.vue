@@ -118,7 +118,9 @@
               <div class="playlist-name">{{ item.name }}</div>
               <div class="playlist-author">
                 By.
-                <router-link :to="{ path: '/user', query: { id: item.creator.userId } }">{{ item.creator.nickname }}</router-link>
+                <router-link :to="{ path: '/music/user', query: { id: item.creator.userId } }">{{
+                  item.creator.nickname
+                }}</router-link>
               </div>
             </div>
           </router-link>
@@ -136,6 +138,7 @@
   const {
     songInfo,
     sId, // 歌曲的ID
+    commentType,
     coverDesc,
     simiSong,
     playlists,
@@ -144,7 +147,6 @@
     songDisable,
     isCurSong,
     cBox,
-    commentType,
     plyaing,
     jumpComment,
     showAddList,
@@ -219,10 +221,10 @@
   .cover-img {
     position: relative;
     width: 190px;
-    padding: 40px;
+    // padding: 40px;
     font-size: 0;
-    background: url('/@/assets/img/disc.png') no-repeat;
-    background-size: contain;
+    // background: url('/@/assets/img/disc.png') no-repeat;
+    // background-size: contain;
     cursor: pointer;
 
     .cover-stylus {

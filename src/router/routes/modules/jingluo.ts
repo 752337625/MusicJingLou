@@ -117,13 +117,23 @@ export default {
         // 	hideMenu: true,
       },
     },
-    ,
     {
       path: 'dj',
       name: 'dj',
       component: () => import('/@/views/jingluo/dj/Index.vue'),
       meta: {
         title: 'DJ',
+        // 	// title: t('routes.dashboard.about'),
+        // 	icon: 'simple-icons:about-dot-me',
+        // 	hideMenu: true,
+      },
+    },
+    {
+      path: 'user',
+      name: 'user',
+      component: () => import('/@/views/jingluo/user/Index.vue'),
+      meta: {
+        title: '用户',
         // 	// title: t('routes.dashboard.about'),
         // 	icon: 'simple-icons:about-dot-me',
         // 	hideMenu: true,

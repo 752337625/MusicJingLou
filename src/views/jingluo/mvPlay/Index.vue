@@ -6,7 +6,7 @@
         <router-link
           v-for="(author, k) in mvDetail.artists"
           :key="author.name"
-          :to="{ path: '/singer', query: { id: author.id } }"
+          :to="{ path: '/music/singer', query: { id: author.id } }"
           class="song-author"
           >{{ k !== 0 ? ' / ' + author.name : author.name }}</router-link
         >

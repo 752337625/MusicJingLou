@@ -58,6 +58,7 @@ module.exports = {
     '@typescript-eslint/ban-types': ['off'], //解决error  Don't use `{}` as a type. `{}` actually means "any non-nullish value".
     '@typescript-eslint/no-empty-function': 'error', // 空函数异常警告开启
     '@typescript-eslint/no-use-before-define': 'error', // 使用前先定义
+    '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
