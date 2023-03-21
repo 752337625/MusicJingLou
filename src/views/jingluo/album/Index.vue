@@ -21,7 +21,7 @@
               >歌手：<router-link
                 v-for="(author, k) in details.artists"
                 :key="author.name"
-                :to="{ path: '/music/singer', query: { id: author.id } }"
+                :to="{ path: '/singer', query: { id: author.id } }"
                 class="song_name"
                 >{{ k !== 0 ? ' / ' + author.name : author.name }}</router-link
               ></div
@@ -34,7 +34,9 @@
                   ><i class="iconfont icon-closed"></i></em
               ></h5>
               <p @click="showAllDesc">{{ details.description }}</p>
-              <pre v-if="isShowDesc" class="album-desc-all">{{ details.description }}</pre>
+              <pre v-if="isShowDesc" class="album-desc-all">
+                  {{ details.description }}
+              </pre>
             </div>
           </div>
         </div>
@@ -52,36 +54,17 @@
           <SongList :songList="songList" :stripe="true" />
         </div>
         <div ref="comment" class="album-comments">
-          <!-- <comment-list :type="type" :sId="albumId"></comment-list> -->
+          <CommentList :type="type" :sId="albumId" />
         </div>
       </div>
       <div class="aside-box">
-        <!-- <div class="album-aside album-collect">
-                    <h3 class="aside-title">喜欢这张专辑的人</h3>
-                    <div class="aside-main aside-album-main">
-                        <router-link class="aside-album-item" :to="{ path: '/album', query: { id: item.id }}" v-for="item in hotAlbums" :key="item.id">
-                            <el-image :src="item.picUrl">
-                                <div slot="placeholder" class="image-slot">
-                                    <i class="iconfont icon-placeholder"></i>
-                                </div>
-                            </el-image>
-                            <div class="aside-album-info">
-                                <div class="aside-album-name">{{item.name}}</div>
-                                <div class="aside-album-time">
-                                    {{$utils.formartDate(details.publishTime, 'yyyy-MM-dd')}}
-                                </div>
-                            </div>
-                        </router-link>
-                    </div>
-                </div> -->
         <div class="album-aside album-other">
-          <h3 class="aside-title"
-            >{{ details.artists[0].name }}的其他专辑<router-link
-              :to="{ path: '/music/singer', query: { id: details.artists[0].id, type: 'album' } }"
-              class="album-more"
-              >全部>></router-link
-            ></h3
-          >
+          <h3 class="aside-title">
+            {{ details.artists[0].name }}的其他专辑
+            <router-link :to="{ path: '/singer', query: { id: artistsId, type: 'album' } }" class="album-more">
+              全部>>
+            </router-link>
+          </h3>
           <div class="aside-main aside-album-main">
             <router-link
               v-for="item in hotAlbums"
@@ -108,113 +91,14 @@
     </div>
   </div>
 </template>
+<script lang="ts" setup>
+  import { createAsyncComponent } from '/@/utils/createAsyncComponent';
+  import useAlbum from '/@/hook/album/useAlbum';
+  let CommentList = createAsyncComponent(() => import('/@/components/Comments.vue'));
+  let SongList = createAsyncComponent(() => import('/@/components/SongList.vue'));
 
-<script>
-  import SongList from '/@/components/SongList.vue';
-  //   import CommentList from '/@/components/Comments.vue';
-  import { getCurrentInstance, onMounted, reactive, toRefs } from 'vue';
-  import { onBeforeRouteUpdate, useRoute } from 'vue-router';
-  import { ComponentInternalInstance } from 'vue';
-  import useSongStore from '/@/store/modules/song';
-  import { getArtistAlbum as artistAlbum, getAlbum as albumFn, getDynamic, getSub, getSubscribers } from '/@/api/main';
-  export default {
-    components: {
-      SongList,
-      //   CommentList,
-    },
-    setup() {
-      const songStore = useSongStore();
-      const route = useRoute();
-       const {
-    appContext: { config },
-  } = getCurrentInstance() as ComponentInternalInstance;
-      const info = reactive({
-        // 歌单详情
-        albumId: '',
-        details: null,
-        songList: [],
-        dynamic: {},
-        hotAlbums: [],
-        comments: [],
-        type: 3, // 0: 歌曲 1: mv 2: 歌单 3: 专辑  4: 电台 5: 视频 6: 动态
-        isShowDesc: false,
-        collects: [],
-      });
-      const getArtistAlbum = async () => {
-        const { code, hotAlbums } = await artistAlbum({
-          id: info.details.artists[0].id,
-          limit: 5,
-        });
-        if (code !== 200) return ElMessage.error('数据请求失败');
-        info.hotAlbums = hotAlbums;
-      };
-      // 相关歌单推荐
-      const getAlbum = async params => {
-        const { code, album, songs } = await albumFn(params);
-        if (code !== 200) return ElMessage.error('数据请求失败');
-        info.details = album;
-        const privileges = songs.map(item => item.privilege);
-        info.songList = config.globalProperties.$utils.formatSongs(songs, privileges);
-        getArtistAlbum();
-      };
-
-      const getAlbumDynamic = async params => {
-        const { data, code } = await getDynamic(params);
-        if (code !== 200) return ElMessage.error('数据请求失败');
-        info.dynamic = data;
-      };
-      // 专辑简介查看更多
-      const showAllDesc = () => {
-        if (info.details.description.length > 120) {
-          info.isShowDesc = !info.isShowDesc;
-        }
-      };
-
-      const playAllSongs = () => {
-        songStore.setSongList(info.songList);
-        songStore.setIsShowPlayListTips(true);
-      };
-
-      const subAlbum = async () => {
-        const { code } = await getSub({
-          id: info.albumId,
-          t: Number(!info.dynamic.isSub),
-        });
-        if (code !== 200) return ElMessage.error('数据请求失败');
-        info.dynamic.isSub = Number(!info.dynamic.isSub);
-      };
-
-      // 订阅该歌单的用户列表
-      const getCollect = async params => {
-        const { code, subscribers } = await getSubscribers(params);
-        if (code !== 200) return ElMessage.error('数据请求失败');
-        info.collects = subscribers;
-      };
-
-      const _initialize = () => {
-        getAlbum({ id: info.albumId });
-        getAlbumDynamic({ id: info.albumId });
-        getCollect({ id: info.albumId });
-      };
-
-      onMounted(() => {
-        info.albumId = route.query.id;
-        _initialize();
-      });
-
-      onBeforeRouteUpdate(to => {
-        info.albumId = to.query.id;
-        _initialize();
-      });
-
-      return {
-        ...toRefs(info),
-        showAllDesc,
-        playAllSongs,
-        subAlbum,
-      };
-    },
-  };
+  const { artistsId, albumId, details, songList, dynamic, hotAlbums, type, isShowDesc, showAllDesc, playAllSongs, subAlbum } =
+    useAlbum();
 </script>
 <style scoped lang="less">
   .detail-container {
@@ -274,7 +158,7 @@
       right: -40px;
       width: 100%;
       height: 100%;
-      background: url('/@/assets/img/disc.png') no-repeat;
+      background: url('../../assets/img/disc.png') no-repeat;
       background-size: contain;
       transition: all 0.4s linear;
     }

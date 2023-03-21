@@ -31,14 +31,14 @@
             >
           </router-link>
           <div class="info">
-            <router-link :to="{ path: '/playlist/detail', query: { id: item.id } }" class="info_name"
+            <router-link :to="{ path: '/music/playlist/detail', query: { id: item.id } }" class="info_name"
               >{{ item.name }}
             </router-link>
             <div class="tags">
               <router-link
                 v-for="(tag, index) in item.tags"
                 :key="index"
-                :to="{ path: '/playlist', query: { cat: tag } }"
+                :to="{ path: '/music/playlist', query: { cat: tag } }"
                 class="tag"
                 >#{{ tag }}</router-link
               >

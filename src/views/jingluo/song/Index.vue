@@ -7,7 +7,7 @@
             <div class="info-top">
               <h3 class="song-name">
                 {{ songInfo.name }}
-                <router-link v-if="songInfo.mvId" class="mv-name" :to="{ path: '/mvlist/mv', query: { id: songInfo.mvId } }">
+                <router-link v-if="songInfo.mvId" class="mv-name" :to="{ path: '/music/mv', query: { id: songInfo.mvId } }">
                   <i class="iconfont icon-mvlist"></i>
                 </router-link>
                 <i v-if="songInfo.vip" class="iconfont icon-vip"></i>

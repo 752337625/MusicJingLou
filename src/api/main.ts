@@ -29,7 +29,19 @@ enum Api {
   GetCommentVideo = '/comment/video',
   GetComment = '/comment',
   GetCommentLike = '/comment/like',
+  GetMvDetail = '/mv/detail',
+  GetMvUrl = '/mv/url',
+  GetSimiMv = '/simi/mv',
 }
+export const getSimiMv = params => {
+  return defHttp.get({ url: Api.GetSimiMv, params });
+};
+export const getMvUrl = params => {
+  return defHttp.get({ url: Api.GetMvUrl, params });
+};
+export const getMvDetail = params => {
+  return defHttp.get({ url: Api.GetMvDetail, params });
+};
 export const getCommentLike = params => {
   return defHttp.get({ url: Api.GetCommentLike, params });
 };

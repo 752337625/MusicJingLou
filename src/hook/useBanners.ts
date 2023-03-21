@@ -31,7 +31,7 @@ export default function useBanners() {
         router.push({ path: '/music/playlist', query: { id: params.targetId } });
         break;
       case 1004: // MV
-        router.push({ path: '/mvlist/mv', query: { id: params.targetId } });
+        router.push({ path: '/music/mv', query: { id: params.targetId } });
         break;
       case 3000: // 外链
         window.open(params.url, '_blank');

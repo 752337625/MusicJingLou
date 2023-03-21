@@ -26,7 +26,7 @@
               {{ item.name }}
             </router-link>
             <template v-if="typeSize !== 'mini'">
-              <router-link v-if="item.mvId" class="mv-name" :to="{ path: '/mvlist/mv', query: { id: item.mvId } }">
+              <router-link v-if="item.mvId" class="mv-name" :to="{ path: '/music/mv', query: { id: item.mvId } }">
                 <i class="iconfont icon-mv"></i>
               </router-link>
               <i v-if="item.vip" class="iconfont icon-vip"></i>

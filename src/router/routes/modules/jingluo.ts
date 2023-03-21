@@ -34,6 +34,17 @@ export default {
       name: 'mvlist',
       component: () => import('/@/views/jingluo/mv/Index.vue'),
       meta: {
+        title: 'Mvlist',
+        // 	// title: t('routes.dashboard.about'),
+        // 	icon: 'simple-icons:about-dot-me',
+        // 	hideMenu: true,
+      },
+    },
+    {
+      path: 'mv',
+      name: 'mv',
+      component: () => import('/@/views/jingluo/mvPlay/Index.vue'),
+      meta: {
         title: 'MV',
         // 	// title: t('routes.dashboard.about'),
         // 	icon: 'simple-icons:about-dot-me',
