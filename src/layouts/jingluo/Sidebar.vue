@@ -61,7 +61,7 @@
 </script>
 <style lang="less" scoped>
   .side-main {
-    padding: 0 35px;
+    padding: 0 15px;
     text-align: center;
   }
   .logo {

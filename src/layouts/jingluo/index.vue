@@ -34,7 +34,7 @@
     height: 50px;
   }
   .el-aside {
-    width: 270px;
+    width: 230px;
     background: #fafafa;
     overflow: hidden;
     border-right: 1px solid #e0e0e0;
