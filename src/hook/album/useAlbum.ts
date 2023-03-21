@@ -1,5 +1,5 @@
 import { onMounted, reactive, toRefs, ComponentInternalInstance, computed } from 'vue';
-import { onBeforeRouteUpdate, useRoute } from 'vue-router';
+import { useRoute } from 'vue-router';
 import { getAlbum as album, getArtistAlbum as artistAlbum, getDynamic, getSub, getSubscribers } from '/@/api/main';
 import useSongStore from '/@/store/modules/song';
 import type { LocationQueryValue } from 'vue-router';
@@ -129,10 +129,10 @@ export default function useAlbum() {
     _initialize();
   });
 
-  onBeforeRouteUpdate(to => {
-    info.albumId = to.query.id;
-    _initialize();
-  });
+  // onBeforeRouteUpdate(to => {
+  //   info.albumId = to.query.id;
+  //   _initialize();
+  // });
 
   return {
     ...toRefs(info),

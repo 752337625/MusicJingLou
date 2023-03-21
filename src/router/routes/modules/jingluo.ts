@@ -106,5 +106,28 @@ export default {
         // 	hideMenu: true,
       },
     },
+    {
+      path: 'album',
+      name: 'album',
+      component: () => import('/@/views/jingluo/album/Index.vue'),
+      meta: {
+        title: '专辑',
+        // 	// title: t('routes.dashboard.about'),
+        // 	icon: 'simple-icons:about-dot-me',
+        // 	hideMenu: true,
+      },
+    },
+    ,
+    {
+      path: 'dj',
+      name: 'dj',
+      component: () => import('/@/views/jingluo/dj/Index.vue'),
+      meta: {
+        title: 'DJ',
+        // 	// title: t('routes.dashboard.about'),
+        // 	icon: 'simple-icons:about-dot-me',
+        // 	hideMenu: true,
+      },
+    },
   ],
 };

@@ -70,7 +70,7 @@
               v-for="item in hotAlbums"
               :key="item.id"
               class="aside-album-item"
-              :to="{ path: '/album', query: { id: item.id } }">
+              :to="{ path: '/music/album', query: { id: item.id } }">
               <el-image :src="item.picUrl">
                 <template #placeholder>
                   <div class="image-slot">

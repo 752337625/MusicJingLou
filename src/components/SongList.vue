@@ -43,7 +43,7 @@
             >
           </div>
           <div v-if="typeSize !== 'mini'" class="columnAlbum">
-            <router-link v-if="item.album" class="songlist-album" :to="{ path: '/album', query: { id: item.album.id } }">{{
+            <router-link v-if="item.album" class="songlist-album" :to="{ path: '/music/album', query: { id: item.album.id } }">{{
               item.album.name
             }}</router-link>
           </div>

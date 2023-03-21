@@ -103,107 +103,12 @@
     </div>
   </div>
 </template>
-
-<script>
-  import SongList from '/@/components/SongList.vue';
-  import Loading from '/@/components/IconLoading.vue';
-  import { getTopListDetail as topListDetail, getTopRankList } from '/@/api/main';
-  import { reactive, onMounted, toRefs, watchEffect, getCurrentInstance } from 'vue';
-  import { useRoute, useRouter } from 'vue-router';
-  import useSongStore from '/@/store/modules/song';
-  export default {
-    name: 'Rank',
-    components: {
-      SongList,
-      Loading,
-    },
-    setup() {
-      const {
-        appContext: { config },
-      } = getCurrentInstance();
-      const route = useRoute();
-      const router = useRouter();
-      const songStore = useSongStore();
-      const info = reactive({
-        list: [],
-        type: 'Top',
-        listTop: [],
-        listFeature: [],
-        listOther: [],
-        rId: 0,
-        rankInfo: {},
-        songList: [],
-        total: 0,
-        isLoading: true,
-      });
-
-      const getTopListDetail = async () => {
-        const { list, code } = await topListDetail();
-        if (code !== 200) return ElMessage.error('数据请求失败');
-        // 云音乐TOP榜
-        info['listTop'] = list.filter(item => {
-          return item.ToplistType;
-        });
-        // 云音乐特色榜
-        info['listFeature'] = list.filter(item => {
-          return !item.ToplistType && item.name.indexOf('云音乐') >= 0;
-        });
-        // 其他场景榜
-        info['listOther'] = list.filter(item => {
-          return !item.ToplistType && item.name.indexOf('云音乐') < 0;
-        });
-
-        info['list'] = info.type ? info['list' + info.type] : info.listTop;
-        info['rId'] = info.rId ? info.rId : info.listTop[0].id;
-      };
-
-      const getListDetail = async () => {
-        info['isLoading'] = true;
-        const { code, playlist, privileges } = await getTopRankList({ id: info.rId, s: -1 });
-        if (code !== 200) return ElMessage.error('数据请求失败');
-        info['rankInfo'] = playlist;
-        info['songList'] = config.$utils.formatSongs(playlist.tracks, privileges);
-        info['total'] = info.songList.length;
-        info['isLoading'] = false;
-      };
-
-      const selectType = type => {
-        info['type'] = type;
-        info['list'] = info['list' + info.type];
-        info['rId'] = info['list' + type][0].id;
-        router.push({ path: 'rank', query: { type: info.type, rId: info.rId } });
-      };
-
-      const selectItem = item => {
-        info.rId = item.id;
-        router.push({ path: 'rank', query: { type: info.type, rId: info.rId } });
-      };
-
-      const playAllSongs = () => {
-        songStore.setSongList(info.songList);
-        songStore.setIsShowPlayListTips(true);
-      };
-
-      onMounted(() => {
-        info['type'] = route.query.type || info.type;
-        info['rId'] = route.query.rId;
-        getTopListDetail();
-      });
-
-      watchEffect(() => {
-        if (info.rId) {
-          getListDetail();
-        }
-      });
-
-      return {
-        ...toRefs(info),
-        selectType,
-        selectItem,
-        playAllSongs,
-      };
-    },
-  };
+<script lang="ts" setup>
+  import { createAsyncComponent } from '/@/utils/createAsyncComponent';
+  import useRank from '/@/hook/rank/useRank';
+  let Loading = createAsyncComponent(() => import('/@/components/IconLoading.vue'));
+  let SongList = createAsyncComponent(() => import('/@/components/SongList.vue'));
+  const { list, type, rId, rankInfo, songList, total, isLoading, selectType, selectItem, playAllSongs, subPlayList } = useRank();
 </script>
 <style lang="less" scoped>
   .rank-container {

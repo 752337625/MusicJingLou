@@ -23,7 +23,7 @@
               >
               <p class="song-related">
                 <span
-                  >专辑：<router-link class="song-album" :to="{ path: '/album', query: { id: songInfo.album.id } }">{{
+                  >专辑：<router-link class="song-album" :to="{ path: '/music/album', query: { id: songInfo.album.id } }">{{
                     songInfo.album.name
                   }}</router-link></span
                 >

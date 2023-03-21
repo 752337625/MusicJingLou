@@ -113,7 +113,7 @@
             router.push({ path: '/music/singer', query: { id: item.id } });
             break;
           case 'albums':
-            router.push({ path: '/album', query: { id: item.id } });
+            router.push({ path: '/music/album', query: { id: item.id } });
             break;
           case 'playlists':
             router.push({ path: '/music/detail', query: { id: item.id } });
