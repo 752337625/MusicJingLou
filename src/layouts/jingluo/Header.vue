@@ -65,8 +65,6 @@
     height: 50px;
     background: #ec4141;
     padding: 0 20px;
-    // margin-bottom: 25px;
-    // border-radius: 12px;
     box-shadow: 0 20px 27px rgba(0, 0, 0, 0.05);
     color: rgba(255, 255, 255, 0.8);
   }

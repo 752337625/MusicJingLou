@@ -44,11 +44,11 @@
       icon: 'artist',
       path: 'music/artist',
     },
-    {
-      name: '我的音乐',
-      icon: 'mvlist',
-      path: 'music/my',
-    },
+    // {
+    //   name: '我的音乐',
+    //   icon: 'mvlist',
+    //   path: 'music/my',
+    // },
   ]);
   // 当前选择菜单
   const menuActive = computed(() => route.path);
