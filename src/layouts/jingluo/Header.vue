@@ -1,8 +1,9 @@
 <script setup>
-  import { createAsyncComponent } from '/@/utils/createAsyncComponent';
+  // import { createAsyncComponent } from '/@/utils/createAsyncComponent';
   import { computed } from 'vue';
   import useSongStore from '/@/store/modules/song';
-  let Search = createAsyncComponent(() => import('/@/layouts/jingluo/Search.vue'));
+  import { CloseBold, SemiSelect, FullScreen } from '@element-plus/icons-vue';
+  // let Search = createAsyncComponent(() => import('/@/layouts/jingluo/Search.vue'));
   const songStore = useSongStore();
   const isLogin = computed(() => songStore.getIsLogin);
   // 头像
@@ -17,9 +18,9 @@
   };
 </script>
 <template>
-  <header class="header">
+  <header v-drop class="header">
     <div class="menu"> </div>
-    <Search />
+    <!-- <Search /> -->
     <div :class="isLogin ? 'user-avatar' : 'login'">
       <div v-if="isLogin" class="logined">
         <el-image :src="avatarUrl" class="avatar">
@@ -35,14 +36,39 @@
       </div>
       <span v-else class="login-btn" @click="loginDialog">登录</span>
     </div>
+    <el-tooltip effect="dark" content="最小化" placement="top">
+      <el-icon><SemiSelect /></el-icon>
+    </el-tooltip>
+    <el-tooltip effect="dark" content="最大化" placement="top">
+      <el-icon><FullScreen /></el-icon>
+    </el-tooltip>
+    <el-tooltip effect="dark" content="退出" placement="top">
+      <el-icon><CloseBold /></el-icon>
+    </el-tooltip>
   </header>
 </template>
 <style lang="less" scoped>
+  .el-icon {
+    margin: 0 10px;
+    cursor: pointer;
+  }
+  .login-btn,
+  .el-icon {
+    &:hover {
+      color: rgba(255, 255, 255, 1);
+    }
+  }
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 80px;
+    height: 50px;
+    background: #ec4141;
+    padding: 0 20px;
+    // margin-bottom: 25px;
+    // border-radius: 12px;
+    box-shadow: 0 20px 27px rgba(0, 0, 0, 0.05);
+    color: rgba(255, 255, 255, 0.8);
   }
   .menu {
     flex: 1;
