@@ -6,7 +6,7 @@
 </script>
 <template>
   <el-container class="jingluo">
-    <el-header><Header /></el-header>
+    <el-header v-drop><Header /></el-header>
     <el-container>
       <el-aside>
         <Sidebar />
@@ -32,6 +32,10 @@
   .el-header {
     padding: 0;
     height: 50px;
+    display: flex;
+    align-items: center;
+    background: #ec4141;
+    color: rgba(255, 255, 255, 0.8);
   }
   .el-aside {
     width: 230px;
