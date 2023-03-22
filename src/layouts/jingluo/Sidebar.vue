@@ -1,6 +1,5 @@
 <template>
   <div class="side-main">
-    <router-link to="/" class="logo"><img :src="logo" alt="log" /></router-link>
     <ul class="nav">
       <li
         v-for="item in menuList"
@@ -15,7 +14,7 @@
 <script setup>
   import { useRoute, useRouter } from 'vue-router';
   import { shallowReactive, computed } from 'vue';
-  import logo from '/@/assets/img/logo.jpg';
+
   const route = useRoute();
   const router = useRouter();
   const menuList = shallowReactive([
@@ -63,11 +62,6 @@
   .side-main {
     padding: 0 15px;
     text-align: center;
-  }
-  .logo {
-    display: inline-block;
-    width: 145px;
-    margin: 25px auto 10px;
   }
 
   .nav {

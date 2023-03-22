@@ -15,7 +15,6 @@ const dropDirective: Directive = {
   // 在绑定元素的父组件挂载之后调用
   mounted(el) {
     const { height } = el.getBoundingClientRect();
-    console.log(el.getBoundingClientRect());
     const doc = document.createElement('div');
     doc.style.position = 'fixed';
     doc.style.top = '0';

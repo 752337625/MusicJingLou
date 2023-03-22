@@ -3,6 +3,7 @@
   import { computed } from 'vue';
   import useSongStore from '/@/store/modules/song';
   import { CloseBold, SemiSelect, FullScreen } from '@element-plus/icons-vue';
+  import logo from '/@/assets/img/logo.jpg';
   // let Search = createAsyncComponent(() => import('/@/layouts/jingluo/Search.vue'));
   const songStore = useSongStore();
   const isLogin = computed(() => songStore.getIsLogin);
@@ -19,6 +20,7 @@
 </script>
 <template>
   <header v-drop class="header">
+    <router-link to="/" class="logo"><img :src="logo" alt="log" /></router-link>
     <div class="menu"> </div>
     <!-- <Search /> -->
     <div :class="isLogin ? 'user-avatar' : 'login'">
@@ -48,6 +50,11 @@
   </header>
 </template>
 <style lang="less" scoped>
+  .logo {
+    width: 230px;
+    display: flex;
+    justify-content: center;
+  }
   .el-icon {
     margin: 0 10px;
     cursor: pointer;
@@ -64,7 +71,7 @@
     align-items: center;
     height: 50px;
     background: #ec4141;
-    padding: 0 20px;
+    // padding: 0 20px;
     box-shadow: 0 20px 27px rgba(0, 0, 0, 0.05);
     color: rgba(255, 255, 255, 0.8);
   }

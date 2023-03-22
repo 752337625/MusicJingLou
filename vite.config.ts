@@ -118,6 +118,9 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         'element-plus/es/components/tooltip/style/css',
         'element-plus/es/components/icon/style/css',
         'element-plus/es/components/pagination/style/css',
+        'element-plus/es/components/infinite-scroll/style/css',
+        'element-plus/es/components/popover/style/css',
+        'element-plus/es/components/affix/style/css',
       ],
     },
   };
