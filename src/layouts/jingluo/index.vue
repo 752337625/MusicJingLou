@@ -6,7 +6,7 @@
 </script>
 <template>
   <el-container class="jingluo">
-    <el-header v-drop><Header /></el-header>
+    <el-header><Header /></el-header>
     <el-container>
       <el-aside>
         <Sidebar />
@@ -36,6 +36,7 @@
     align-items: center;
     background: #ec4141;
     color: rgba(255, 255, 255, 0.8);
+    -webkit-app-region: drap;
   }
   .el-aside {
     width: 230px;

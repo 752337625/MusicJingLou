@@ -2,6 +2,7 @@
 	//设置默认行为
 	"npm.packageManager": "pnpm",
 	"editor.formatOnSave": true,
+	"volar.inlayHints.eventArgumentInInlineHandlers": false,
 	"files.eol": "\n",
 	"files.exclude": {
 		"**/.cache": true,

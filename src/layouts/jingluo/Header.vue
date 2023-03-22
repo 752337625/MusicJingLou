@@ -11,9 +11,18 @@
   // const avatarUrl = computed(() => songStore.getAvatarUrl);
   // // 名称
   // const nickname = computed(() => songStore.getNickname);
-  // const loginDialog = () => {
-  //   console.log(1);
-  // };
+  const loginOrwindow = type => {
+    if (type === 'max') {
+      window.electronAPI.setWindowMax();
+    } else if (type === 'min') {
+      window.electronAPI.setWindowMin();
+    } else if (type === 'close') {
+      window.electronAPI.setWindowClose();
+    } else {
+      console.log(1);
+      window.electronAPI.setLoginDialog(true);
+    }
+  };
   // const logout = () => {
   //   console.log(1);
   // };
@@ -25,7 +34,7 @@
   <div class="logined">
     <el-avatar size="small" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
     <el-dropdown>
-      <span> 未登录 </span>
+      <span @click="loginOrwindow"> 未登录 </span>
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item>未开发</el-dropdown-item>
@@ -39,13 +48,13 @@
     <el-icon><Setting /></el-icon>
   </el-tooltip>
   <el-tooltip effect="dark" content="最小化" placement="top">
-    <el-icon><SemiSelect /></el-icon>
+    <el-icon @click="loginOrwindow('min')"><SemiSelect /></el-icon>
   </el-tooltip>
   <el-tooltip effect="dark" content="最大化" placement="top">
-    <el-icon><FullScreen /></el-icon>
+    <el-icon @click="loginOrwindow('max')"><FullScreen /></el-icon>
   </el-tooltip>
   <el-tooltip effect="dark" content="退出" placement="top">
-    <el-icon><CloseBold /></el-icon>
+    <el-icon @click="loginOrwindow('close')"><CloseBold /></el-icon>
   </el-tooltip>
 </template>
 <style lang="less" scoped>
@@ -61,6 +70,7 @@
       margin-right: 10px;
     }
     .el-dropdown {
+      cursor: pointer;
       color: #fff;
     }
   }

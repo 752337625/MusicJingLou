@@ -1,11 +1,6 @@
 <script lang="ts" setup>
   import { onMounted, provide } from 'vue';
-  import {
-    getQrKey as qrKey,
-    getQrCreate as qrCreate,
-    getQrCheck as qrCheck,
-    getLoginStatus as _loginStatus,
-  } from '/@/api/login';
+  import { getQrKey as qrKey, getQrCreate as qrCreate, getQrCheck as qrCheck, getLoginStatus as loginStatus } from '/@/api/login';
   import { Close } from '@element-plus/icons-vue';
   import qr from '/@/views/login/qr/img/qr.jpg';
   import qr800 from '/@/views/login/qr/img/qr800.jpg';
@@ -16,7 +11,14 @@
   let key: Ref<string | null> = ref(null);
   let qrurl: Ref<string | null> = ref(qr);
   let freshen: Ref<any> = ref(null);
-
+  const getLoginStatus = () => {
+    const cookie = ls.get('cookie');
+    loginStatus({ cookie }).then(res => {
+      let { code } = res;
+      if (code !== 200) return ElMessage.error('数据请求失败');
+      console.log(code);
+    });
+  };
   const getQrCheck = () => {
     qrCheck({ key: key.value }).then(res => {
       let { code, message, cookie } = res;
@@ -25,7 +27,8 @@
       if (code === 800) return (qrurl.value = qr800), clearInterval(freshen.value);
       if (code === 801) return;
       if (code === 802) return (qrurl.value = qr802);
-      if (code === 803) return ElMessage.success(message), clearInterval(freshen.value), ls.set('cookie', cookie);
+      if (code === 803)
+        return ElMessage.success(message), clearInterval(freshen.value), ls.set('cookie', cookie), getLoginStatus();
     });
   };
   const getQrCreate = unikey => {
@@ -36,7 +39,7 @@
       } = res;
       if (code !== 200) return ElMessage.error('数据请求失败');
       qrurl.value = qrimg;
-      freshen.value = setInterval(() => getQrCheck(), 3000);
+      freshen.value = setInterval(() => getQrCheck(), 5000);
     });
   };
 
@@ -53,11 +56,6 @@
     });
   };
 
-  // const _getLoginStatus = () => {
-  //   loginStatus().then(res => {
-  //     console.log(res);
-  //   });
-  // };
   //过期更新二维码
   const updataQrurl = () => {
     if (qrurl.value === qr800) getQrKey();

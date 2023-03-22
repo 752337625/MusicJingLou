@@ -121,6 +121,10 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         'element-plus/es/components/infinite-scroll/style/css',
         'element-plus/es/components/popover/style/css',
         'element-plus/es/components/affix/style/css',
+        'element-plus/es/components/dropdown/style/css',
+        'element-plus/es/components/dropdown-menu/style/css',
+        'element-plus/es/components/dropdown-item/style/css',
+        'element-plus/es/components/avatar/style/css',
       ],
     },
   };

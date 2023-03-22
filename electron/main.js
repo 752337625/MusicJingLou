@@ -1,6 +1,8 @@
 const path = require('path');
 const { app, BrowserWindow } = require('electron');
 const { creatProtocol } = require('./module/protocol');
+const ipcMainFn = require('./handler');
+
 // 判断系统处于什么环境
 const isDev = require('electron-is-dev');
 // 创建系统托盘
@@ -19,10 +21,10 @@ const icon = isDev ? 'public/images/tray.ico' : `${global.__images}/tray.ico`;
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 function createWindow() {
   global.win = new BrowserWindow({
-    center: true,
+    // center: true,
     show: false,
     minWidth: 1500,
-    minHeight: 670,
+    minHeight: 900,
     resizable: true,
     alwaysOnTop: false, // 窗口是否永远在其他窗口上面
     icon: icon,
@@ -35,7 +37,7 @@ function createWindow() {
       webSecurity: true, //允许跨域
       nodeIntegration: true, //开启true这一步很重要,目的是为了vue文件中可以引入node和electron相关的API
       contextIsolation: true, // 可以使用require方法,
-      preload: path.join(__dirname, './preload.js'),
+      preload: path.join(__dirname, 'preload.js'),
     },
   });
   // 禁用右键菜单,这个禁用后所有的功能都不能点了
@@ -59,10 +61,10 @@ function createWindow() {
   if (isDev) {
     global.win.loadURL('http://localhost:3100/jingluo');
     global.win.webContents.openDevTools();
-    // require('electron-reload')(__dirname, {
-    // 	// Note that the path to electron may vary according to the main file
-    // 	electron: require(`../node_modules/electron`),
-    // });
+    require('electron-reload')(__dirname, {
+      // Note that the path to electron may vary according to the main file
+      electron: require(`../node_modules/electron`),
+    });
   } else {
     global.win.loadFile(path.join(__dirname, '../index.html'));
   }
@@ -79,6 +81,7 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  ipcMainFn();
   createWindow();
 });
 

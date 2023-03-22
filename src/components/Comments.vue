@@ -92,7 +92,7 @@
 </template>
 <script lang="ts" setup>
   import { createAsyncComponent } from '/@/utils/createAsyncComponent';
-  import { computed, onMounted, watch, shallowReactive, toRefs, defineProps } from 'vue';
+  import { computed, onMounted, watch, shallowReactive, toRefs } from 'vue';
   import useSongStore from '/@/store/modules/song';
   import {
     getCommentMusic,

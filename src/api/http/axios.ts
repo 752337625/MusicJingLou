@@ -120,6 +120,7 @@ export function createAxios(opt?: Partial<CreateAxiosOptions>) {
         // headers: { 'Content-Type': ContentTypeEnum.FORM_URLENCODED },
         // 数据处理方式
         transform: clone(transform),
+        withCredentials: true,
         // 配置项，下面的选项都可以在独立的接口请求中覆盖
         requestOptions: {
           // 默认将prefix 添加到url
@@ -144,6 +145,7 @@ export function createAxios(opt?: Partial<CreateAxiosOptions>) {
           ignoreCancelToken: true,
           // 是否携带token
           withToken: true,
+
           retryRequest: {
             isOpenRetry: true,
             count: 5,

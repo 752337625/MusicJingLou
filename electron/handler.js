@@ -1,24 +1,25 @@
 const { BrowserWindow, ipcMain } = require('electron');
-exports.module = function () {
+
+function ipcMainFn() {
   ipcMain.on('show-window', () => {
     global.win.show();
   });
 
-  ipcMain.on('window-min', () => {
+  ipcMain.on('set-window-min', () => {
     global.win.minimize();
   });
 
-  ipcMain.on('window-max', () => {
+  ipcMain.on('set-window-max', () => {
     if (global.win.isMaximized()) {
       global.win.restore();
     } else {
       global.win.maximize();
     }
   });
-  ipcMain.on('window-close', () => {
+  ipcMain.on('set-window-close', () => {
     let wins = BrowserWindow.getAllWindows();
     for (let i = 0; i < wins.length; i++) {
-      wins[i].close();
+      wins[i].destroy();
     }
   });
   ipcMain.on('toggle-mini', (event, params) => {
@@ -30,4 +31,8 @@ exports.module = function () {
       global.win.show();
     }
   });
-};
+  ipcMain.on('set-login-dialog', (event, params) => {
+    console.log(params);
+  });
+}
+module.exports = ipcMainFn;
