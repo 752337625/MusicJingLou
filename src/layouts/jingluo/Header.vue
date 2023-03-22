@@ -1,22 +1,22 @@
 <script setup>
   // import { createAsyncComponent } from '/@/utils/createAsyncComponent';
-  import { computed } from 'vue';
-  import useSongStore from '/@/store/modules/song';
+  // import { computed } from 'vue';
+  // import useSongStore from '/@/store/modules/song';
   import { CloseBold, SemiSelect, FullScreen } from '@element-plus/icons-vue';
   import logo from '/@/assets/img/logo.jpg';
   // let Search = createAsyncComponent(() => import('/@/layouts/jingluo/Search.vue'));
-  const songStore = useSongStore();
-  const isLogin = computed(() => songStore.getIsLogin);
-  // 头像
-  const avatarUrl = computed(() => songStore.getAvatarUrl);
-  // 名称
-  const nickname = computed(() => songStore.getNickname);
-  const loginDialog = () => {
-    console.log(1);
-  };
-  const logout = () => {
-    console.log(1);
-  };
+  // const songStore = useSongStore();
+  // const isLogin = computed(() => songStore.getIsLogin);
+  // // 头像
+  // const avatarUrl = computed(() => songStore.getAvatarUrl);
+  // // 名称
+  // const nickname = computed(() => songStore.getNickname);
+  // const loginDialog = () => {
+  //   console.log(1);
+  // };
+  // const logout = () => {
+  //   console.log(1);
+  // };
 </script>
 <template>
   <header v-drop class="header">
