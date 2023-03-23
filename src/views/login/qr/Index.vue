@@ -2,8 +2,8 @@
   import { ArrowRight } from '@element-plus/icons-vue';
   import useQrLogin from '/@/hook/useQrLogin';
   import { useRouter } from 'vue-router';
-  const router = useRouter();
   let { qrurl, updataQrurl } = useQrLogin();
+  const router = useRouter();
 </script>
 <template>
   <div class="qr">

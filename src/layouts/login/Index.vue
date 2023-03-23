@@ -1,5 +1,14 @@
 <script lang="ts" setup>
+  import { watch } from 'vue';
   import { Close } from '@element-plus/icons-vue';
+  import { useRouter, useRoute } from 'vue-router';
+  const route = useRoute();
+  let showImg = ref(false);
+  watch(
+    () => route.path,
+    n => (showImg.value = n !== '/login/qr'),
+  );
+  let router = useRouter();
   const loginOrwindow = () => {
     window.ElectronAPI.setLoginDialog(false);
   };
@@ -7,6 +16,7 @@
 <template>
   <el-container>
     <el-header>
+      <img v-if="showImg" src="./img/bg-qrCode.png" @click="router.push({ path: '/login/qr' })" />
       <el-icon @click="loginOrwindow"><Close /></el-icon>
     </el-header>
     <el-main>
@@ -33,6 +43,12 @@
         cursor: pointer;
         font-size: 18px;
         color: #a5a5a5;
+      }
+      img {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        cursor: pointer;
       }
     }
     .el-main {

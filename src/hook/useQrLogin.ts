@@ -5,19 +5,12 @@ import qr800 from '/@/views/login/qr/img/qr800.jpg';
 import qr802 from '/@/views/login/qr/img/qr802.jpg';
 import type { Ref } from 'vue';
 import { createLocalStorage } from '/@/utils/cache';
+import { onBeforeRouteLeave } from 'vue-router';
 export default function useQrLogin() {
   const ls = createLocalStorage();
   const key: Ref<string | null> = ref(null);
   const qrurl: Ref<string | null> = ref(qr);
   const freshen: Ref<any> = ref(null);
-  // const getLoginStatus = () => {
-  //   const cookie = ls.get('cookie');
-  //   loginStatus({ cookie }).then(res => {
-  //     const { code } = res;
-  //     if (code !== 200) return ElMessage.error('数据请求失败');
-  //     console.log(code);
-  //   });
-  // };
   const getQrCheck = () => {
     qrCheck({ key: key.value }).then(res => {
       const { code, message, cookie } = res;
@@ -56,9 +49,15 @@ export default function useQrLogin() {
   const updataQrurl = () => {
     if (qrurl.value === qr800) getQrKey();
   };
+
   onMounted(() => getQrKey());
+  onBeforeRouteLeave(() => {
+    clearInterval(freshen.value);
+    freshen.value = null;
+  });
   return {
     qrurl,
+    freshen,
     updataQrurl,
   };
 }
