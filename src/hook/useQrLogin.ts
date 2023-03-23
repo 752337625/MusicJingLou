@@ -1,4 +1,4 @@
-import { onMounted } from 'vue';
+import { onMounted, inject } from 'vue';
 import { getQrKey as qrKey, getQrCreate as qrCreate, getQrCheck as qrCheck, getLoginStatus as _loginStatus } from '/@/api/login';
 import qr from '/@/views/login/qr/img/qr.jpg';
 import qr800 from '/@/views/login/qr/img/qr800.jpg';
@@ -7,6 +7,7 @@ import type { Ref } from 'vue';
 import { createLocalStorage } from '/@/utils/cache';
 import { onBeforeRouteLeave } from 'vue-router';
 export default function useQrLogin() {
+  const { loginOrwindow } = inject('loginOrwindow') as any;
   const ls = createLocalStorage();
   const key: Ref<string | null> = ref(null);
   const qrurl: Ref<string | null> = ref(qr);
@@ -18,7 +19,8 @@ export default function useQrLogin() {
       if (code === 800) return (qrurl.value = qr800), clearInterval(freshen.value);
       if (code === 801) return;
       if (code === 802) return (qrurl.value = qr802);
-      if (code === 803) return ElMessage.success(message), clearInterval(freshen.value), ls.set('cookie', cookie);
+      if (code === 803)
+        return ElMessage.success(message), clearInterval(freshen.value), ls.set('cookie', cookie), loginOrwindow();
     });
   };
   const getQrCreate = unikey => {

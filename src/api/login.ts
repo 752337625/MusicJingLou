@@ -18,8 +18,8 @@ export const getCaptchaSent = params => {
 export const getCountriesCode = () => {
   return defHttp.get({ url: Api.GetCountriesCode });
 };
-export const getLoginCellphone = data => {
-  return defHttp.post({ url: Api.GetLoginCellphone, data });
+export const getLoginCellphone = params => {
+  return defHttp.get({ url: Api.GetLoginCellphone, params });
 };
 export const getLoginStatus = data => {
   return defHttp.get({ url: Api.GetLoginStatus, data });

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { watch } from 'vue';
+  import { watch, provide } from 'vue';
   import { Close } from '@element-plus/icons-vue';
   import { useRouter, useRoute } from 'vue-router';
   const route = useRoute();
@@ -12,6 +12,9 @@
   const loginOrwindow = () => {
     window.ElectronAPI.setLoginDialog(false);
   };
+  provide('loginOrwindow', {
+    loginOrwindow,
+  });
 </script>
 <template>
   <el-container>

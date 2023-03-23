@@ -3,7 +3,7 @@
   import usePhoneLogin from '/@/hook/usePhoneLogin';
   import type { FormInstance } from 'element-plus';
   const ruleFormRef = ref<FormInstance>();
-  let { form, rules, countriesList, _getCaptchaSent, submitForm } = usePhoneLogin();
+  let { form, rules, countriesList, _getCaptchaSent, submitForm, title } = usePhoneLogin();
 </script>
 <template>
   <div class="phone">
@@ -21,12 +21,12 @@
       <el-form-item style="margin-bottom: 0px" prop="captcha">
         <el-input v-model="form.captcha" placeholder="请输入验证码" style="width: 290px">
           <template #append>
-            <el-button @click="_getCaptchaSent"> 获取验证码</el-button>
+            <el-button @click="_getCaptchaSent">{{ title }}</el-button>
           </template>
         </el-input>
       </el-form-item>
       <el-form-item style="margin-top: 72px">
-        <el-button style="width: 100%; background-color: #ff3a3a; color: #fff" @click="submitForm(ruleFormRef)"> 登录</el-button>
+        <el-button style="width: 100%; background-color: #ff3a3a; color: #fff" @click="submitForm(ruleFormRef)">登录</el-button>
       </el-form-item>
       <el-form-item style="margin-top: 60px">
         <el-checkbox v-model="form.checked" label="同意" /><span>《服务条款》《隐私政策》《儿童隐私政策》</span>
@@ -43,6 +43,7 @@
     flex-direction: column;
     align-items: center;
     .el-form {
+      -webkit-app-region: no-drag;
       display: flex;
       flex-direction: column;
       justify-content: center;
