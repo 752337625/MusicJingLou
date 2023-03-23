@@ -42,14 +42,14 @@
         </div>
         <div class="song-main">
           <div class="song-header">
-            <h4
-              >包含歌曲列表 <em>{{ details.size + '首歌' }}</em></h4
-            >
+            <h4>
+              包含歌曲列表 <em>{{ details.size + '首歌' }}</em>
+            </h4>
             <span class="play-all" @click="playAllSongs"><i class="iconfont icon-audio-play"></i> 播放全部</span>
-            <span :class="['collect', dynamic.isSub ? 'active' : '']" @click="subAlbum"
-              ><i :class="['iconfont', 'icon-collect' + (dynamic.isSub ? '-active' : '')]"></i>
-              {{ dynamic.isSub ? '已收藏' : '收藏' }}</span
-            >
+            <span :class="['collect', dynamic.isSub ? 'active' : '']" @click="subAlbum">
+              <i :class="['iconfont', 'icon-collect' + (dynamic.isSub ? '-active' : '')]"></i>
+              {{ dynamic.isSub ? '已收藏' : '收藏' }}
+            </span>
           </div>
           <SongList :songList="songList" :stripe="true" />
         </div>
@@ -60,9 +60,9 @@
       <div class="aside-box">
         <div class="album-aside album-other">
           <h3 class="aside-title">
-            {{ details.artists[0].name }}的其他专辑
+            {{ name }}的其他专辑
             <router-link :to="{ path: '/music/singer', query: { id: artistsId, type: 'album' } }" class="album-more">
-              全部>>
+              全部
             </router-link>
           </h3>
           <div class="aside-main aside-album-main">
@@ -96,9 +96,20 @@
   import useAlbum from '/@/hook/album/useAlbum';
   let CommentList = createAsyncComponent(() => import('/@/components/Comments.vue'));
   let SongList = createAsyncComponent(() => import('/@/components/SongList.vue'));
-
-  const { artistsId, albumId, details, songList, dynamic, hotAlbums, type, isShowDesc, showAllDesc, playAllSongs, subAlbum } =
-    useAlbum();
+  const {
+    artistsId,
+    name,
+    albumId,
+    details,
+    songList,
+    dynamic,
+    hotAlbums,
+    type,
+    isShowDesc,
+    showAllDesc,
+    playAllSongs,
+    subAlbum,
+  } = useAlbum();
 </script>
 <style scoped lang="less">
   .detail-container {
@@ -158,7 +169,7 @@
       right: -40px;
       width: 100%;
       height: 100%;
-      background: url('../../assets/img/disc.png') no-repeat;
+      background: url('/@/assets/img/disc.png') no-repeat;
       background-size: contain;
       transition: all 0.4s linear;
     }

@@ -45,7 +45,7 @@
     border-right: 1px solid #e0e0e0;
   }
   .el-main {
-    padding: 0px;
+    padding: 0px 10px;
     flex: 1;
     .main {
       overflow: hidden;

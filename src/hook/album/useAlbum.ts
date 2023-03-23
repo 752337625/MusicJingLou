@@ -1,5 +1,5 @@
-import { onMounted, reactive, toRefs, ComponentInternalInstance, computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { onMounted, reactive, toRefs, ComponentInternalInstance } from 'vue';
+import { useRoute, onBeforeRouteUpdate } from 'vue-router';
 import { getAlbum as album, getArtistAlbum as artistAlbum, getDynamic, getSub, getSubscribers } from '/@/api/main';
 import useSongStore from '/@/store/modules/song';
 import type { LocationQueryValue } from 'vue-router';
@@ -14,19 +14,7 @@ interface Dynamic {
   subTime?: string;
   subCount?: string;
 }
-interface Details {
-  artists: Array<{
-    id: string;
-    name: string;
-  }>;
-  description: string;
-  picUrl: string;
-  name: string;
-  type: string;
-  company: string;
-  publishTime: string;
-  size: number;
-}
+
 interface Info {
   albumId: LocationQueryValue | LocationQueryValue[];
   songList: Array<any>;
@@ -35,7 +23,7 @@ interface Info {
   type: number; // 0: 歌曲 1: mv 2: 歌单 3: 专辑  4: 电台 5: 视频 6: 动态
   isShowDesc: boolean;
   collects: Array<any>;
-  details: Details;
+  details: any;
   dynamic: Dynamic;
 }
 export default function useAlbum() {
@@ -43,16 +31,7 @@ export default function useAlbum() {
   const route = useRoute();
   const info: Info = reactive({
     albumId: '',
-    details: {
-      artists: [],
-      description: '',
-      picUrl: '',
-      name: '',
-      type: '',
-      company: '',
-      publishTime: '',
-      size: 0,
-    },
+    details: {},
     songList: [],
     dynamic: {},
     hotAlbums: [],
@@ -64,7 +43,7 @@ export default function useAlbum() {
   const {
     appContext: { config },
   } = getCurrentInstance() as ComponentInternalInstance;
-  const artistsId = computed(() => info.details.artists[0].id);
+
   const getArtistAlbum = async () => {
     const { code, hotAlbums } = await artistAlbum({ id: info.details.artists[0].id, limit: 5 });
     if (code !== 200) return ElMessage.error('数据请求失败');
@@ -72,9 +51,10 @@ export default function useAlbum() {
   };
   // 相关歌单推荐
   const getAlbum = async params => {
-    const { code, songs } = await album(params);
+    const { code, songs, album: albumInfo } = await album(params);
     if (code !== 200) return ElMessage.error('数据请求失败');
     const privileges = songs.map(item => item.privilege);
+    info.details = albumInfo;
     info.songList = config.globalProperties.$utils.formatSongs(songs, privileges);
     getArtistAlbum();
   };
@@ -129,14 +109,16 @@ export default function useAlbum() {
     _initialize();
   });
 
-  // onBeforeRouteUpdate(to => {
-  //   info.albumId = to.query.id;
-  //   _initialize();
-  // });
-
+  onBeforeRouteUpdate(to => {
+    info.albumId = to.query.id;
+    _initialize();
+  });
+  const artistsId = computed(() => (!info.details.artists ? '' : info.details.artists[0].id));
+  const name = computed(() => (!info.details.artists ? '' : info.details.artists[0].name));
   return {
-    ...toRefs(info),
     artistsId,
+    name,
+    ...toRefs(info),
     showAllDesc,
     playAllSongs,
     subAlbum,
