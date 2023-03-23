@@ -1,8 +1,36 @@
 import { getToplist, getTopRankList } from '/@/api/main';
 import { onMounted, shallowReactive, toRefs, getCurrentInstance } from 'vue';
 import { ComponentInternalInstance } from 'vue';
+
+interface TopList {
+  name: string;
+  id: string;
+  updateFrequency: string;
+  updateTime: string;
+}
+interface TopSongList {
+  id: string;
+  vip: string;
+  license: string;
+  album: {
+    picUrl: string;
+  };
+  name: string;
+  singer: Array<{
+    name: string;
+    id: string;
+  }>;
+}
+interface TopInfo {
+  top_list: Array<TopList>;
+  top_song_list: Array<TopSongList>;
+  song_params: { id: string; s: number };
+  top_num: number;
+  top_loading: boolean;
+}
+
 export default function useTopList() {
-  const top_info = shallowReactive({
+  const top_info: TopInfo = shallowReactive({
     top_list: [],
     top_song_list: [],
     song_params: { id: '', s: 8 },
