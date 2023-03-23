@@ -41,7 +41,7 @@ export default function usePhoneLogin() {
   };
   const submitForm = async (formEl: FormInstance | undefined) => {
     if (!formEl) return;
-    if (!form.checked) return ElMessage.warning('请先勾选同意《服务条款》《隐私政策》《儿童隐私政策》');
+    if (!form.checked) return ElMessage.warning('请先勾选同意');
     await formEl.validate(async valid => {
       if (valid) {
         const res = await getCaptchaVerify({
