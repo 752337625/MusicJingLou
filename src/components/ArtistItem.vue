@@ -2,7 +2,7 @@
   <div class="item">
     <em class="circle"></em>
     <router-link :to="{ path: '/music/singer', query: { id: item.id } }" class="faceImg">
-      <el-image :src="item.picUrl + '?param=120y120'">
+      <el-image :src="item.picUrl + '?param=120y120'" :lazy="true">
         <template #placeholder>
           <div class="image-slot"> <i class="iconfont icon-placeholder"></i> </div
         ></template>

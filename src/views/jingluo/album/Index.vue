@@ -4,7 +4,7 @@
       <div class="detail-main">
         <div class="album-cover">
           <div class="album-img">
-            <el-image :src="details.picUrl">
+            <el-image :src="details.picUrl" :lazy="true">
               <template #placeholder>
                 <div class="image-slot">
                   <i class="iconfont icon-placeholder"></i>
@@ -71,7 +71,7 @@
               :key="item.id"
               class="aside-album-item"
               :to="{ path: '/music/album', query: { id: item.id } }">
-              <el-image :src="item.picUrl">
+              <el-image :src="item.picUrl" :lazy="true">
                 <template #placeholder>
                   <div class="image-slot">
                     <i class="iconfont icon-placeholder"></i>

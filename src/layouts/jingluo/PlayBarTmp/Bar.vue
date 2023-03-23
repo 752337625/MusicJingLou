@@ -13,7 +13,7 @@
       <div class="play-bar-inside">
         <div class="bar-l">
           <router-link :to="{ path: '/music/song', query: { id: curSongInfo.id } }">
-            <el-image :src="curSongInfo.album.picUrl" class="bar-cover-img">
+            <el-image :src="curSongInfo.album.picUrl" class="bar-cover-img" :lazy="true">
               <div slot="placeholder" class="image-slot">
                 <i class="iconfont icon-placeholder"></i>
               </div>

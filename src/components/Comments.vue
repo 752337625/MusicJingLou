@@ -6,7 +6,7 @@
       >
       <div v-if="userInfo" class="userInfo">
         <span>{{ userInfo.nickname }}</span>
-        <el-image :src="userInfo.avatarUrl" class="avatar">
+        <el-image :src="userInfo.avatarUrl" class="avatar" :lazy="true">
           <template #placeholder>
             <div class="image-slot">
               <i class="iconfont icon-placeholder"></i>
@@ -37,7 +37,7 @@
       <template v-if="comments.length">
         <div v-for="(item, index) in comments" :key="item.commentId + index + ''" class="comment_item">
           <router-link :to="{ path: '/music/user', query: { id: item.user.userId } }" class="comment_avatar">
-            <el-image :src="item.user.avatarUrl + '?param=120y120'">
+            <el-image :src="item.user.avatarUrl + '?param=120y120'" :lazy="true">
               <template #placeholder>
                 <div class="image-slot">
                   <i class="iconfont icon-placeholder"></i>

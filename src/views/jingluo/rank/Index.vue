@@ -5,7 +5,7 @@
       <div class="rank-main">
         <div class="cover">
           <div class="cover-img">
-            <el-image :src="rankInfo.coverImgUrl">
+            <el-image :src="rankInfo.coverImgUrl" :lazy="true">
               <template #placeholder>
                 <div class="image-slot">
                   <i class="iconfont icon-placeholder"></i>
@@ -22,7 +22,7 @@
             </div>
             <div class="cover-author-tags">
               <div v-if="rankInfo.creator" class="cover-author">
-                <el-image :src="rankInfo.creator.avatarUrl" class="cover-avatar">
+                <el-image :src="rankInfo.creator.avatarUrl" :lazy="true" class="cover-avatar">
                   <template #placeholder>
                     <div class="image-slot">
                       <i class="iconfont icon-placeholder"></i>
@@ -90,7 +90,7 @@
                 {{ item.updateFrequency }}
               </div>
             </div>
-            <el-image class="item-img" :src="item.coverImgUrl">
+            <el-image class="item-img" :src="item.coverImgUrl" :lazy="true">
               <template #placeholder>
                 <div class="image-slot">
                   <i class="iconfont icon-placeholder"></i>

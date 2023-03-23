@@ -5,7 +5,7 @@
       <div class="detail-main">
         <div class="cover">
           <div class="cover-img">
-            <el-image :src="details.coverImgUrl">
+            <el-image :src="details.coverImgUrl" :lazy="true">
               <template #placeholder>
                 <div class="image-slot">
                   <i class="iconfont icon-placeholder"></i>
@@ -24,7 +24,7 @@
                   :key="item.userId"
                   class="collect-author"
                   :to="{ path: '/music/singer', query: { id: item.userId } }">
-                  <el-image :src="item.avatarUrl">
+                  <el-image :src="item.avatarUrl" :lazy="true">
                     <template #placeholder>
                       <div class="image-slot">
                         <i class="iconfont icon-placeholder"></i>
@@ -36,7 +36,7 @@
             </div>
             <div class="cover-author-tags">
               <div v-if="details.creator" class="cover-author">
-                <el-image :src="details.creator.avatarUrl" class="cover-avatar">
+                <el-image :src="details.creator.avatarUrl" class="cover-avatar" :lazy="true">
                   <template #placeholder>
                     <div class="image-slot">
                       <i class="iconfont icon-placeholder"></i>
@@ -108,7 +108,7 @@
               :key="item.id"
               class="recom-item"
               :to="{ path: '/music/detail', query: { id: item.id } }">
-              <el-image :src="item.coverImgUrl">
+              <el-image :src="item.coverImgUrl" :lazy="true">
                 <template #placeholder>
                   <div class="image-slot">
                     <i class="iconfont icon-placeholder"></i>
@@ -132,7 +132,7 @@
           <div class="aside-main comment-main">
             <div v-for="item in comments" :key="item.commentId" class="comment-item">
               <router-link :to="{ path: '/music/user', query: { id: item.commentId } }">
-                <el-image :src="item.user.avatarUrl">
+                <el-image :src="item.user.avatarUrl" :lazy="true">
                   <template #placeholder>
                     <div class="image-slot">
                       <i class="iconfont icon-placeholder"></i>

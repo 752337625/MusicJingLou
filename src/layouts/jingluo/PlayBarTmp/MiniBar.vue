@@ -3,7 +3,7 @@
     <div class="wrapper" :class="{ active: isMini }">
       <div class="play-l"></div>
       <div class="play-circle" :class="[isPlayed ? 'active' : '']" @click="changeWrapper">
-        <el-image :src="curSongInfo.album.picUrl" class="bar-cover-img">
+        <el-image :src="curSongInfo.album.picUrl" class="bar-cover-img" :lazy="true">
           <div slot="placeholder" class="image-slot">
             <i class="iconfont icon-placeholder"></i>
           </div>
@@ -61,7 +61,7 @@
         appContext: { config },
       } = getCurrentInstance() as ComponentInternalInstance;
       const info = reactive({
-        currentTime: inject('currentTime'), // 音频当前时长
+        currentTime: inject('currentTime') as number, // 音频当前时长
         playMode: 0, // 播放模式  0循环播放、1单曲循环、2随机播放
         isMini: false, //
       });

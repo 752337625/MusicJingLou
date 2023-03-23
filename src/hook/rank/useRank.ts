@@ -97,8 +97,8 @@ export default function useRank() {
     songStore.setSongList(info.songList);
     songStore.setIsShowPlayListTips(true);
   };
-  const subPlayList = () => {
-    console.log(111);
+  const subPlayList = rankInfo => {
+    console.log(rankInfo);
   };
   onMounted(() => {
     info['type'] = route.query.type || info.type;

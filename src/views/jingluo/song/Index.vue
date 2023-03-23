@@ -90,7 +90,7 @@
         <em class="lb"></em>
         <div class="cover-img" :class="[isCurSong ? 'active' : '']" @click.stop="plyaing(songInfo)">
           <img src="/src/assets/img/stylus.png" class="cover-stylus" />
-          <el-image :src="songInfo.album.picUrl">
+          <el-image :src="songInfo.album.picUrl" :lazy="true">
             <template #placeholder>
               <div class="image-slot">
                 <i class="iconfont icon-placeholder"></i>
@@ -107,7 +107,7 @@
             :key="item.id"
             class="playlist-item"
             :to="{ path: '/music/detail', query: { id: item.id } }">
-            <el-image :src="item.coverImgUrl">
+            <el-image :src="item.coverImgUrl" :lazy="true">
               <template #placeholder>
                 <div class="image-slot">
                   <i class="iconfont icon-placeholder"></i>
