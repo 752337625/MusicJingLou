@@ -1,4 +1,4 @@
-import { getCountriesCode, getCaptchaSent, getLoginCellphone, getCaptchaVerify } from '/@/api/login';
+import { getCountriesCode, getCaptchaSent, getCaptchaVerify, getRegisterAnonimous } from '/@/api/login';
 import { onMounted, shallowRef, reactive, inject } from 'vue';
 import type { FormRules, FormInstance } from 'element-plus';
 import { createLocalStorage } from '/@/utils/cache';
@@ -50,11 +50,14 @@ export default function usePhoneLogin() {
         });
         const { code, message } = res;
         if (code !== 200) return ElMessage.error(message);
-        const cell = await getLoginCellphone({
-          captcha: form.captcha,
-          phone: form.phone,
-          // realIP: '473.93.3.403',
-        });
+        //暂时使用游客登录
+        const cell = await getRegisterAnonimous();
+        //手机号登录一直不成功
+        // const cell = await getLoginCellphone({
+        //   captcha: form.captcha,
+        //   phone: form.phone,
+        //   // realIP: '473.93.3.403',
+        // });
         const { code: c, message: m, cookie } = cell;
         if (c !== 200) return ElMessage.error(m);
         ls.set('cookie', cookie);

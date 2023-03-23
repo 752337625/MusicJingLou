@@ -1,5 +1,5 @@
 import { onMounted, inject } from 'vue';
-import { getQrKey as qrKey, getQrCreate as qrCreate, getQrCheck as qrCheck, getLoginStatus as _loginStatus } from '/@/api/login';
+import { getQrKey as qrKey, getQrCreate as qrCreate, getQrCheck as qrCheck } from '/@/api/login';
 import qr from '/@/views/login/qr/img/qr.jpg';
 import qr800 from '/@/views/login/qr/img/qr800.jpg';
 import qr802 from '/@/views/login/qr/img/qr802.jpg';

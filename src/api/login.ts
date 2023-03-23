@@ -8,7 +8,11 @@ enum Api {
   GetCaptchaVerify = '/captcha/verify',
   GetCountriesCode = '/countries/code/list',
   GetCaptchaSent = '/captcha/sent',
+  GetRegisterAnonimous = '/register/anonimous',
 }
+export const getRegisterAnonimous = () => {
+  return defHttp.get({ url: Api.GetRegisterAnonimous });
+};
 export const getCaptchaVerify = params => {
   return defHttp.get({ url: Api.GetCaptchaVerify, params });
 };
@@ -21,8 +25,8 @@ export const getCountriesCode = () => {
 export const getLoginCellphone = params => {
   return defHttp.get({ url: Api.GetLoginCellphone, params });
 };
-export const getLoginStatus = data => {
-  return defHttp.get({ url: Api.GetLoginStatus, data });
+export const getLoginStatus = params => {
+  return defHttp.get({ url: Api.GetLoginStatus, params });
 };
 export const getQrKey = () => {
   return defHttp.get({ url: Api.GetQrKey });
