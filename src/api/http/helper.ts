@@ -10,9 +10,9 @@ export function joinTimestamp(join: boolean, restful = false): string | object {
   }
   const now = new Date().getTime();
   if (restful) {
-    return `?_t=${now}`;
+    return `?timestamp=${now}`;
   }
-  return { _t: now };
+  return { timestamp: now };
 }
 
 /**

@@ -18,7 +18,7 @@ const transform: AxiosTransform = {
    * @description: 请求之前的拦截器
    */
   beforeRequestHook: (config: AxiosRequestConfig, options: RequestOptions): AxiosRequestConfig => {
-    const { apiUrl, joinPrefix, joinParamsToUrl, formatDate, joinTime = true, urlPrefix } = options;
+    const { apiUrl, joinPrefix, joinParamsToUrl, formatDate, joinTime = true, urlPrefix, withCredentials } = options;
 
     if (joinPrefix) {
       config.url = `${urlPrefix}${config.url}`;
@@ -26,6 +26,9 @@ const transform: AxiosTransform = {
 
     if (apiUrl && isString(apiUrl)) {
       config.url = `${apiUrl}${config.url}`;
+    }
+    if (withCredentials) {
+      config.withCredentials = withCredentials;
     }
     const params = config.params || {};
     const data = config.data || false;
@@ -102,7 +105,7 @@ const transform: AxiosTransform = {
    * @description: 响应失败错误处理
    */
   responseInterceptorsCatch: (_axiosInstance: AxiosResponse, error: any): Promise<any> => {
-    //console.log(axiosInstance);
+    ElMessage.error('数据请求失败');
     return Promise.reject(error);
   },
 };
@@ -120,7 +123,7 @@ export function createAxios(opt?: Partial<CreateAxiosOptions>) {
         // headers: { 'Content-Type': ContentTypeEnum.FORM_URLENCODED },
         // 数据处理方式
         transform: clone(transform),
-        withCredentials: true,
+
         // 配置项，下面的选项都可以在独立的接口请求中覆盖
         requestOptions: {
           // 默认将prefix 添加到url
@@ -145,7 +148,7 @@ export function createAxios(opt?: Partial<CreateAxiosOptions>) {
           ignoreCancelToken: true,
           // 是否携带token
           withToken: true,
-
+          withCredentials: true,
           retryRequest: {
             isOpenRetry: true,
             count: 5,

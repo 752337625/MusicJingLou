@@ -5,12 +5,24 @@ enum Api {
   GetQrCheck = '/login/qr/check',
   GetLoginStatus = '/login/status',
   GetLoginCellphone = `/login/cellphone`,
+  GetCaptchaVerify = '/captcha/verify',
+  GetCountriesCode = '/countries/code/list',
+  GetCaptchaSent = '/captcha/sent',
 }
-export const getLoginCellphone = params => {
-  return defHttp.post({ url: Api.GetLoginCellphone, params });
+export const getCaptchaVerify = params => {
+  return defHttp.get({ url: Api.GetCaptchaVerify, params });
+};
+export const getCaptchaSent = params => {
+  return defHttp.get({ url: Api.GetCaptchaSent, params });
+};
+export const getCountriesCode = () => {
+  return defHttp.get({ url: Api.GetCountriesCode });
+};
+export const getLoginCellphone = data => {
+  return defHttp.post({ url: Api.GetLoginCellphone, data });
 };
 export const getLoginStatus = data => {
-  return defHttp.post({ url: Api.GetLoginStatus, data });
+  return defHttp.get({ url: Api.GetLoginStatus, data });
 };
 export const getQrKey = () => {
   return defHttp.get({ url: Api.GetQrKey });

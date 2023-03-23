@@ -33,6 +33,7 @@
     width: 350px;
     height: 530px;
     flex-direction: column;
+    border: 1px solid;
     -webkit-app-region: drag;
     .el-header {
       padding: 10px 11px 0 0;
@@ -49,6 +50,7 @@
         top: 0px;
         left: 0px;
         cursor: pointer;
+        -webkit-app-region: no-drag;
       }
     }
     .el-main {
