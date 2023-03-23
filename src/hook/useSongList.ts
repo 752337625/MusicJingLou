@@ -17,8 +17,8 @@ interface SongInfo {
 export default function useSongList() {
   const song_info: SongInfo = shallowReactive({
     song_list: [],
-    song_params: { limit: 39 },
-    song_count: 39,
+    song_params: { limit: 100 },
+    song_count: 100,
     song_loading: true,
   });
 

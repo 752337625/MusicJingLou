@@ -14,7 +14,7 @@
       <div class="album">
         <router-link v-for="item in albumList" :key="item.id" :to="{ path: '/music/album', query: { id: item.id } }" class="item">
           <div class="faceImg">
-            <el-image :src="item.picUrl + '?param=120y120'">
+            <el-image :src="item.picUrl + '?param=120y120'" :lazy="true">
               <template #placeholder>
                 <div class="image-slot">
                   <i class="iconfont icon-placeholder"></i>

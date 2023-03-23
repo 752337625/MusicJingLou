@@ -7,7 +7,7 @@
       <div class="artist">
         <router-link v-for="item in songList" :key="item.id" :to="{ path: '/music/artist', query: { id: item.id } }" class="item">
           <div class="faceImg">
-            <el-image :src="item.picUrl + '?param=100y100'">
+            <el-image :src="item.picUrl + '?param=100y100'" :lazy="true">
               <template #placeholder>
                 <div class="image-slot">
                   <i class="iconfont icon-placeholder"></i>
@@ -33,7 +33,7 @@
   .artist {
     display: flex;
     flex-wrap: wrap;
-    justify-content: start;
+    justify-content: space-between;
 
     .item {
       width: 100px;

@@ -25,7 +25,7 @@
           :pagination="{ clickable: true }"
           class="banner_wrap">
           <SwiperSlide v-for="item of banner_list" :key="item.imageUrl">
-            <el-image :src="item.pic" :alt="item.typeTitle" class="banner_img" @click="pathHandler(item)">
+            <el-image :src="item.pic" :alt="item.typeTitle" class="banner_img" :lazy="true" @click="pathHandler(item)">
               <template #placeholder>
                 <div class="image-slot">
                   <i class="iconfont icon-placeholder"></i>

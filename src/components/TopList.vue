@@ -33,7 +33,7 @@
               class="songitem"
               :class="{ active: songItem.vip || songItem.license }">
               <div class="songimg">
-                <el-image :src="songItem.album.picUrl + '?param=120y120'">
+                <el-image :src="songItem.album.picUrl + '?param=120y120'" :lazy="true">
                   <template #placeholder>
                     <div class="image-slot">
                       <i class="iconfont icon-placeholder"></i>

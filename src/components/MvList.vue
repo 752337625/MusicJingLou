@@ -15,7 +15,7 @@
         <div v-for="(item, index) in mvList" :key="'' + item.id + index" class="item">
           <router-link :to="{ path: '/music/mv', query: { id: item.id } }" class="faceImg">
             <i class="iconfont icon-video-play"></i>
-            <el-image :src="item.cover || item.imgurl">
+            <el-image :src="item.cover || item.imgurl" :lazy="true">
               <template #placeholder>
                 <div class="image-slot">
                   <i class="iconfont icon-placeholder"></i>
