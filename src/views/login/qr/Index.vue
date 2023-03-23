@@ -1,14 +1,14 @@
 <script setup>
-  import { inject } from 'vue';
   import { ArrowRight } from '@element-plus/icons-vue';
+  import useQrLogin from '/@/hook/useQrLogin';
   import { useRouter } from 'vue-router';
-  const { qrurl, updataQrurl } = inject('qrCheck');
   const router = useRouter();
+  let { qrurl, updataQrurl } = useQrLogin();
 </script>
 <template>
   <div class="qr">
     <h3>扫码登录</h3>
-    <img :src="qrurl" style="width: 180px; margin-bottom: 10px; -webkit-app-region: no-drag" @click="updataQrurl" />
+    <img :src="qrurl" @click="updataQrurl" />
     <p>使用<a href="https://music.163.com/#/download" target="_blank">网易云音乐APP</a>扫码登录</p>
     <p class="other" @click="router.push({ path: '/login/phone' })">
       选择其他登录模式<el-icon><ArrowRight /></el-icon>
@@ -41,6 +41,11 @@
   }
   p {
     cursor: pointer;
+    -webkit-app-region: no-drag;
+  }
+  img {
+    width: 180px;
+    margin-bottom: 10px;
     -webkit-app-region: no-drag;
   }
 </style>
