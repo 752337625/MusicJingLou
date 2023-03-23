@@ -22,7 +22,6 @@
   const getQrCheck = () => {
     qrCheck({ key: key.value }).then(res => {
       let { code, message, cookie } = res;
-      console.log(res);
       //800 为二维码过期,801 为等待扫码,802 为待确认,803 为授权登录成功(803 状态码下会返回 cookies)
       if (code === 800) return (qrurl.value = qr800), clearInterval(freshen.value);
       if (code === 801) return;
@@ -64,14 +63,16 @@
     qrurl,
     updataQrurl,
   });
+  const loginOrwindow = () => {
+    window.ElectronAPI.setLoginDialog(false);
+  };
   onMounted(() => getQrKey());
 </script>
 <template>
   <el-container>
     <el-header>
-      <el-tooltip effect="dark" content="退出" placement="top">
-        <el-icon><Close /></el-icon> </el-tooltip
-    ></el-header>
+      <el-icon @click="loginOrwindow"><Close /></el-icon>
+    </el-header>
     <el-main>
       <RouterView v-slot="{ Component }">
         <KeepAlive>
@@ -86,11 +87,14 @@
     width: 350px;
     height: 530px;
     flex-direction: column;
+    -webkit-app-region: drag;
     .el-header {
       padding: 10px 11px 0 0;
       height: auto;
       text-align: end;
       .el-icon {
+        -webkit-app-region: no-drag;
+        cursor: pointer;
         font-size: 18px;
         color: #a5a5a5;
       }

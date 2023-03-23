@@ -36,7 +36,7 @@
     align-items: center;
     background: #ec4141;
     color: rgba(255, 255, 255, 0.8);
-    -webkit-app-region: drap;
+    -webkit-app-region: drag;
   }
   .el-aside {
     width: 230px;

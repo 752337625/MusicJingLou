@@ -30,6 +30,9 @@ declare global {
   declare interface Fn<T = any, R = T> {
     (...arg: T[]): R;
   }
+  declare interface Window {
+    ElectronAPI: any;
+  }
 }
 
 export {};

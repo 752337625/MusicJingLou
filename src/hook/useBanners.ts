@@ -34,7 +34,7 @@ export default function useBanners() {
         router.push({ path: '/music/mv', query: { id: params.targetId } });
         break;
       case 3000: // 外链
-        window.open(params.url, '_blank');
+        window.ElectronAPI.setShellExternal(params.url);
         break;
     }
   };

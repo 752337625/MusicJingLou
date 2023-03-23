@@ -1,5 +1,4 @@
-const { BrowserWindow, ipcMain } = require('electron');
-
+const { BrowserWindow, ipcMain, shell } = require('electron');
 function ipcMainFn() {
   ipcMain.on('show-window', () => {
     global.win.show();
@@ -32,7 +31,10 @@ function ipcMainFn() {
     }
   });
   ipcMain.on('set-login-dialog', (event, params) => {
-    console.log(params);
+    params ? global.loginWindow.show() : global.loginWindow.hide();
+  });
+  ipcMain.on('set-shell-external', (event, url) => {
+    shell.openExternal(url);
   });
 }
 module.exports = ipcMainFn;

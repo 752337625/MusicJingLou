@@ -26,7 +26,7 @@ const createTray = function () {
 };
 const createTrayWindow = function () {
   const bounds = global.tray.getBounds();
-  const trayWinURL = isDev ? `http://localhost:3100/jingluo/tray` : `${SCHEME}#tray`;
+  const TrayWinURL = isDev ? `http://localhost:3100/jingluo/tray` : `${SCHEME}#tray`;
   const win = {
     height: 350,
     width: 200,
@@ -51,7 +51,7 @@ const createTrayWindow = function () {
   const trayWindow = new BrowserWindow(win);
   // 禁用右键菜单
   trayWindow.setEnabled(false);
-  trayWindow.loadURL(trayWinURL);
+  trayWindow.loadURL(TrayWinURL);
   trayWindow.on('blur', () => {
     trayWindow.hide();
   });

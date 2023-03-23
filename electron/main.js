@@ -1,12 +1,15 @@
 const path = require('path');
 const { app, BrowserWindow } = require('electron');
 const { creatProtocol } = require('./module/protocol');
+const { createLoginWindow } = require('./module/loginWin');
+const windowStateKeeper = require('electron-window-state');
 const ipcMainFn = require('./handler');
 
 // 判断系统处于什么环境
 const isDev = require('electron-is-dev');
 // 创建系统托盘
 const { createTray, createTrayWindow } = require('./module/tray');
+
 // 设置window底部任务栏按钮（缩略图）
 const { setThumbarButton } = require('./module/thumbarButtons');
 // 注册协议
@@ -20,11 +23,15 @@ const icon = isDev ? 'public/images/tray.ico' : `${global.__images}/tray.ico`;
 // 取消安全校验
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 function createWindow() {
+  let mainWindowState = windowStateKeeper({
+    defaultWidth: 1200,
+    defaultHeight: 800,
+  });
   global.win = new BrowserWindow({
-    // center: true,
     show: false,
-    minWidth: 1500,
-    minHeight: 900,
+    center: true,
+    minWidth: mainWindowState.width,
+    minHeight: mainWindowState.height,
     resizable: true,
     alwaysOnTop: false, // 窗口是否永远在其他窗口上面
     icon: icon,
@@ -33,7 +40,6 @@ function createWindow() {
     backgroundColor: '#fff',
     hasShadow: true,
     webPreferences: {
-      devTools: isDev, // 是否开启 DevTools
       webSecurity: true, //允许跨域
       nodeIntegration: true, //开启true这一步很重要,目的是为了vue文件中可以引入node和electron相关的API
       contextIsolation: true, // 可以使用require方法,
@@ -53,6 +59,8 @@ function createWindow() {
       global.tray = createTray();
       // 如果是windows系统模拟托盘右键菜单
       global.trayWindow = createTrayWindow();
+      // 创建login框
+      global.loginWindow = createLoginWindow();
     }
   });
   if (process.platform === 'win32') {

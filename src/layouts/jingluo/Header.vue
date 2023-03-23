@@ -13,14 +13,14 @@
   // const nickname = computed(() => songStore.getNickname);
   const loginOrwindow = type => {
     if (type === 'max') {
-      window.electronAPI.setWindowMax();
+      window.ElectronAPI.setWindowMax();
     } else if (type === 'min') {
-      window.electronAPI.setWindowMin();
+      window.ElectronAPI.setWindowMin();
     } else if (type === 'close') {
-      window.electronAPI.setWindowClose();
+      window.ElectronAPI.setWindowClose();
     } else {
       console.log(1);
-      window.electronAPI.setLoginDialog(true);
+      window.ElectronAPI.setLoginDialog(true);
     }
   };
   // const logout = () => {
@@ -66,6 +66,7 @@
   .logined {
     display: flex;
     align-items: center;
+    -webkit-app-region: no-drag;
     .el-avatar {
       margin-right: 10px;
     }
@@ -76,6 +77,7 @@
   }
   .el-icon {
     margin: 0 10px;
+    -webkit-app-region: no-drag;
     cursor: pointer;
     font-size: 18px;
     &:hover {
