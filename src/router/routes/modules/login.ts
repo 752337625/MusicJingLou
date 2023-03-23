@@ -18,5 +18,16 @@ export default {
         // 	hideMenu: true,
       },
     },
+    {
+      path: 'phone',
+      name: 'phone',
+      component: () => import('/@/views/login/phone/Index.vue'),
+      meta: {
+        title: '手机登录',
+        // 	// title: t('routes.dashboard.about'),
+        // 	icon: 'simple-icons:about-dot-me',
+        // 	hideMenu: true,
+      },
+    },
   ],
 };

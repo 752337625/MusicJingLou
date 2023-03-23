@@ -23,7 +23,9 @@ const createLoginWindow = function () {
     },
   };
   const loginWindow = new BrowserWindow(win);
-  loginWindow.loadURL(LoginWinURL);
+  loginWindow.on('show', () => {
+    loginWindow.loadURL(LoginWinURL);
+  });
   return loginWindow;
 };
 module.exports = { createLoginWindow };
