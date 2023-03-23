@@ -1,5 +1,5 @@
 import { getToplist, getTopRankList } from '/@/api/main';
-import { onMounted, shallowReactive, toRefs, getCurrentInstance } from 'vue';
+import { onMounted, reactive, toRefs, getCurrentInstance } from 'vue';
 import { ComponentInternalInstance } from 'vue';
 
 interface TopList {
@@ -26,15 +26,17 @@ interface TopInfo {
   top_song_list: Array<TopSongList>;
   song_params: { id: string; s: number };
   top_num: number;
+  top_count: number;
   top_loading: boolean;
 }
 
 export default function useTopList() {
-  const top_info: TopInfo = shallowReactive({
+  const top_info: TopInfo = reactive({
     top_list: [],
     top_song_list: [],
     song_params: { id: '', s: 8 },
     top_num: 6,
+    top_count: 4,
     top_loading: true,
   });
   const {
@@ -43,7 +45,7 @@ export default function useTopList() {
   const getHottop = async () => {
     const { list, code } = await getToplist();
     if (code !== 200) return ElMessage.error('数据请求失败');
-    top_info['top_list'] = list.splice(0, 4);
+    top_info['top_list'] = list.splice(0, top_info.top_count);
     top_info['top_list'].forEach(async item => {
       const { playlist, privileges, code } = await getTopRankList({
         ...top_info['song_params'],
@@ -60,8 +62,6 @@ export default function useTopList() {
   const addSongList = item => {
     console.log(item);
   };
-  onMounted(() => {
-    getHottop();
-  });
+  onMounted(() => getHottop());
   return { ...toRefs(top_info), addSongList };
 }

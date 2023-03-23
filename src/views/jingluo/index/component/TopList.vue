@@ -1,10 +1,10 @@
 <script lang="ts" setup>
   import useTopList from '/@/hook/useTopList';
-  const { top_list, top_song_list, top_num, top_loading, addSongList } = useTopList();
+  const { top_list, top_song_list, top_num, top_loading, top_count, addSongList } = useTopList();
 </script>
 <template>
   <div class="top_list">
-    <el-skeleton :loading="top_loading" animated :throttle="500" :count="4">
+    <el-skeleton :loading="top_loading" animated :throttle="500" :count="top_count">
       <template #template>
         <div class="ske-item">
           <el-skeleton-item class="ske-h4" variant="text" />
@@ -137,6 +137,7 @@
         line-height: 24px;
         overflow: hidden;
         text-overflow: ellipsis;
+        display: -webkit-box;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
         word-break: break-all;
@@ -151,6 +152,7 @@
         height: 20px;
         overflow: hidden;
         text-overflow: ellipsis;
+        display: -webkit-box;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
         word-break: break-all;
