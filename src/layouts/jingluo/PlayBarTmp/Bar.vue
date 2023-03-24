@@ -13,7 +13,7 @@
       <div class="play-bar-inside">
         <div class="bar-l">
           <router-link :to="{ path: '/music/song', query: { id: curSongInfo.id } }">
-            <el-image :src="curSongInfo.album.picUrl" class="bar-cover-img" :lazy="true">
+            <el-image :src="curSongInfo.album.picUrl" class="bar-cover-img">
               <template #placeholder>
                 <div class="image-slot"> <i class="iconfont icon-placeholder"></i></div>
               </template>
@@ -138,6 +138,7 @@
       const isPlayed = computed(() => songStore.getIsPlayed);
       // 获取当前播放歌曲信息
       const curSongInfo = computed(() => playList.value[playIndex.value]);
+      console.log(curSongInfo);
       // 播放模式
       const modeIcon = computed(() => {
         const params = [

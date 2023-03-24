@@ -28,14 +28,41 @@
       const isPlayed = computed(() => songStore.getIsPlayed);
       // 获取当前播放歌曲信息
       const curSongInfo = computed(() => playList.value[playIndex.value]);
+      watch(
+        curSongInfo,
+        (newSong, oldSong) => {
+          if (!newSong || (oldSong && newSong.id === oldSong.id)) return;
+          // 当前播放歌曲变化的时候  重置状态及当前播放的时长
+          info['initAudioReady'] = false;
+          info['currentTime'] = 0;
+          emit('setCurrentTime', 0);
+          nextTick(() => {
+            const $myAudio = myAudio.value;
+            if ($myAudio) $myAudio.play();
+          });
+        },
+        { deep: true },
+      );
+      watch(
+        () => isPlayed.value,
+        playing => {
+          // 等待音频加载成功完成后播放
+          if (!info.initAudioReady) return;
+          nextTick(() => {
+            const $myAudio = myAudio.value;
+            if ($myAudio) playing ? $myAudio.play() : $myAudio.pause();
+          });
+        },
+      );
+
       // 单曲循环歌曲
       const loopSong = () => {
         const $myAudio = myAudio.value;
-
         $myAudio.currentTime = 0;
         $myAudio.play();
         songStore.setPlayStatus(true);
       };
+
       // 手动切换歌曲
       const changeSong = type => {
         // type: prev/next  上一首/下一首
@@ -60,7 +87,26 @@
           loopSong();
         }
       };
+      // 音频播放时候 初始化状态，获取音频总时长
+      const playSong = () => {
+        info['initAudioReady'] = true;
+        songStore.setPlayStatus(true);
+      };
 
+      // 音频播放结束 自动播放下一首
+      const endedSong = () => {
+        if (info['playMode'] === 1) {
+          loopSong();
+        } else {
+          changeSong('next');
+        }
+      };
+
+      // 监听音频时间， 实时更新当前播放时间
+      const updateSongTime = e => {
+        if (!info.initAudioReady) return;
+        emit('setCurrentTime', e.target.currentTime);
+      };
       // 音乐 播放/暂停/上一首/下一首
       const playAudioType = type => {
         if (type === 'play') {
@@ -86,85 +132,23 @@
         $myAudio.volume = val;
         $myAudio.muted = val ? 0 : 1;
       };
-
       // 点击拖拽进度条，设置当前时间
       const setAudioProgress = t => {
         const $myAudio = myAudio.value;
         $myAudio.currentTime = t;
       };
 
-      // 解决刷新页面时候，音频准备就绪
+      // 解决刷新页面时候，音频准备就绪,浏览器可以进行播放
       const canplaySong = () => {
         info['initAudioReady'] = true;
       };
 
-      // 音频播放时候 初始化状态，获取音频总时长
-      const playSong = () => {
-        info['initAudioReady'] = true;
-        songStore.setPlayStatus(true);
-      };
-
-      // 音频播放结束 自动播放下一首
-      const endedSong = () => {
-        if (info['playMode'] === 1) {
-          loopSong();
-        } else {
-          changeSong('next');
-        }
-      };
-
-      // 监听音频时间， 实时更新当前播放时间
-      const updateSongTime = e => {
-        if (!info.initAudioReady) {
-          return;
-        }
-        emit('setCurrentTime', e.target.currentTime);
-      };
-
-      watch(
-        curSongInfo,
-        (newSong, oldSong) => {
-          if (!newSong || (oldSong && newSong.id === oldSong.id)) {
-            return;
-          }
-          // 当前播放歌曲变化的时候  重置状态及当前播放的时长
-          info['initAudioReady'] = false;
-          info['currentTime'] = 0;
-          emit('setCurrentTime', 0);
-
-          nextTick(() => {
-            const $myAudio = myAudio.value;
-
-            if ($myAudio) {
-              $myAudio.play();
-            }
-          });
-        },
-        { deep: true },
-      );
-
-      watch(
-        () => isPlayed.value,
-        playing => {
-          // 等待音频加载成功完成后播放
-          if (!info.initAudioReady) {
-            return;
-          }
-
-          nextTick(() => {
-            const $myAudio = myAudio.value;
-
-            if ($myAudio) {
-              playing ? $myAudio.play() : $myAudio.pause();
-            }
-          });
-        },
-      );
-
+      const errorSong = () => ElMessage.error('播放失败');
       return {
         ...toRefs(info),
         myAudio,
         curSongInfo,
+        errorSong,
         canplaySong,
         playSong,
         endedSong,

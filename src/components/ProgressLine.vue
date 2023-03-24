@@ -107,24 +107,6 @@
       width: 0;
       height: 4px;
       border-radius: 2px;
-      background: -moz-linear-gradient(
-        left,
-        #ff641e 0%,
-        rgba(255, 150, 0, 0.77) 10%,
-        rgba(255, 100, 30, 0.8) 50%,
-        #ff641e 70%,
-        #ff7832 100%
-      );
-      /* FF3.6-15 */
-      background: -webkit-linear-gradient(
-        left,
-        #ff641e 0%,
-        rgba(255, 150, 0, 0.77) 10%,
-        rgba(255, 100, 30, 0.8) 50%,
-        #ff641e 70%,
-        #ff7832 100%
-      );
-      /* Chrome10-25,Safari5.1-6 */
       background: linear-gradient(
         to right,
         #ff641e 0%,
@@ -133,9 +115,7 @@
         #ff641e 70%,
         #ff7832 100%
       );
-      /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ff7832', GradientType=1);
-      /* IE6-9 */
     }
 
     .progress-btn {
@@ -143,7 +123,7 @@
       right: -6px;
       width: 4px;
       height: 4px;
-      border: 4px solid var(--color-text-height);
+      border: 4px solid @--color-text-height;
       top: -4.5px;
       background: #fff;
       box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);

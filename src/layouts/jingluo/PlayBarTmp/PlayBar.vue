@@ -21,7 +21,6 @@
     <audio-box ref="audioRef" @set-current-time="setCurrentTime" />
   </div>
 </template>
-
 <script>
   import AudioBox from '/@/layouts/jingluo/PlayBarTmp/AudioBox.vue';
   import MiniBar from '/@/layouts/jingluo/PlayBarTmp/MiniBar.vue';

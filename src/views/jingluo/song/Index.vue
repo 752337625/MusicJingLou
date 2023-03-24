@@ -158,7 +158,8 @@
     padding-top: 30px;
   }
   .song-main {
-    flex: 1;
+    // flex: 1;
+    width: calc(100% - 300px);
   }
   .song-header {
     display: flex;

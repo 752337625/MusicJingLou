@@ -3,7 +3,7 @@
     <div class="wrapper" :class="{ active: isMini }">
       <div class="play-l"></div>
       <div class="play-circle" :class="[isPlayed ? 'active' : '']" @click="changeWrapper">
-        <el-image :src="curSongInfo.album.picUrl" class="bar-cover-img" :lazy="true">
+        <el-image :src="curSongInfo.album.picUrl" class="bar-cover-img">
           <template #placeholder>
             <div class="image-slot"> <i class="iconfont icon-placeholder"></i></div>
           </template>
@@ -272,7 +272,7 @@
     a {
       line-height: 12px;
       font-size: 12px;
-      color: var(--color-text);
+      color: @--color-text;
     }
   }
   .audioProgress {
@@ -312,7 +312,7 @@
       line-height: 12px;
       font-size: 12px;
       transform: scale(0.9);
-      color: var(--color-text);
+      color: @--color-text;
     }
   }
   .play-footer {

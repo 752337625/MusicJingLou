@@ -38,9 +38,9 @@ const useSongStore = defineStore({
       songList: [],
       loginDialogVisible: false, // 登录弹窗显示与隐藏
       isShowPlayListTips: false,
-      playList: [],
-      isPlayed: false,
-      playIndex: 0,
+      playList: [], //播放列表
+      isPlayed: false, //是否正在播放
+      playIndex: 0, //播放列表中播放的第几个
       isLogin: false,
       userInfo: null,
     };
