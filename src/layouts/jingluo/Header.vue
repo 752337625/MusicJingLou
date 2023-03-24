@@ -76,6 +76,11 @@
     width: 230px;
     height: 50px;
   }
+  .search,
+  .logo,
+  .absolute {
+    -webkit-app-region: no-drag;
+  }
 
   .search .el-icon {
     border-radius: 50%;

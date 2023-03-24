@@ -14,9 +14,9 @@
         <div class="bar-l">
           <router-link :to="{ path: '/music/song', query: { id: curSongInfo.id } }">
             <el-image :src="curSongInfo.album.picUrl" class="bar-cover-img" :lazy="true">
-              <div slot="placeholder" class="image-slot">
-                <i class="iconfont icon-placeholder"></i>
-              </div>
+              <template #placeholder>
+                <div class="image-slot"> <i class="iconfont icon-placeholder"></i></div>
+              </template>
             </el-image>
           </router-link>
           <div class="bar-name">
@@ -113,14 +113,15 @@
     },
     setup(props, { emit }) {
       const songStore = useSongStore();
-      const { proxy } = getCurrentInstance();
+      const {
+        appContext: { config },
+      } = getCurrentInstance();
       const info = reactive({
         // 歌词弹窗时，固定播放条
         isLock: false,
         locked: false,
         lockName: 'active',
         manual: true,
-
         currentTime: inject('currentTime'), // 音频当前时长
         isMuted: false, // 是否禁音
         playMode: 0, // 播放模式  0循环播放、1单曲循环、2随机播放
@@ -131,35 +132,12 @@
         tipsTimer: null,
       });
 
-      onBeforeUnmount(() => {
-        clearTimeout(info.timer);
-        clearTimeout(info.tipsTimer);
-      });
-
       // 获取播放列表
       const playIndex = computed(() => songStore.getPlayIndex);
       const playList = computed(() => songStore.getPlayList);
       const isPlayed = computed(() => songStore.getIsPlayed);
-      watch(
-        () => songStore.getIsShowPlayListTips,
-        n => {
-          if (n) {
-            clearTimeout(info.tipsTimer);
-            info.tipsTimer = setTimeout(() => {
-              songStore.setIsShowPlayListTips(false);
-            }, 3000);
-          }
-        },
-      );
-      // 添加歌曲到播放列表后，弹窗tips提示
-      const isShowPlayListTips = computed(() => {
-        let val = songStore.getIsShowPlayListTips;
-        return val;
-      });
-
       // 获取当前播放歌曲信息
       const curSongInfo = computed(() => playList.value[playIndex.value]);
-
       // 播放模式
       const modeIcon = computed(() => {
         const params = [
@@ -178,46 +156,48 @@
         ];
         return params[info.playMode];
       });
+      // 添加歌曲到播放列表后，弹窗tips提示
+      const isShowPlayListTips = computed(() => songStore.getIsShowPlayListTips);
+      // 音频播放进度条 音频进度条长度
+      const audioProgressWidth = computed(
+        () => (info['currentTime'] / config.globalProperties.$utils.formatSongSecond(curSongInfo.value.duration)) * 100 + '%',
+      );
+      // 设置音频音量进度条
+      const volumeProgressWidth = computed(() => (info['volumeNum'] / 1) * 100 + '%');
+      watch(
+        () => songStore.getIsShowPlayListTips,
+        n => {
+          if (n) {
+            clearTimeout(info.tipsTimer);
+            info.tipsTimer = setTimeout(() => {
+              songStore.setIsShowPlayListTips(false);
+            }, 3000);
+          }
+        },
+      );
       // 切换播放模式
       const changePlayMode = () => {
         info['playMode'] = info['playMode'] >= 2 ? 0 : info['playMode'] + 1;
-
         emit('playAudioMode', info['playMode']);
       };
-
-      // 音频播放进度条
-      const audioProgressWidth = computed(() => {
-        // 音频进度条长度
-        return (info['currentTime'] / proxy.$utils.formatSongSecond(curSongInfo.value.duration)) * 100 + '%';
-      });
-      // 设置音频音量进度条
-      const volumeProgressWidth = computed(() => {
-        return (info['volumeNum'] / 1) * 100 + '%';
-      });
-
       // 音量禁音及取消操作
       const volumeHandler = () => {
         info['isMuted'] = info['isMuted'] ? 0 : 1;
         info['isMuted'] && (info['oldVolume'] = info['volumeNum']);
         info['volumeNum'] = info['isMuted'] ? 0 : info['oldVolume'];
-
         emit('setVolumeHandler', info['isMuted']);
       };
-
       // 点击拖拽音量条，设置当前音量
       const setvolumeProgress = params => {
         info['volumeNum'] = params.val;
         info['oldVolume'] = params.val;
         info['isMuted'] = params.val ? 0 : 1;
-
         emit('setvolumeProgress', params.val);
       };
-
       // 播放暂停按钮
       const playIcon = computed(() => {
         return !isPlayed.value ? 'icon-audio-play' : 'icon-audio-pause';
       });
-
       // 是否静音
       const mutedIcon = computed(() => {
         return info['isMuted'] ? 'icon-volume-active' : 'icon-volume';
@@ -234,7 +214,6 @@
         image.crossOrigin = true;
         image.src = [...navigator.mediaSession.metadata.artwork].pop().src;
         await image.decode();
-
         canvas.getContext('2d').drawImage(image, 0, 0, 250, 250);
         await video.play();
         await video.requestPictureInPicture();
@@ -266,7 +245,7 @@
       // 点击拖拽进度条，设置当前时间
       const setAudioProgress = params => {
         info['initAudioReady'] = false;
-        info['currentTime'] = params.val * proxy.$utils.formatSongSecond(curSongInfo.value.duration);
+        info['currentTime'] = params.val * config.globalProperties.$utils.formatSongSecond(curSongInfo.value.duration);
 
         // 拖拽的时候，不实时更改音频的时间
         if (params.flag) {
@@ -348,6 +327,10 @@
         },
         false,
       );
+      onBeforeUnmount(() => {
+        clearTimeout(info.timer);
+        clearTimeout(info.tipsTimer);
+      });
       onMounted(() => {
         leaveBar();
         songStore.setPalyList(playList.value);
@@ -418,7 +401,7 @@
       cursor: pointer;
 
       .active {
-        color: var(--color-text-height);
+        color: @--color-text-height;
       }
     }
   }
@@ -449,7 +432,7 @@
       width: 50px;
       height: 50px;
       border-radius: 4px;
-      box-shadow: 0 0 15px 5px rgba(var(--color-text-height), 0.15);
+      box-shadow: 0 0 15px 5px rgba(@--color-text-height, 0.15);
     }
 
     .bar-name {
@@ -517,7 +500,7 @@
       .icon-audio-pause {
         font-size: 50px;
         font-weight: bold;
-        color: var(--color-text-height);
+        color: @--color-text-height;
       }
     }
 
@@ -607,7 +590,6 @@
         }
       }
     }
-
     .volume-main {
       flex: 1;
       padding: 10px 0;
@@ -685,7 +667,7 @@
 
   .icon-pip {
     &.active {
-      color: var(--color-text-height);
+      color: @--color-text-height;
     }
   }
 </style>

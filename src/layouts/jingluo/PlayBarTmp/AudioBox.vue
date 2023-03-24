@@ -179,4 +179,3 @@
     },
   };
 </script>
-<style scoped></style>

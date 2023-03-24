@@ -4,9 +4,9 @@
       <div class="play-l"></div>
       <div class="play-circle" :class="[isPlayed ? 'active' : '']" @click="changeWrapper">
         <el-image :src="curSongInfo.album.picUrl" class="bar-cover-img" :lazy="true">
-          <div slot="placeholder" class="image-slot">
-            <i class="iconfont icon-placeholder"></i>
-          </div>
+          <template #placeholder>
+            <div class="image-slot"> <i class="iconfont icon-placeholder"></i></div>
+          </template>
         </el-image>
       </div>
       <div class="play-main">

@@ -113,7 +113,7 @@
 <style lang="less" scoped>
   .rank-container {
     display: flex;
-    padding: 40px 0 0 0;
+    padding: 20px 0 0 0;
   }
   .rank-main {
     flex: 1;
