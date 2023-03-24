@@ -159,7 +159,7 @@
   }
   .song-main {
     // flex: 1;
-    width: calc(100% - 300px);
+    width: calc(100% - 290px);
   }
   .song-header {
     display: flex;

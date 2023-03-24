@@ -43,9 +43,9 @@ const createTrayWindow = function () {
     // parent: global.mainWindow,
     webPreferences: {
       nodeIntegration: true,
-      nodeIntegrationInWorker: true,
-      backgroundThrottling: false,
-      devTools: false,
+      // nodeIntegrationInWorker: true,
+      // backgroundThrottling: false,
+      // devTools: false,
     },
   };
   const trayWindow = new BrowserWindow(win);

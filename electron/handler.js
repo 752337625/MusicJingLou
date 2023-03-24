@@ -30,8 +30,11 @@ function ipcMainFn() {
       global.win.show();
     }
   });
-  ipcMain.on('set-login-dialog', (event, params) => {
-    params ? global.loginWindow.show() : global.loginWindow.hide();
+  ipcMain.on('set-login-dialog', (event, flag) => {
+    flag ? global.loginWindow.show() : global.loginWindow.hide();
+  });
+  ipcMain.on('set-desktop-lyric-dialog', (event, flag) => {
+    flag ? global.lyricWindow.show() : global.lyricWindow.hide();
   });
   ipcMain.on('set-shell-external', (event, url) => {
     shell.openExternal(url);
