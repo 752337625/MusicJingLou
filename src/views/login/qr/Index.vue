@@ -4,12 +4,15 @@
   import { useRouter } from 'vue-router';
   let { qrurl, updataQrurl } = useQrLogin();
   const router = useRouter();
+  const clickHandle = () => {
+    window.ElectronAPI.setShellExternal('https://music.163.com/#/download');
+  };
 </script>
 <template>
   <div class="qr">
     <h3>扫码登录</h3>
     <img :src="qrurl" @click="updataQrurl" />
-    <p>使用<a href="https://music.163.com/#/download" target="_blank">网易云音乐APP</a>扫码登录</p>
+    <p>使用<a @click="clickHandle">网易云音乐APP</a>扫码登录</p>
     <p class="other" @click="router.push({ path: '/login/phone' })">
       选择其他登录模式<el-icon><ArrowRight /></el-icon>
     </p>

@@ -2,6 +2,9 @@ import { App } from 'vue';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import { getEnvConfig } from '/@/utils/env';
 import list from '/@/router/routes/index';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+NProgress.configure({ showSpinner: false });
 // import { useManualRefHistory } from '@vueuse/core';
 // const { history, commit, undo, redo } = useManualRefHistory(counter);
 const { VITE_PUBLIC_PATH } = getEnvConfig();
@@ -19,7 +22,7 @@ const router = createRouter({
  * @param {*} next
  */
 router.beforeEach((_to, _from, next) => {
-  // console.log(1);
+  NProgress.start();
   next();
 });
 /**
@@ -38,7 +41,7 @@ router.beforeResolve(() => {
  * @param {*} failure
  */
 router.afterEach(() => {
-  // console.log(1);
+  NProgress.done();
 });
 export default async function setupRouter(app: App) {
   app.use(router);

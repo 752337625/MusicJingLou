@@ -3,14 +3,14 @@
     <el-select
       v-model="keyVal"
       class="keyVal"
-      clearable
       filterable
       remote
-      placeholder="请输入歌名、歌词、歌手或专辑"
+      :placeholder="placeholder"
       :remote-method="remoteMethod"
       :fit-input-width="true"
       :loading="loading"
       loading-text="搜索中..."
+      size="small"
       @focus="handleFocus">
       <div v-if="!keyVal" class="hot-search">
         <h5>热门搜索</h5>
@@ -50,12 +50,14 @@
 <script>
   import { defineComponent, onMounted, reactive, toRefs } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
+  import { getSearchDefault, getSearchSuggest as searchSuggest, getSearchHot } from '/@/api/search';
   export default defineComponent({
     setup() {
       const route = useRoute();
       const router = useRouter();
       const info = reactive({
         keyVal: '',
+        placeholder: '',
         serachHot: [],
         suggestInfo: [],
         loading: false,
@@ -68,7 +70,23 @@
       });
       // 搜索结果
       const getSerachSuggest = async () => {
-        console.log(1);
+        const { code, message, result } = await searchSuggest({ keywords: info.keyVal });
+        info['loading'] = false;
+        if (code !== 200) return ElMessage.error(message);
+        if (!result.order || !result.order.length) return;
+        info['suggestInfo'] = result.order.map(item => {
+          return {
+            label: item,
+            info: result[item],
+          };
+        });
+      };
+      const _getSearchHot = () => {
+        getSearchHot().then(res => {
+          let { code, message, result } = res;
+          if (code !== 200) return ElMessage.error(message);
+          info.serachHot = result.hots;
+        });
       };
 
       const remoteMethod = query => {
@@ -90,8 +108,13 @@
       };
 
       // 热门搜索
-      const getSearchHot = async () => {
-        console.log();
+      const _getSearchDefault = async () => {
+        getSearchDefault().then(res => {
+          let { code, message, data } = res;
+          if (code !== 200) return ElMessage.error(message);
+          info.placeholder = data.showKeyword;
+          //
+        });
       };
 
       // 默认热门搜索列表，点击后台跳转到搜索结果页面
@@ -100,7 +123,7 @@
         if (item.first === route.query.key) {
           return;
         }
-        router.push({ path: '/search', query: { key: item.first } });
+        router.push({ path: '/music/search', query: { key: item.first } });
       };
 
       // 搜索建议列表，点击后跳转到相对应的落地页
@@ -121,10 +144,7 @@
         }
       };
 
-      onMounted(() => {
-        getSearchHot();
-      });
-
+      onMounted(() => _getSearchDefault(), _getSearchHot());
       return {
         ...toRefs(info),
         remoteMethod,
@@ -147,19 +167,20 @@
     display: flex;
     text-align: right;
     align-items: center;
-    background: #fff;
-    .keyVal {
-      width: 250px;
-      border: 0;
-
-      :deep(input) {
-        height: 40px;
-        line-height: 40px;
-        padding: 0 10px;
-        border: none;
+    :deep(.el-input),
+    :deep(.el-input__inner) {
+      color: #fff;
+      padding: 0 10px;
+    }
+    .el-select {
+      :deep(.el-input__wrapper) {
+        background-color: #d93c3c;
+        box-shadow: none !important;
+        border-radius: 27px;
       }
     }
   }
+
   .hot-search {
     h5 {
       padding: 5px 0 5px 20px;

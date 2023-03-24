@@ -139,5 +139,16 @@ export default {
         // 	hideMenu: true,
       },
     },
+    {
+      path: 'search',
+      name: 'search',
+      component: () => import('/@/views/jingluo/search/Index.vue'),
+      meta: {
+        title: '搜索',
+        // 	// title: t('routes.dashboard.about'),
+        // 	icon: 'simple-icons:about-dot-me',
+        // 	hideMenu: true,
+      },
+    },
   ],
 };

@@ -1,8 +1,7 @@
 const path = require('path');
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, screen } = require('electron');
 const { creatProtocol } = require('./module/protocol');
 const { createLoginWindow } = require('./module/loginWin');
-const windowStateKeeper = require('electron-window-state');
 const ipcMainFn = require('./handler');
 
 // 判断系统处于什么环境
@@ -23,22 +22,25 @@ const icon = isDev ? 'public/images/tray.ico' : `${global.__images}/tray.ico`;
 // 取消安全校验
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 function createWindow() {
-  let mainWindowState = windowStateKeeper({
-    defaultWidth: 1200,
-    defaultHeight: 800,
-  });
+  let { size } = screen.getPrimaryDisplay();
+  let w = (size.width - 1660) / 2;
+  let h = (size.height - 800) / 2;
   global.win = new BrowserWindow({
+    x: w,
+    y: h,
     show: false,
     center: true,
-    minWidth: mainWindowState.width,
-    minHeight: mainWindowState.height,
+    minWidth: 1660,
+    minHeight: 800,
     resizable: true,
+    // fullscreen: true,
     alwaysOnTop: false, // 窗口是否永远在其他窗口上面
     icon: icon,
     titleBarStyle: 'hiddenInset',
     frame: process.platform !== 'win32',
     backgroundColor: '#fff',
     hasShadow: true,
+    skipTaskbar: false,
     webPreferences: {
       webSecurity: true, //允许跨域
       nodeIntegration: true, //开启true这一步很重要,目的是为了vue文件中可以引入node和electron相关的API

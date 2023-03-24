@@ -1,4 +1,4 @@
-// import path from 'path';
+import path from 'path';
 import { PluginOption } from 'vite';
 import vue from '@vitejs/plugin-vue';
 // import Mkcert from 'vite-plugin-mkcert'; // success 提供有效的https证书
@@ -28,7 +28,7 @@ import Banner from 'vite-plugin-banner';
 import pkg from '../../../package.json';
 import Vuejsx from '@vitejs/plugin-vue-jsx';
 import PurgeIcons from 'vite-plugin-purge-icons';
-// import Electron from 'vite-plugin-electron';
+import Electron from 'vite-plugin-electron';
 import { configStyleImportPlugin } from './styleImport';
 
 // import { configImageminPlugin } from './imagemin'; // success
@@ -66,10 +66,10 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
     Banner(
       `/**\n * name: ${pkg.name}\n * version: v${pkg.version}\n * description: ${pkg.description}\n * author: ${pkg.author.name}\n * homepage: ${pkg.homepage}\n */`,
     ),
-    // Electron({
-    //   // 配置 Electron 入口文件
-    //   entry: path.join(process.cwd(), 'electron/main.js'),
-    // }),
+    Electron({
+      // 配置 Electron 入口文件
+      entry: path.join(process.cwd(), 'electron/main.js'),
+    }),
   ];
   // vite-plugin-purge-icons
   vitePlugins.push(PurgeIcons());

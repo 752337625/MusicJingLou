@@ -1,10 +1,14 @@
 <script setup>
-  // import { createAsyncComponent } from '/@/utils/createAsyncComponent';
+  import { createAsyncComponent } from '/@/utils/createAsyncComponent';
   // import { computed } from 'vue';
   // import useSongStore from '/@/store/modules/song';
   import { CloseBold, SemiSelect, FullScreen, Setting } from '@element-plus/icons-vue';
+  import { ArrowLeft, ArrowRight, Microphone } from '@element-plus/icons-vue';
   import logo from '/@/assets/img/logo.jpg';
-  // let Search = createAsyncComponent(() => import('/@/layouts/jingluo/Search.vue'));
+  import { useRouter } from 'vue-router';
+  let Search = createAsyncComponent(() => import('/@/layouts/jingluo/Search.vue'));
+  let router = useRouter();
+  let state = computed(() => router.options.history.state);
   // const songStore = useSongStore();
   // const isLogin = computed(() => songStore.getIsLogin);
   // // 头像
@@ -18,20 +22,30 @@
       window.ElectronAPI.setWindowMin();
     } else if (type === 'close') {
       window.ElectronAPI.setWindowClose();
+    } else if (type === 'back') {
+      state.value.back ? router.back() : null;
+    } else if (type === 'forward') {
+      state.value.forward ? router.go(1) : null;
     } else {
-      console.log(1);
       window.ElectronAPI.setLoginDialog(true);
     }
   };
-  // const logout = () => {
-  //   console.log(1);
-  // };
 </script>
 <template>
-  <router-link to="/" class="logo"><img :src="logo" alt="log" /></router-link>
-  <div class="menu"> </div>
-  <!-- <Search /> -->
-  <div class="logined">
+  <router-link to="/" class="logo flex items-center"><img :src="logo" alt="log" /></router-link>
+  <div class="flex items-center search">
+    <el-tooltip effect="dark" content="后退" placement="top">
+      <el-icon @click="loginOrwindow('back')"><ArrowLeft /></el-icon>
+    </el-tooltip>
+    <el-tooltip effect="dark" content="前进" placement="top">
+      <el-icon class="arrow-right" @click="loginOrwindow('forward')"><ArrowRight /></el-icon
+    ></el-tooltip>
+    <Search />
+    <el-tooltip effect="dark" content="录音" placement="top">
+      <el-icon style="color: #fff"><Microphone /></el-icon
+    ></el-tooltip>
+  </div>
+  <div class="flex items-center absolute right-0">
     <el-avatar size="small" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
     <el-dropdown>
       <span @click="loginOrwindow"> 未登录 </span>
@@ -43,48 +57,48 @@
         </el-dropdown-menu>
       </template>
     </el-dropdown>
+    <el-tooltip effect="dark" content="设置" placement="top">
+      <el-icon><Setting /></el-icon>
+    </el-tooltip>
+    <el-tooltip effect="dark" content="最小化" placement="top">
+      <el-icon @click="loginOrwindow('min')"><SemiSelect /></el-icon>
+    </el-tooltip>
+    <el-tooltip effect="dark" content="最大化" placement="top">
+      <el-icon @click="loginOrwindow('max')"><FullScreen /></el-icon>
+    </el-tooltip>
+    <el-tooltip effect="dark" content="退出" placement="top">
+      <el-icon @click="loginOrwindow('close')"><CloseBold /></el-icon>
+    </el-tooltip>
   </div>
-  <el-tooltip effect="dark" content="设置" placement="top">
-    <el-icon><Setting /></el-icon>
-  </el-tooltip>
-  <el-tooltip effect="dark" content="最小化" placement="top">
-    <el-icon @click="loginOrwindow('min')"><SemiSelect /></el-icon>
-  </el-tooltip>
-  <el-tooltip effect="dark" content="最大化" placement="top">
-    <el-icon @click="loginOrwindow('max')"><FullScreen /></el-icon>
-  </el-tooltip>
-  <el-tooltip effect="dark" content="退出" placement="top">
-    <el-icon @click="loginOrwindow('close')"><CloseBold /></el-icon>
-  </el-tooltip>
 </template>
 <style lang="less" scoped>
-  .logo {
+  .logo img {
     width: 230px;
-    display: flex;
-    justify-content: center;
+    height: 50px;
   }
-  .logined {
-    display: flex;
-    align-items: center;
-    -webkit-app-region: no-drag;
-    .el-avatar {
-      margin-right: 10px;
-    }
-    .el-dropdown {
-      cursor: pointer;
-      color: #fff;
-    }
+
+  .search .el-icon {
+    border-radius: 50%;
+    padding: 4px;
+    background-color: #d93c3c;
+    color: #e47373;
   }
   .el-icon {
     margin: 0 10px;
-    -webkit-app-region: no-drag;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 20px;
     &:hover {
       color: rgba(255, 255, 255, 1);
     }
   }
-  .menu {
-    flex: 1;
+  .arrow-right {
+    margin-left: 0;
+  }
+  .el-avatar {
+    margin-right: 10px;
+  }
+  .el-dropdown {
+    cursor: pointer;
+    color: #fff;
   }
 </style>
