@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "homepage": "",
-  "description": "这是一个app",
+  "description": "这是一个桌面端云音乐",
   "author": {
     "name": ""
   },
@@ -16,6 +16,8 @@
     "commit": "czg",
     "prepare": "husky install",
     "serve": "vite",
+    "start": "nodemon --exec electron . --watch ./ --ext .js,.html,.scss,.vue,.ts,.css",
+    "electron:serve": "concurrently \"pnpm run serve\" \"pnpm run start\"",
     "build": "concurrently \"vue-tsc --noEmit\" \"vite build\"",
     "electron:build": "electron-builder",
     "build:no-cache": "concurrently \"pnpm run clean:cache\" \"pnpm run build\"",
@@ -137,16 +139,17 @@
     ]
   },
   "build": {
-    "appId": "com.electron.desktop",
+    "appId": "com.clound.app",
     "productName": "electron",
     "asar": true,
     "copyright": "Copyright © 2023 electron",
     "directories": {
-      "output": "release/"
+      "output": "dist_electron"
     },
     "files": [
-      "dist/**/*",
-      "electron/**/*"
+      "dist",
+      "electron",
+      "package.json"
     ],
     "mac": {
       "icon": "public/electron-icon/icon.icns",

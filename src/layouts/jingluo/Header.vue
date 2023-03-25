@@ -3,12 +3,13 @@
   // import { computed } from 'vue';
   // import useSongStore from '/@/store/modules/song';
   import { CloseBold, SemiSelect, FullScreen, Setting } from '@element-plus/icons-vue';
-  import { ArrowLeft, ArrowRight, Microphone } from '@element-plus/icons-vue';
+  import { ArrowLeft, ArrowRight, Microphone, RefreshLeft } from '@element-plus/icons-vue';
   import logo from '/@/assets/img/logo.jpg';
   import { useRouter } from 'vue-router';
   let Search = createAsyncComponent(() => import('/@/layouts/jingluo/Search.vue'));
   let router = useRouter();
   let state = computed(() => router.options.history.state);
+
   // const songStore = useSongStore();
   // const isLogin = computed(() => songStore.getIsLogin);
   // // 头像
@@ -26,6 +27,8 @@
       state.value.back ? router.back() : null;
     } else if (type === 'forward') {
       state.value.forward ? router.go(1) : null;
+    } else if (type === 'refresh') {
+      router.go(0);
     } else {
       window.ElectronAPI.setLoginDialog(true);
     }
@@ -40,6 +43,9 @@
     <el-tooltip effect="dark" content="前进" placement="top">
       <el-icon class="arrow-right" @click="loginOrwindow('forward')"><ArrowRight /></el-icon
     ></el-tooltip>
+    <el-tooltip effect="dark" content="刷新" placement="top">
+      <el-icon><RefreshLeft @click="loginOrwindow('refresh')" /></el-icon>
+    </el-tooltip>
     <Search />
     <el-tooltip effect="dark" content="录音" placement="top">
       <el-icon style="color: #fff"><Microphone /></el-icon

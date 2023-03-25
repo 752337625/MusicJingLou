@@ -1,18 +1,15 @@
-# Vue 3 + TypeScript + Vite + Electron
-
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
-
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Type Support For `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+- 拖拽播放
+- 桌面歌词
+- mini 模式
+- 自定义托盘右键菜单
+- 任务栏缩略图，歌曲操作
+- 音频可视化
+- 自动/手动检查更新
+- Nedb 数据库持久化
+- 自定义安装路径，安装界面美化
+- 浏览器中启动客户端
+- Travis CL，AppVeyor 自动构建
+- 换肤，下载，本地歌曲匹配，网络变化桌面通知，分享歌曲/歌单/MV/视频等到 QQ 空间
+- 登录，私人 Fm，歌单，专辑，歌手，排行榜，MV，视频，评论，搜索，用户，动态，粉丝，关注，云盘，收藏...
+- 心动模式，歌词微调，下一首播放，追加播放，单曲循环，随机播放，列表循环
+- 路由导向，局部刷新，首页栏目调整并持久化...

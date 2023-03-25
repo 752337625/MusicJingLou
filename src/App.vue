@@ -13,4 +13,7 @@
     const message = defaultLocale.default?.message ?? {};
     EleLocale.value = message[locale.value];
   });
+  window.document.oncontextmenu = function () {
+    return false;
+  };
 </script>

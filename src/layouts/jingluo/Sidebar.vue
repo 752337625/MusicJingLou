@@ -62,6 +62,7 @@
   .side-main {
     padding: 0 15px;
     text-align: center;
+    height: 100%;
   }
 
   .nav {

@@ -1,18 +1,23 @@
 <script lang="ts" setup>
-  let current_lyric = ref('听见好时光');
+  import { computed } from 'vue';
+  import useLyricsStore from '/@/store/modules/lyrics';
+  const lyricsStore = useLyricsStore();
+  // const lyric = computed(() => lyricsStore.getlyric);
+  // const lyricObj = computed(() => lyricsStore.getLyricObj);
+  const curIndex = computed(() => lyricsStore.getCurIndex);
+  let current_lyric = ref('听见好时光,听见好时光,听见好时光听见好时光听见好时光听见好时光');
 </script>
 <template>
   <div id="desktop" class="desktop-lyric">
-    <div id="lrc" class="playing-lyric">
-      {{ current_lyric }}
-    </div>
+    <div id="lrc" class="playing-lyric"> {{ current_lyric }}{{ curIndex }} </div>
   </div>
 </template>
 
 <style lang="less" scoped>
   .desktop-lyric {
+    -webkit-app-region: drag;
     .playing-lyric {
-      width: max-content;
+      // width: max-content;
       height: 60px;
       line-height: 60px;
       margin: 10px;
@@ -25,6 +30,7 @@
       text-indent: 2px;
       white-space: nowrap;
       overflow-x: auto;
+      display: inline-block;
 
       &:hover {
         cursor: grab;

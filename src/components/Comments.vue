@@ -188,7 +188,6 @@
     if (code !== 200) return ElMessage.error('数据请求失败');
     info.msg = '';
     getComment();
-
     if (t === 0) {
       ElMessage.success('删除评论成功！');
     } else if (t === 1) {
@@ -202,10 +201,7 @@
 
   // 发布评论
   const subComment = async () => {
-    if (!isLogin.value) {
-      useSong.setLoginDialogVisible(true);
-      return;
-    }
+    if (!isLogin.value) return useSong.setLoginDialogVisible(true);
     commentHandler(1, info.msg);
   };
 
@@ -343,7 +339,7 @@
 
     .inp-paragraph,
     .pre {
-      width: calc(100% - 30px);
+      width: 100%;
       padding: 10px 15px;
       line-height: 24px;
       min-height: 90px;

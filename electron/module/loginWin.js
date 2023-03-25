@@ -26,6 +26,13 @@ const createLoginWindow = function () {
   loginWindow.on('show', () => {
     loginWindow.loadURL(LoginWinURL);
   });
+  loginWindow.hookWindowMessage(278, () => {
+    loginWindow.setEnabled(false);
+    setTimeout(() => {
+      loginWindow.setEnabled(true);
+    }, 100);
+    return true;
+  });
   return loginWindow;
 };
 module.exports = { createLoginWindow };

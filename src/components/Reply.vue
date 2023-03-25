@@ -68,7 +68,7 @@
 
   .inp-paragraph,
   .pre {
-    width: calc(100% - 30px);
+    width: 100%;
     padding: 10px 15px;
     line-height: 24px;
     min-height: 24px;

@@ -82,7 +82,7 @@
 
           info['initAudioReady'] = false;
           songStore.setPlayStatus(false);
-          songStore.setPlayIndex(index);
+          songStore.setPalyIndex(index);
         } else {
           loopSong();
         }
@@ -111,7 +111,7 @@
       const playAudioType = type => {
         if (type === 'play') {
           songStore.setPlayStatus(!isPlayed.value);
-          songStore.setPlayIndex(playIndex.value);
+          songStore.setPalyIndex(playIndex.value);
         } else {
           changeSong(type);
         }

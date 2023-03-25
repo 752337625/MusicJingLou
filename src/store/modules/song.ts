@@ -1,4 +1,6 @@
 import utils from '/@/utils/util';
+import { createLocalStorage } from '/@/utils/cache';
+const ls = createLocalStorage();
 // 合并歌曲到播放列表查重
 const concatPlayList = (list, playList: Array<any>) => {
   // filter过滤无版权及vip歌曲
@@ -37,12 +39,12 @@ const useSongStore = defineStore({
     return {
       songList: [],
       loginDialogVisible: false, // 登录弹窗显示与隐藏
-      isShowPlayListTips: false,
-      playList: [], //播放列表
-      isPlayed: false, //是否正在播放
-      playIndex: 0, //播放列表中播放的第几个
       isLogin: false,
       userInfo: null,
+      isShowPlayListTips: false,
+      playList: ls.get('playList') || [], //播放列表
+      isPlayed: false, //是否正在播放
+      playIndex: ls.get('playIndex') || 0, //播放列表中播放的第几个
     };
   },
   getters: {
@@ -78,9 +80,6 @@ const useSongStore = defineStore({
     setLoginDialogVisible(flag) {
       this.loginDialogVisible = flag;
     },
-    setPlayIndex(index) {
-      this.playIndex = index;
-    },
     setSelectPlay({ list }) {
       const playList = concatPlayList(list, this.playList);
       this.setPlayStatus(true);
@@ -105,11 +104,11 @@ const useSongStore = defineStore({
     },
     setPalyList(val) {
       this.playList = val;
-      window.localStorage.setItem('playList', JSON.stringify(val));
+      ls.set('playList', val);
     },
     setPalyIndex(num) {
       this.playIndex = num;
-      window.localStorage.setItem('playIndex', num);
+      ls.set('playIndex', num);
     },
     setIsShowPlayListTips(flag) {
       this.isShowPlayListTips = flag;

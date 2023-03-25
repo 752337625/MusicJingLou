@@ -50,6 +50,7 @@
               <i :class="['iconfont', mutedIcon]" title="音量" @click.stop="volumeHandler"></i>
               <ProgressLine class="volumeLine" :progressWidth="volumeProgressWidth" @set-progress-line="setvolumeProgress" />
             </div>
+            <!-- 播放模式 -->
             <i class="iconfont" :class="modeIcon.className" :title="modeIcon.title" @click.stop="changePlayMode"></i>
             <div class="popver">
               <el-popover placement="top" :width="400" trigger="click" @hide="popverClose">
@@ -138,7 +139,6 @@
       const isPlayed = computed(() => songStore.getIsPlayed);
       // 获取当前播放歌曲信息
       const curSongInfo = computed(() => playList.value[playIndex.value]);
-      console.log(curSongInfo);
       // 播放模式
       const modeIcon = computed(() => {
         const params = [
@@ -260,6 +260,7 @@
 
       const popverHandle = () => {
         info['isLock'] = true;
+        // window.ElectronAPI.setDesktopLyricDialog(true);
       };
       const leaveBar = () => {
         // 点击锁住按钮，会触发mouseleave 事件 此时的e的值是 undefined  而正常通过鼠标移出的时候 e是个对象
@@ -273,6 +274,7 @@
       };
       const popverClose = () => {
         info['isLock'] = false;
+        // window.ElectronAPI.setDesktopLyricDialog(false);
         leaveBar();
       };
 
@@ -291,7 +293,7 @@
       const clearSonglist = () => {
         songStore.setPalyList([]);
         songStore.setPlayStatus(false);
-        songStore.setPlayIndex(0);
+        songStore.setPalyIndex(0);
       };
 
       const picInpic = () => {

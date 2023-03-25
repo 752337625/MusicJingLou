@@ -125,6 +125,9 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         'element-plus/es/components/dropdown-menu/style/css',
         'element-plus/es/components/dropdown-item/style/css',
         'element-plus/es/components/avatar/style/css',
+        'element-plus/es/components/checkbox/style/css',
+        'element-plus/es/components/form-item/style/css',
+        'element-plus/es/components/input/style/css',
       ],
     },
   };

@@ -49,6 +49,13 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js'),
     },
   });
+  global.win.hookWindowMessage(278, () => {
+    global.win.setEnabled(false);
+    setTimeout(() => {
+      global.win.setEnabled(true);
+    }, 100);
+    return true;
+  });
   // 禁用右键菜单,这个禁用后所有的功能都不能点了
   // global.win.setEnabled(false);
   global.win.once('ready-to-show', () => {
@@ -74,10 +81,10 @@ function createWindow() {
   if (isDev) {
     global.win.loadURL('http://localhost:3100/jingluo');
     global.win.webContents.openDevTools();
-    require('electron-reload')(__dirname, {
-      // Note that the path to electron may vary according to the main file
-      electron: require(`../node_modules/electron`),
-    });
+    // require('electron-reload')(__dirname, {
+    //   // Note that the path to electron may vary according to the main file
+    //   electron: require(`../node_modules/electron`),
+    // });
   } else {
     global.win.loadFile(path.join(__dirname, '../index.html'));
   }
