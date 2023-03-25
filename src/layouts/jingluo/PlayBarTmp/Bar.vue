@@ -12,7 +12,7 @@
     <div class="wrapper">
       <div class="play-bar-inside">
         <div class="bar-l">
-          <router-link :to="{ path: '/layouts/music/song', query: { id: curSongInfo.id } }">
+          <router-link :to="{ path: '/music/song', query: { id: curSongInfo.id } }">
             <el-image :src="curSongInfo.album.picUrl" class="bar-cover-img">
               <template #placeholder>
                 <div class="image-slot"> <i class="iconfont icon-placeholder"></i></div>
@@ -20,14 +20,14 @@
             </el-image>
           </router-link>
           <div class="bar-name">
-            <router-link :to="{ path: '/layouts/music/song', query: { id: curSongInfo.id } }" class="song_name">{{
+            <router-link :to="{ path: '/music/song', query: { id: curSongInfo.id } }" class="song_name">{{
               curSongInfo.name
             }}</router-link>
             <p
               ><router-link
                 v-for="(author, k) in curSongInfo.singer"
                 :key="author.name"
-                :to="{ path: '/layouts/music/singer', query: { id: author.id } }"
+                :to="{ path: '/music/singer', query: { id: author.id } }"
                 class="song_author"
                 >{{ k !== 0 ? ' / ' + author.name : author.name }}</router-link
               ></p
@@ -260,7 +260,7 @@
 
       const popverHandle = () => {
         info['isLock'] = true;
-        // window.ElectronAPI.setDesktopLyricDialog(true);
+        window.ElectronAPI.setDesktopLyricDialog(true);
       };
       const leaveBar = () => {
         // 点击锁住按钮，会触发mouseleave 事件 此时的e的值是 undefined  而正常通过鼠标移出的时候 e是个对象
@@ -274,7 +274,7 @@
       };
       const popverClose = () => {
         info['isLock'] = false;
-        // window.ElectronAPI.setDesktopLyricDialog(false);
+        window.ElectronAPI.setDesktopLyricDialog(false);
         leaveBar();
       };
 

@@ -141,7 +141,7 @@ export default function useSearch() {
     info['offset'] = 0;
     info['currentpage'] = 0;
     router.push({
-      path: '/layouts/music/search',
+      path: '/music/search',
       query: { key: info.keyVal, type: info.type },
     });
   };
@@ -156,16 +156,16 @@ export default function useSearch() {
   const jumpPage = (item, type) => {
     switch (type) {
       case 'songs':
-        router.push({ path: '/layouts/music/song', query: { id: item.id } });
+        router.push({ path: '/music/song', query: { id: item.id } });
         break;
       case 'artists':
-        router.push({ path: '/layouts/music/singer', query: { id: item.id } });
+        router.push({ path: '/music/singer', query: { id: item.id } });
         break;
       case 'albums':
-        router.push({ path: '/layouts/music/album', query: { id: item.id } });
+        router.push({ path: '/music/album', query: { id: item.id } });
         break;
       case 'playlists':
-        router.push({ path: '/layouts/music/detail', query: { id: item.id } });
+        router.push({ path: '/music/detail', query: { id: item.id } });
         break;
     }
   };
@@ -176,7 +176,7 @@ export default function useSearch() {
 
   const enterHandler = () => {
     router.push({
-      path: '/layouts/music/search',
+      path: '/music/search',
       query: { key: info.keyVal, type: info.type },
     });
   };

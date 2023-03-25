@@ -21,7 +21,7 @@
               >歌手：<router-link
                 v-for="(author, k) in details.artists"
                 :key="author.name"
-                :to="{ path: '/layouts/music/singer', query: { id: author.id } }"
+                :to="{ path: '/music/singer', query: { id: author.id } }"
                 class="song_name"
                 >{{ k !== 0 ? ' / ' + author.name : author.name }}</router-link
               ></div
@@ -61,7 +61,7 @@
         <div class="album-aside album-other">
           <h3 class="aside-title">
             {{ name }}的其他专辑
-            <router-link :to="{ path: '/layouts/music/singer', query: { id: artistsId, type: 'album' } }" class="album-more">
+            <router-link :to="{ path: '/music/singer', query: { id: artistsId, type: 'album' } }" class="album-more">
               全部
             </router-link>
           </h3>
@@ -70,7 +70,7 @@
               v-for="item in hotAlbums"
               :key="item.id"
               class="aside-album-item"
-              :to="{ path: '/layouts/music/album', query: { id: item.id } }">
+              :to="{ path: '/music/album', query: { id: item.id } }">
               <el-image :src="item.picUrl" :lazy="true">
                 <template #placeholder>
                   <div class="image-slot">

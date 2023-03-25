@@ -6,7 +6,7 @@
   import { ArrowLeft, ArrowRight, Microphone, RefreshLeft } from '@element-plus/icons-vue';
   import logo from '/@/assets/img/logo.jpg';
   import { useRouter } from 'vue-router';
-  let Search = createAsyncComponent(() => import('/@/layouts/jingluo/Search.vue'));
+  let Search = createAsyncComponent(() => import('/@/jingluo/Search.vue'));
   let router = useRouter();
   let state = computed(() => router.options.history.state);
 

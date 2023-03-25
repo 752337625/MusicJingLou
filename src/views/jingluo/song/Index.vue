@@ -7,10 +7,7 @@
             <div class="info-top">
               <h3 class="song-name">
                 {{ songInfo.name }}
-                <router-link
-                  v-if="songInfo.mvId"
-                  class="mv-name"
-                  :to="{ path: '/layouts/music/mv', query: { id: songInfo.mvId } }">
+                <router-link v-if="songInfo.mvId" class="mv-name" :to="{ path: '/music/mv', query: { id: songInfo.mvId } }">
                   <i class="iconfont icon-mvlist"></i>
                 </router-link>
                 <i v-if="songInfo.vip" class="iconfont icon-vip"></i>
@@ -19,18 +16,16 @@
                 ><router-link
                   v-for="(author, k) in songInfo.singer"
                   :key="author.name"
-                  :to="{ path: '/layouts/music/singer', query: { id: author.id } }"
+                  :to="{ path: '/music/singer', query: { id: author.id } }"
                   class="song-author"
                   >{{ k !== 0 ? ' / ' + author.name : author.name }}</router-link
                 ></p
               >
               <p class="song-related">
                 <span
-                  >专辑：<router-link
-                    class="song-album"
-                    :to="{ path: '/layouts/music/album', query: { id: songInfo.album.id } }"
-                    >{{ songInfo.album.name }}</router-link
-                  ></span
+                  >专辑：<router-link class="song-album" :to="{ path: '/music/album', query: { id: songInfo.album.id } }">{{
+                    songInfo.album.name
+                  }}</router-link></span
                 >
                 <span
                   >发行时间：<em>{{ songInfo.publishTime }}</em></span
@@ -56,14 +51,14 @@
             <div class="simi-main">
               <div v-for="simiItem in simiSong" :key="simiItem.id" class="simi-item">
                 <div class="simi-info">
-                  <router-link class="simi-name" :to="{ path: '/layouts/music/song', query: { id: simiItem.id } }">
+                  <router-link class="simi-name" :to="{ path: '/music/song', query: { id: simiItem.id } }">
                     {{ simiItem.name }}
                   </router-link>
                   <div class="simi-author"
                     ><router-link
                       v-for="(author, k) in simiItem.singer"
                       :key="author.name"
-                      :to="{ path: '/layouts/music/singer', query: { id: author.id } }"
+                      :to="{ path: '/music/singer', query: { id: author.id } }"
                       class="song-author"
                       >{{ k !== 0 ? ' / ' + author.name : author.name }}</router-link
                     ></div
@@ -111,7 +106,7 @@
             v-for="item in playlists"
             :key="item.id"
             class="playlist-item"
-            :to="{ path: '/layouts/music/detail', query: { id: item.id } }">
+            :to="{ path: '/music/detail', query: { id: item.id } }">
             <el-image :src="item.coverImgUrl" :lazy="true">
               <template #placeholder>
                 <div class="image-slot">
@@ -123,7 +118,7 @@
               <div class="playlist-name">{{ item.name }}</div>
               <div class="playlist-author">
                 By.
-                <router-link :to="{ path: '/layouts/music/user', query: { id: item.creator.userId } }">{{
+                <router-link :to="{ path: '/music/user', query: { id: item.creator.userId } }">{{
                   item.creator.nickname
                 }}</router-link>
               </div>

@@ -3,7 +3,7 @@ const { SCHEME } = require('../config');
 const isDev = require('electron-is-dev');
 const path = require('path');
 const createLoginWindow = function () {
-  const LoginWinURL = isDev ? `http://localhost:3100/jingluo/layouts/login/qr` : `${SCHEME}#tray`;
+  const LoginWinURL = isDev ? `http://localhost:3100/jingluo/login/qr` : `${SCHEME}#tray`;
   const win = {
     parent: global.win,
     center: true,

@@ -22,16 +22,16 @@ export default function useBanners() {
   const pathHandler = params => {
     switch (params.targetType) {
       case 1: // 单曲
-        router.push({ path: '/layouts/music/song', query: { id: params.targetId } });
+        router.push({ path: '/music/song', query: { id: params.targetId } });
         break;
       case 10: // 专辑
-        router.push({ path: '/layouts/music/album', query: { id: params.targetId } });
+        router.push({ path: '/music/album', query: { id: params.targetId } });
         break;
       case 1000: // 歌单
-        router.push({ path: '/layouts/music/playlist', query: { id: params.targetId } });
+        router.push({ path: '/music/playlist', query: { id: params.targetId } });
         break;
       case 1004: // MV
-        router.push({ path: '/layouts/music/mv', query: { id: params.targetId } });
+        router.push({ path: '/music/mv', query: { id: params.targetId } });
         break;
       case 3000: // 外链
         window.ElectronAPI.setShellExternal(params.url);

@@ -6,7 +6,7 @@
   let showImg = ref(false);
   watch(
     () => route.path,
-    n => (showImg.value = n !== '/layouts/login/qr'),
+    n => (showImg.value = n !== '/login/qr'),
   );
   let router = useRouter();
   const loginOrwindow = () => {

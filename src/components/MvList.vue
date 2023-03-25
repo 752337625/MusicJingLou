@@ -13,7 +13,7 @@
     <template #default>
       <div class="mv">
         <div v-for="(item, index) in mvList" :key="'' + item.id + index" class="item">
-          <router-link :to="{ path: '/layouts/music/mv', query: { id: item.id } }" class="faceImg">
+          <router-link :to="{ path: '/music/mv', query: { id: item.id } }" class="faceImg">
             <i class="iconfont icon-video-play"></i>
             <el-image :src="item.cover || item.imgurl" :lazy="true">
               <template #placeholder>
@@ -24,10 +24,10 @@
             </el-image>
           </router-link>
           <div class="info">
-            <router-link :to="{ path: '/layouts/music/mv', query: { id: item.id } }" class="mv-name">{{ item.name }}</router-link>
+            <router-link :to="{ path: '/music/mv', query: { id: item.id } }" class="mv-name">{{ item.name }}</router-link>
             <router-link
               v-if="!item.publishTime"
-              :to="{ path: '/layouts/music/singer', query: { id: item.artistId } }"
+              :to="{ path: '/music/singer', query: { id: item.artistId } }"
               class="mv-author"
               >{{ item.artistName }}</router-link
             >

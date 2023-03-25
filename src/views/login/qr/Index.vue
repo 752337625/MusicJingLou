@@ -13,7 +13,7 @@
     <h3>扫码登录</h3>
     <img :src="qrurl" @click="updataQrurl" />
     <p>使用<a @click="clickHandle">网易云音乐APP</a>扫码登录</p>
-    <p class="other" @click="router.push({ path: '/layouts/login/phone' })">
+    <p class="other" @click="router.push({ path: '/login/phone' })">
       选择其他登录模式<el-icon><ArrowRight /></el-icon>
     </p>
   </div>

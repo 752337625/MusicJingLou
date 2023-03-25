@@ -22,11 +22,11 @@
             <i :class="playIcon(item)" @click="currentSong(item)"></i>
           </div>
           <div class="columnSong songlist-name">
-            <router-link :class="typeSize" :to="{ path: '/layouts/music/song', query: { id: item.id } }">
+            <router-link :class="typeSize" :to="{ path: '/music/song', query: { id: item.id } }">
               {{ item.name }}
             </router-link>
             <template v-if="typeSize !== 'mini'">
-              <router-link v-if="item.mvId" class="mv-name" :to="{ path: '/layouts/music/mv', query: { id: item.mvId } }">
+              <router-link v-if="item.mvId" class="mv-name" :to="{ path: '/music/mv', query: { id: item.mvId } }">
                 <i class="iconfont icon-mv"></i>
               </router-link>
               <i v-if="item.vip" class="iconfont icon-vip"></i>
@@ -37,18 +37,15 @@
             <router-link
               v-for="(author, k) in item.singer"
               :key="author.name"
-              :to="{ path: '/layouts/music/singer', query: { id: author.id } }"
+              :to="{ path: '/music/singer', query: { id: author.id } }"
               class="song_name"
               >{{ k !== 0 ? ' / ' + author.name : author.name }}</router-link
             >
           </div>
           <div v-if="typeSize !== 'mini'" class="columnAlbum">
-            <router-link
-              v-if="item.album"
-              class="songlist-album"
-              :to="{ path: '/layouts/music/album', query: { id: item.album.id } }"
-              >{{ item.album.name }}</router-link
-            >
+            <router-link v-if="item.album" class="songlist-album" :to="{ path: '/music/album', query: { id: item.album.id } }">{{
+              item.album.name
+            }}</router-link>
           </div>
           <div class="columnTime">
             <div class="songlist-time">

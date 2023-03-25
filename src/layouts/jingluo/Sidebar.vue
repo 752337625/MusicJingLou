@@ -21,27 +21,27 @@
     {
       name: '首页',
       icon: 'index',
-      path: 'layouts/music/index',
+      path: 'music/index',
     },
     {
       name: '排行榜',
       icon: 'rank',
-      path: 'layouts/music/rank',
+      path: 'music/rank',
     },
     {
       name: '歌单',
       icon: 'playlist',
-      path: 'layouts/music/playlist',
+      path: 'music/playlist',
     },
     {
       name: 'MV',
       icon: 'mvlist',
-      path: 'layouts/music/mvlist',
+      path: 'music/mvlist',
     },
     {
       name: '歌手',
       icon: 'artist',
-      path: 'layouts/music/artist',
+      path: 'music/artist',
     },
     // {
     //   name: '我的音乐',

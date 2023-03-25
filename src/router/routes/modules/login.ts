@@ -2,7 +2,7 @@ import { LOGIN } from '/@/router/constant';
 export default {
   path: 'login',
   name: 'login',
-  redirect: '/layouts/login/qr',
+  redirect: '/login/qr',
   component: LOGIN,
   meta: {},
   props: false,
