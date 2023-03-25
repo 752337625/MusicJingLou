@@ -1,6 +1,6 @@
 import { LOGIN } from '/@/router/constant';
 export default {
-  path: 'login',
+  path: '/login',
   name: 'login',
   redirect: '/login/qr',
   component: LOGIN,

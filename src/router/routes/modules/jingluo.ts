@@ -1,6 +1,6 @@
 import { JINGLUO } from '/@/router/constant';
 export default {
-  path: 'music',
+  path: '/music',
   name: 'music',
   redirect: '/music/index',
   component: JINGLUO,

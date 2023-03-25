@@ -1,8 +1,8 @@
 <script setup>
   import { createAsyncComponent } from '/@/utils/createAsyncComponent';
-  let Header = createAsyncComponent(() => import('/@/jingluo/Header.vue'));
-  let Sidebar = createAsyncComponent(() => import('/@/jingluo/Sidebar.vue'));
-  let PlayBar = createAsyncComponent(() => import('/@/jingluo/PlayBarTmp/PlayBar.vue'));
+  let Header = createAsyncComponent(() => import('/@/layouts/jingluo/Header.vue'));
+  let Sidebar = createAsyncComponent(() => import('/@/layouts/jingluo/Sidebar.vue'));
+  let PlayBar = createAsyncComponent(() => import('/@/layouts/jingluo/PlayBarTmp/PlayBar.vue'));
 </script>
 <template>
   <el-container class="jingluo">
@@ -12,12 +12,11 @@
         <Sidebar />
       </el-aside>
       <el-main>
-        <RouterView class="main" />
-        <!-- <RouterView v-slot="{ Component }"> -->
-        <!-- <KeepAlive> -->
-        <!-- <Component :is="Component" /> -->
-        <!-- </KeepAlive> -->
-        <!-- </RouterView> -->
+        <RouterView v-slot="{ Component }">
+          <!-- <KeepAlive> -->
+          <Component :is="Component" />
+          <!-- </KeepAlive> -->
+        </RouterView>
       </el-main>
     </el-container>
     <PlayBar />

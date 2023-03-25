@@ -22,9 +22,9 @@
   </div>
 </template>
 <script>
-  import AudioBox from '/@/jingluo/PlayBarTmp/AudioBox.vue';
-  import MiniBar from '/@/jingluo/PlayBarTmp/MiniBar.vue';
-  import Bar from '/@/jingluo/PlayBarTmp/Bar.vue';
+  import AudioBox from '/@/layouts/jingluo/PlayBarTmp/AudioBox.vue';
+  import MiniBar from '/@/layouts/jingluo/PlayBarTmp/MiniBar.vue';
+  import Bar from '/@/layouts/jingluo/PlayBarTmp/Bar.vue';
   import { provide, ref } from 'vue';
   export default {
     name: 'PlayBar',
