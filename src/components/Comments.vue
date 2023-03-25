@@ -36,7 +36,7 @@
     <div class="comment_area">
       <template v-if="comments.length">
         <div v-for="(item, index) in comments" :key="item.commentId + index + ''" class="comment_item">
-          <router-link :to="{ path: '/music/user', query: { id: item.user.userId } }" class="comment_avatar">
+          <router-link :to="{ path: '/layouts/music/user', query: { id: item.user.userId } }" class="comment_avatar">
             <el-image :src="item.user.avatarUrl + '?param=120y120'" :lazy="true">
               <template #placeholder>
                 <div class="image-slot">
@@ -46,12 +46,14 @@
             </el-image>
           </router-link>
           <div class="comment_info">
-            <router-link :to="{ path: '/music/user', query: { id: item.user.userId } }">{{ item.user.nickname }}</router-link>
+            <router-link :to="{ path: '/layouts/music/user', query: { id: item.user.userId } }">{{
+              item.user.nickname
+            }}</router-link>
             <div class="comment_content">
               {{ item.content }}
             </div>
             <div v-for="replyItem in item.beReplied" :key="replyItem.beRepliedCommentId" class="comment_reply">
-              <router-link :to="{ path: '/music/user', query: { id: replyItem.user.userId } }">{{
+              <router-link :to="{ path: '/layouts/music/user', query: { id: replyItem.user.userId } }">{{
                 replyItem.user.nickname
               }}</router-link
               >: {{ replyItem.content }}

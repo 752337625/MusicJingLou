@@ -1,7 +1,7 @@
 <template>
   <div class="item">
     <em class="circle"></em>
-    <router-link :to="{ path: '/music/singer', query: { id: item.id } }" class="faceImg">
+    <router-link :to="{ path: '/layouts/music/singer', query: { id: item.id } }" class="faceImg">
       <el-image :src="item.picUrl + '?param=120y120'" :lazy="true">
         <template #placeholder>
           <div class="image-slot"> <i class="iconfont icon-placeholder"></i></div>
@@ -10,7 +10,7 @@
     </router-link>
     <div class="info">
       <div class="info-header">
-        <router-link :to="{ path: '/music/singer', query: { id: item.id } }" class="name">{{ item.name }}</router-link>
+        <router-link :to="{ path: '/layouts/music/singer', query: { id: item.id } }" class="name">{{ item.name }}</router-link>
         <i class="iconfont icon-collect" :class="{ active: item.followed }"></i>
       </div>
       <div class="info-num">

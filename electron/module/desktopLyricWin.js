@@ -4,7 +4,7 @@ const { SCHEME } = require('../config');
 const path = require('path');
 const createLyricWindow = function () {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
-  const lyricWinURL = isDev ? `http://localhost:3100/jingluo/desktop` : `${SCHEME}#tray`;
+  const lyricWinURL = isDev ? `http://localhost:3100/jingluo/layouts/desktop` : `${SCHEME}#tray`;
   const obj = {
     minWidth: 650,
     width,

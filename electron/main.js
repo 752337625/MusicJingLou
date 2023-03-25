@@ -79,7 +79,7 @@ function createWindow() {
   }
   // app.setUserTasks([]);
   if (isDev) {
-    global.win.loadURL('http://localhost:3100/jingluo');
+    global.win.loadURL('http://localhost:3100/jingluo/layouts/music/index');
     global.win.webContents.openDevTools();
     // require('electron-reload')(__dirname, {
     //   // Note that the path to electron may vary according to the main file

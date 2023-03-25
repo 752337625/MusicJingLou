@@ -11,7 +11,7 @@
       </div>
       <div class="play-main">
         <div class="play-name">
-          <router-link :to="{ path: '/music/song', query: { id: curSongInfo.id } }" class="song_name">{{
+          <router-link :to="{ path: '/layouts/music/song', query: { id: curSongInfo.id } }" class="song_name">{{
             curSongInfo.name
           }}</router-link>
           <span class="play-closed">
@@ -22,7 +22,7 @@
           ><router-link
             v-for="(author, k) in curSongInfo.singer"
             :key="author.name"
-            :to="{ path: '/music/singer', query: { id: author.id } }"
+            :to="{ path: '/layouts/music/singer', query: { id: author.id } }"
             class="song_author"
             >{{ k !== 0 ? ' / ' + author.name : author.name }}</router-link
           ></div

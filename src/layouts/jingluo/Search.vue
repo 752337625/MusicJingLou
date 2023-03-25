@@ -123,23 +123,23 @@
         if (item.first === route.query.key) {
           return;
         }
-        router.push({ path: '/music/search', query: { key: item.first } });
+        router.push({ path: '/layouts/music/search', query: { key: item.first } });
       };
 
       // 搜索建议列表，点击后跳转到相对应的落地页
       const jumpPage = (item, type) => {
         switch (type) {
           case 'songs':
-            router.push({ path: '/music/song', query: { id: item.id } });
+            router.push({ path: '/layouts/music/song', query: { id: item.id } });
             break;
           case 'artists':
-            router.push({ path: '/music/singer', query: { id: item.id } });
+            router.push({ path: '/layouts/music/singer', query: { id: item.id } });
             break;
           case 'albums':
-            router.push({ path: '/music/album', query: { id: item.id } });
+            router.push({ path: '/layouts/music/album', query: { id: item.id } });
             break;
           case 'playlists':
-            router.push({ path: '/music/detail', query: { id: item.id } });
+            router.push({ path: '/layouts/music/detail', query: { id: item.id } });
             break;
         }
       };

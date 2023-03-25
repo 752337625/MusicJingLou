@@ -24,7 +24,7 @@
         <div class="wrapper">
           <div v-for="item in top_list" :key="item.id" class="toplist_item">
             <div class="toplist_hd">
-              <router-link :to="{ path: '/music/rank', query: { rId: item.id, type: 'Top' } }" class="toplist_name">{{
+              <router-link :to="{ path: '/layouts/music/rank', query: { rId: item.id, type: 'Top' } }" class="toplist_name">{{
                 item.name
               }}</router-link>
               <h5 class="toplist_update">
@@ -47,14 +47,14 @@
                   </el-image>
                 </div>
                 <div class="songinfo">
-                  <router-link :to="{ path: '/music/song', query: { id: songItem.id } }" class="song_title">{{
+                  <router-link :to="{ path: '/layouts/music/song', query: { id: songItem.id } }" class="song_title">{{
                     songItem.name
                   }}</router-link>
                   <div class="song_author">
                     <router-link
                       v-for="(author, k) in songItem.singer"
                       :key="k"
-                      :to="{ path: '/music/singer', query: { id: author.id } }"
+                      :to="{ path: '/layouts/music/singer', query: { id: author.id } }"
                       class="song_name"
                       >{{ k !== 0 ? '/ ' + author.name : author.name }}</router-link
                     >

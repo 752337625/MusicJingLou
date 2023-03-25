@@ -12,7 +12,11 @@
     </template>
     <template #default>
       <div class="dj">
-        <router-link v-for="item in djList" :key="item.id" :to="{ path: '/music/dj', query: { id: item.id } }" class="item">
+        <router-link
+          v-for="item in djList"
+          :key="item.id"
+          :to="{ path: '/layouts/music/dj', query: { id: item.id } }"
+          class="item">
           <div class="faceImg">
             <el-image :src="item.picUrl + '?param=120y120'" :lazy="true">
               <template #placeholder>

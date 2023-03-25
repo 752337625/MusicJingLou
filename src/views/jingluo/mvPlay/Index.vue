@@ -6,7 +6,7 @@
         <router-link
           v-for="(author, k) in mvDetail.artists"
           :key="author.name"
-          :to="{ path: '/music/singer', query: { id: author.id } }"
+          :to="{ path: '/layouts/music/singer', query: { id: author.id } }"
           class="song-author"
           >{{ k !== 0 ? ' / ' + author.name : author.name }}</router-link
         >
@@ -33,7 +33,7 @@
         <h3 class="aside-title">相似MV</h3>
         <div class="aside-main mv-main">
           <div v-for="(item, index) in simiMv" :key="'' + item.id + index" class="item">
-            <router-link :to="{ path: '/music/mv', query: { id: item.id } }" class="faceImg">
+            <router-link :to="{ path: '/layouts/music/mv', query: { id: item.id } }" class="faceImg">
               <i class="iconfont icon-play"></i>
               <el-image :src="item.cover || item.imgurl" :lazy="true">
                 <div slot="placeholder" class="image-slot">
@@ -42,10 +42,12 @@
               </el-image>
             </router-link>
             <div class="info">
-              <router-link :to="{ path: '/music/mv', query: { id: item.id } }" class="mv-name">{{ item.name }}</router-link>
+              <router-link :to="{ path: '/layouts/music/mv', query: { id: item.id } }" class="mv-name">{{
+                item.name
+              }}</router-link>
               <router-link
                 v-if="!item.publishTime"
-                :to="{ path: '/music/singer', query: { id: item.artistId } }"
+                :to="{ path: '/layouts/music/singer', query: { id: item.artistId } }"
                 class="mv-author"
                 >{{ item.artistName }}</router-link
               >
