@@ -5,5 +5,4 @@ const routes: Array<RouteRecordRaw> = [];
 for (const path in modules) {
   routes.push((modules[path] as any).default);
 }
-console.log(routes);
 export default routes;

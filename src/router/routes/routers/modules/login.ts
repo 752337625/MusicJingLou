@@ -8,10 +8,6 @@ export default {
   props: false,
   children: [
     {
-      path: '/',
-      redirect: 'login/qr',
-    },
-    {
       path: 'qr',
       name: 'qr',
       component: () => import('/@/views/login/qr/Index.vue'),

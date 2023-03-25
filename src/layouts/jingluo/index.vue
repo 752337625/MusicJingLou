@@ -12,11 +12,12 @@
         <Sidebar />
       </el-aside>
       <el-main>
-        <RouterView v-slot="{ Component }">
-          <!-- <KeepAlive> -->
-          <Component :is="Component" class="main" />
-          <!-- </KeepAlive> -->
-        </RouterView>
+        <RouterView class="main" />
+        <!-- <RouterView v-slot="{ Component }"> -->
+        <!-- <KeepAlive> -->
+        <!-- <Component :is="Component" /> -->
+        <!-- </KeepAlive> -->
+        <!-- </RouterView> -->
       </el-main>
     </el-container>
     <PlayBar />

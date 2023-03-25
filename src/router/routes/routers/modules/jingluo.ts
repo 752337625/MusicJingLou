@@ -8,10 +8,6 @@ export default {
   props: false,
   children: [
     {
-      path: '/',
-      redirect: 'music/index',
-    },
-    {
       path: 'index',
       name: 'index',
       component: () => import('/@/views/jingluo/index/Index.vue'),
