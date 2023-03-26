@@ -2,7 +2,7 @@ import utils from '/@/utils/util';
 import { createLocalStorage } from '/@/utils/cache';
 const ls = createLocalStorage();
 // 合并歌曲到播放列表查重
-const concatPlayList = (list, playList: Array<any>) => {
+const concatPlayList = (list, playList) => {
   // filter过滤无版权及vip歌曲
   return utils.concatPlayList(
     list.filter(item => {
@@ -29,6 +29,7 @@ interface SongStore {
   isShowPlayListTips: boolean;
   playList: Array<any>;
   isPlayed: boolean;
+  isDesktop: boolean;
   playIndex: number;
   isLogin: boolean;
   userInfo: UserInfo | null;
@@ -40,6 +41,7 @@ const useSongStore = defineStore({
       songList: [],
       loginDialogVisible: false, // 登录弹窗显示与隐藏
       isLogin: false,
+      isDesktop: false,
       userInfo: null,
       isShowPlayListTips: false,
       playList: ls.get('playList') || [], //播放列表
@@ -48,6 +50,9 @@ const useSongStore = defineStore({
     };
   },
   getters: {
+    getIsDesktop: state => {
+      return state.isDesktop;
+    },
     getLoginDialogVisible: state => {
       return state.loginDialogVisible;
     },
@@ -77,6 +82,9 @@ const useSongStore = defineStore({
     },
   },
   actions: {
+    setIsDesktop(isDesktop) {
+      this.isDesktop = isDesktop;
+    },
     setLoginDialogVisible(flag) {
       this.loginDialogVisible = flag;
     },

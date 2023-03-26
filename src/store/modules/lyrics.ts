@@ -20,6 +20,7 @@ const useLyricsStore = defineStore({
       },
     };
   },
+  persist: true,
   getters: {
     getLyrics: state => {
       return state.Lyrics;

@@ -1,11 +1,11 @@
 <template>
   <div v-if="curSongInfo" :class="['play-bar', lockName]" @mouseenter="enterBar($event)" @mouseleave="leaveBar($event)">
     <!-- 固定播放条按钮 -->
-    <div class="fold">
+    <!-- <div class="fold">
       <div class="fold-btn" @click="lockBar">
         <i class="iconfont icon-lock" :class="[locked ? 'active' : '']"></i>
       </div>
-    </div>
+    </div> -->
 
     <!-- 播放进度条 -->
     <ProgressLine class="audioProgress" :progressWidth="audioProgressWidth" @set-progress-line="setAudioProgress" />
@@ -53,21 +53,23 @@
             <!-- 播放模式 -->
             <i class="iconfont" :class="modeIcon.className" :title="modeIcon.title" @click.stop="changePlayMode"></i>
             <div class="popver">
-              <el-popover placement="top" :width="400" trigger="click" @hide="popverClose">
+              <div class="lyric">
+                <span :class="['lyric-btn', isDesktop ? 'lyric-btn-active' : null]" title="歌词" @click="openDeskTop">词</span>
+              </div>
+              <el-popover placement="top" :width="400" trigger="click">
                 <template #reference>
                   <div class="lyric">
-                    <span class="lyric-btn" title="歌词" @click="popverHandle">词</span>
+                    <span class="lyric-btn" title="歌词"></span>
                   </div>
                 </template>
-                <div class="lyrics-container">
+                <!-- <div class="lyrics-container">
                   <h3 class="lyrics-header">
                     <span>歌词</span>
-                    <!-- <i class="iconfont icon-closed" @click="popverClose"></i> -->
-                  </h3>
-                  <Lyrics :sId="curSongInfo.id" :currentTime="currentTime" />
-                </div>
+                    <i class="iconfont icon-closed" @click="popverClose"></i>
+                  </h3> -->
+                <Lyrics :sId="curSongInfo.id" :currentTime="currentTime" />
+                <!-- </div> -->
               </el-popover>
-
               <el-popover placement="top" :width="550" trigger="click" @hide="popverClose">
                 <template #reference>
                   <div class="playlist" @click="popverHandle">
@@ -134,6 +136,7 @@
       });
 
       // 获取播放列表
+      const isDesktop = computed(() => songStore.getIsDesktop);
       const playIndex = computed(() => songStore.getPlayIndex);
       const playList = computed(() => songStore.getPlayList);
       const isPlayed = computed(() => songStore.getIsPlayed);
@@ -237,10 +240,7 @@
       // 音频播放/暂停/上一首/下一首事件
       const audioHandler = type => {
         emit('audioHandler', type);
-
-        if (info['isPip']) {
-          changePipSong();
-        }
+        if (info['isPip']) changePipSong();
       };
 
       // 点击拖拽进度条，设置当前时间
@@ -253,15 +253,7 @@
           emit('setAudioProgress', info['currentTime']);
         }
       };
-
-      const changeMini = () => {
-        emit('changeMini', 'MiniBar');
-      };
-
-      const popverHandle = () => {
-        info['isLock'] = true;
-        window.ElectronAPI.setDesktopLyricDialog(true);
-      };
+      const changeMini = () => emit('changeMini', 'MiniBar');
       const leaveBar = () => {
         // 点击锁住按钮，会触发mouseleave 事件 此时的e的值是 undefined  而正常通过鼠标移出的时候 e是个对象
         // if (!e) return
@@ -272,9 +264,13 @@
           }, 3000);
         }
       };
+      const openDeskTop = () => {
+        songStore.setIsDesktop(!isDesktop.value);
+        window.ElectronDesktop.setDesktopLyricDialog(isDesktop.value);
+      };
+      const popverHandle = () => (info['isLock'] = true);
       const popverClose = () => {
         info['isLock'] = false;
-        window.ElectronAPI.setDesktopLyricDialog(false);
         leaveBar();
       };
 
@@ -298,7 +294,6 @@
 
       const picInpic = () => {
         info['isPip'] = !info['isPip'];
-
         changePipSong();
       };
 
@@ -313,7 +308,6 @@
         navigator.mediaSession.setActionHandler(action, () => {
           audioHandler(type);
           changePipSong();
-
           if (action === 'play') {
             navigator.mediaSession.playbackState = 'playing';
           } else if (action === 'pause') {
@@ -343,6 +337,8 @@
         enterBar,
         lockBar,
         ...toRefs(info),
+        openDeskTop,
+        isDesktop,
         playList,
         isShowPlayListTips,
         curSongInfo,
@@ -376,11 +372,11 @@
     background: #fff;
     box-shadow: 0 5px 40px -1px rgba(2, 10, 18, 0.1);
     transition: all 0.4s ease-out;
-    transform: translateY(100%);
+    // transform: translateY(100%);
 
-    &.active {
-      transform: translateY(0);
-    }
+    // &.active {
+    //   transform: translateY(0);
+    // }
   }
   .fold {
     position: absolute;
@@ -541,6 +537,9 @@
       vertical-align: top;
       color: #999;
       cursor: pointer;
+      .lyric-btn-active {
+        color: #ff641e;
+      }
     }
 
     .playlist {
