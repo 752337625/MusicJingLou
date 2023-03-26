@@ -2,7 +2,7 @@ export function getEnvConfig() {
   const ENV = import.meta.env as unknown as ViteEnv;
   const {
     VITE_DEFAULT_THEME_KEY,
-    VITE_DEFAULT_KEEP_STATE_KEY,
+    VITE_DEFAULT_LYRICS_KEY,
     VITE_DEFAULT_LOCALE_KEY,
     VITE_PUBLIC_PATH,
     VITE_DEFAULT_CACHE_KEY,
@@ -10,7 +10,7 @@ export function getEnvConfig() {
     VITE_GLOB_API_URL,
   } = ENV;
   return {
-    VITE_DEFAULT_KEEP_STATE_KEY,
+    VITE_DEFAULT_LYRICS_KEY,
     VITE_DEFAULT_THEME_KEY,
     VITE_DEFAULT_LOCALE_KEY,
     VITE_PUBLIC_PATH,

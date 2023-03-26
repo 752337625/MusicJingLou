@@ -51,9 +51,8 @@ function persistState(state, { storage, serializer, key, paths, debug }) {
     if (debug) console.error(error);
   }
 }
-function createPersistedState(factoryOptions = {}) {
+function createPersistedState(factoryOptions = { auto: false }) {
   return context => {
-    // @ts-ignore
     const { auto = false } = factoryOptions;
     const {
       options: { persist = auto },
@@ -117,4 +116,6 @@ function createPersistedState(factoryOptions = {}) {
   };
 }
 
-export default createPersistedState;
+// src/index.ts
+const src_default = createPersistedState();
+export { createPersistedState, src_default as default };

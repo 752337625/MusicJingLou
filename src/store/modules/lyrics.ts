@@ -1,3 +1,6 @@
+import { getEnvConfig } from '/@/utils/env';
+
+const { VITE_DEFAULT_LYRICS_KEY } = getEnvConfig();
 interface Info {
   Lyrics: {
     lyric: boolean | null | string;
@@ -20,7 +23,9 @@ const useLyricsStore = defineStore({
       },
     };
   },
-  persist: true,
+  persist: {
+    key: `TEMPLATE_DEVELOPMENT_${VITE_DEFAULT_LYRICS_KEY}`,
+  },
   getters: {
     getLyrics: state => {
       return state.Lyrics;

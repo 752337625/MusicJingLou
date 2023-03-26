@@ -3,7 +3,7 @@ declare global {
   declare type Nullable<T> = T | null;
   declare interface ViteEnv {
     readonly VITE_PORT: number;
-    readonly VITE_DEFAULT_KEEP_STATE_KEY: string;
+    readonly VITE_DEFAULT_LYRICS_KEY: string;
     readonly VITE_DEFAULT_LOCALE_KEY: string;
     readonly VITE_DEFAULT_THEME_KEY: string;
     readonly VITE_PUBLIC_PATH: string;
