@@ -2,7 +2,7 @@
   import { createAsyncComponent } from '/@/utils/createAsyncComponent';
   let Header = createAsyncComponent(() => import('/@/layouts/jingluo/Header.vue'));
   let Sidebar = createAsyncComponent(() => import('/@/layouts/jingluo/Sidebar.vue'));
-  let PlayBar = createAsyncComponent(() => import('/@/layouts/jingluo/PlayBarTmp/PlayBar.vue'));
+  let PlayBar = createAsyncComponent(() => import('/@/components/PlayBarTmp/PlayBar.vue'));
 </script>
 <template>
   <el-container class="jingluo">
