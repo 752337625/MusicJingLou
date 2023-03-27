@@ -5,7 +5,7 @@
   const props = withDefaults(
     defineProps<{
       sId: number | string;
-      currentTime: number;
+      currentTime?: number;
       maxH?: number | string;
     }>(),
     {
