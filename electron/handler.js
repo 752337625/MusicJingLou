@@ -1,4 +1,6 @@
 const { BrowserWindow, ipcMain, shell } = require('electron');
+// 创建桌面歌词win
+const { createLyricWindow } = require('./module/desktopLyricWin');
 function ipcMainFn() {
   ipcMain.on('show-window', () => {
     global.win.show();
@@ -34,7 +36,9 @@ function ipcMainFn() {
     flag ? global.loginWindow.show() : global.loginWindow.hide();
   });
   ipcMain.on('set-desktop-lyric-dialog', (event, flag) => {
-    flag ? global.lyricWindow.show() : global.lyricWindow.hide();
+    if (!flag) return global.lyricWindow.destroy();
+    // 创建桌面歌词框
+    global.lyricWindow = createLyricWindow();
   });
   ipcMain.on('set-shell-external', (event, url) => {
     shell.openExternal(url);

@@ -6,7 +6,7 @@ const { createLoginWindow } = require('./module/loginWin');
 // 创建托盘win
 const { createTray, createTrayWindow } = require('./module/trayWin');
 // 创建桌面歌词win
-const { createLyricWindow } = require('./module/desktopLyricWin');
+// const { createLyricWindow } = require('./module/desktopLyricWin');
 // 设置window底部任务栏按钮（缩略图）
 const { setThumbarButton } = require('./module/thumbarButtons');
 // 判断系统处于什么环境
@@ -72,7 +72,7 @@ function createWindow() {
       // 创建login框
       global.loginWindow = createLoginWindow();
       // 创建桌面歌词框
-      global.lyricWindow = createLyricWindow();
+      // global.lyricWindow = createLyricWindow();
     }
   });
   if (process.platform === 'win32') {

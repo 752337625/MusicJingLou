@@ -3,18 +3,21 @@ const isDev = require('electron-is-dev');
 const { SCHEME } = require('../config');
 const path = require('path');
 const createLyricWindow = function () {
-  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
-  console.log(width, height);
+  let { size } = screen.getPrimaryDisplay();
+  let w = (size.width - 800) / 2;
+  let h = size.height - 120;
   const lyricWinURL = isDev ? `http://localhost:3100/jingluo/desktop` : `${SCHEME}#tray`;
   const obj = {
-    width: 800,
-    height: 120,
+    useContentSize: true,
+    center: true,
+    maxWidth: 800,
+    maxWidth: 800,
     minHeight: 120,
     maxHeight: 120,
     show: false,
     frame: false,
-    x: 0,
-    y: height - 120,
+    x: w,
+    y: h,
     fullscreenable: false,
     minimizable: false,
     maximizable: false,
@@ -31,9 +34,9 @@ const createLyricWindow = function () {
     },
   };
   let lyricWindow = new BrowserWindow(obj);
-  lyricWindow.on('show', () => {
-    lyricWindow.loadURL(lyricWinURL);
-  });
+  lyricWindow.loadURL(lyricWinURL);
+  // lyricWindow.webContents.openDevTools();
+  lyricWindow.once('ready-to-show', () => lyricWindow.show());
   lyricWindow.hookWindowMessage(278, () => {
     lyricWindow.setEnabled(false);
     setTimeout(() => {
