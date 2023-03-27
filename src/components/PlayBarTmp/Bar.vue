@@ -56,9 +56,9 @@
               <div class="lyric">
                 <span :class="['lyric-btn', isDesktop ? 'lyric-btn-active' : null]" title="歌词" @click="openDeskTop">词</span>
               </div>
-              <el-popover placement="top" :width="400" trigger="click">
+              <el-popover placement="top" :width="0" trigger="click">
                 <template #reference>
-                  <div class="lyric">
+                  <div class="lyric" style="margin: 0">
                     <span class="lyric-btn" title="歌词"></span>
                   </div>
                 </template>

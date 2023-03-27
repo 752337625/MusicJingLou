@@ -38,6 +38,20 @@
             <i class="iconfont icon-audio-prev" title="上一首" @click.stop="audioHandler('prev')"></i>
             <i :class="['iconfont', playIcon]" @click.stop="audioHandler('play')"></i>
             <i class="iconfont icon-audio-next" title="下一首" @click.stop="audioHandler('next')"></i>
+            <el-popover placement="top" :width="0" trigger="click">
+              <template #reference>
+                <div class="lyric" style="margin: 0">
+                  <span class="lyric-btn" title="歌词"></span>
+                </div>
+              </template>
+              <!-- <div class="lyrics-container">
+                  <h3 class="lyrics-header">
+                    <span>歌词</span>
+                    <i class="iconfont icon-closed" @click="popverClose"></i>
+                  </h3> -->
+              <Lyrics :sId="curSongInfo.id" :currentTime="currentTime" />
+              <!-- </div> -->
+            </el-popover>
           </div>
           <i class="iconfont" :class="modeIcon.className" :title="modeIcon.title" @click.stop="changePlayMode"></i>
         </div>
@@ -48,12 +62,14 @@
 
 <script lang="ts">
   import ProgressLine from '/@/components/ProgressLine.vue';
+  import Lyrics from '/@/components/Lyrics.vue';
   import { computed, getCurrentInstance, inject, reactive, toRefs, ComponentInternalInstance } from 'vue';
   import useSongStore from '/@/store/modules/song';
   export default {
     name: 'MiniBar',
     components: {
       ProgressLine,
+      Lyrics,
     },
     setup(_props, { emit }) {
       const songStore = useSongStore();
