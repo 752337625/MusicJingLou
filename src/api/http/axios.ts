@@ -18,7 +18,7 @@ const transform: AxiosTransform = {
    * @description: 请求之前的拦截器
    */
   beforeRequestHook: (config: AxiosRequestConfig, options: RequestOptions): AxiosRequestConfig => {
-    const { apiUrl, joinPrefix, joinParamsToUrl, formatDate, joinTime = true, urlPrefix, withCredentials } = options;
+    const { apiUrl, joinPrefix, joinParamsToUrl, formatDate, joinTime = true, urlPrefix } = options;
 
     if (joinPrefix) {
       config.url = `${urlPrefix}${config.url}`;
@@ -26,9 +26,6 @@ const transform: AxiosTransform = {
 
     if (apiUrl && isString(apiUrl)) {
       config.url = `${apiUrl}${config.url}`;
-    }
-    if (withCredentials) {
-      config.withCredentials = withCredentials;
     }
     const params = config.params || {};
     const data = config.data || false;
@@ -144,11 +141,10 @@ export function createAxios(opt?: Partial<CreateAxiosOptions>) {
           urlPrefix: '',
           //  是否加入时间戳
           joinTime: true,
-          // 忽略重复请求
+          //是否可以取消请求
           ignoreCancelToken: true,
           // 是否携带token
           withToken: true,
-          withCredentials: true,
           retryRequest: {
             isOpenRetry: true,
             count: 5,

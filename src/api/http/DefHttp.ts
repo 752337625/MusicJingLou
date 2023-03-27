@@ -79,18 +79,13 @@ export class DefHttp {
     }
     const { requestInterceptors, requestInterceptorsCatch, responseInterceptors, responseInterceptorsCatch } = transform;
 
-    const axiosCanceler = new AxiosCanceler();
-
+    window.axiosCanceler = new AxiosCanceler();
     // 请求拦截
     this.axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-      // const {
-      // 	headers: { ignoreCancelToken = false },
-      // } = config;
-      // const ignoreCancel =
-      // 	ignoreCancelToken !== undefined
-      // 		? ignoreCancelToken
-      // 		: this.options.requestOptions?.ignoreCancelToken;
-      // !ignoreCancel && axiosCanceler.addPending(config);
+      // @ts-ignore
+      const { ignoreCancelToken } = config.requestOptions;
+      const ignoreCancel = ignoreCancelToken !== undefined ? ignoreCancelToken : this.options.requestOptions?.ignoreCancelToken;
+      ignoreCancel && window.axiosCanceler.addPending(config);
       if (requestInterceptors && isFunction(requestInterceptors)) {
         config = requestInterceptors(config, this.options);
       }
@@ -104,7 +99,7 @@ export class DefHttp {
 
     // 添加响应拦截器
     this.axiosInstance.interceptors.response.use((response: AxiosResponse<any>) => {
-      response && axiosCanceler.removePending(response.config);
+      response && window.axiosCanceler.removePending(response.config);
       if (responseInterceptors && isFunction(responseInterceptors)) {
         response = responseInterceptors(response);
       }

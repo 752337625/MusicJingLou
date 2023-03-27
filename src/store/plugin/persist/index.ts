@@ -1,6 +1,6 @@
 import { createSessionStorage, createLocalStorage } from '/@/utils/cache';
 import { type PersistedStateFactoryOptions } from './types';
-import type { PiniaPlugin, PiniaPluginContext, StateTree, SubscriptionCallbackMutation } from 'pinia';
+import type { PiniaPlugin, PiniaPluginContext, StateTree } from 'pinia';
 import { normalizeOptions } from './normalize';
 import { pick } from './pick';
 const ls = createLocalStorage();
@@ -30,14 +30,9 @@ export function createPersistedState(factoryOptions: PersistedStateFactoryOption
       key: (factoryOptions.key ?? (k => k))(key),
     }));
     persistences.forEach(item => {
-      store.$subscribe(
-        (_mutation: SubscriptionCallbackMutation<StateTree>, state: StateTree) => {
-          persistState(state, item);
-        },
-        {
-          detached: true,
-        },
-      );
+      store.$subscribe((_mutation, state: StateTree) => persistState(state, item), {
+        detached: true,
+      });
     });
   };
 }
