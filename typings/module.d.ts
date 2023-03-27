@@ -7,5 +7,4 @@ declare module 'vue' {
     $utils: any;
   }
 }
-
 export {};

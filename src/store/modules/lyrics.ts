@@ -23,9 +23,6 @@ const useLyricsStore = defineStore({
       },
     };
   },
-  persist: {
-    key: `TEMPLATE_DEVELOPMENT_${VITE_DEFAULT_LYRICS_KEY}`,
-  },
   getters: {
     getLyrics: state => {
       return state.Lyrics;
@@ -50,6 +47,10 @@ const useLyricsStore = defineStore({
     setCurIndex(curIndex) {
       this.Lyrics.curIndex = curIndex;
     },
+  },
+  // @ts-ignore
+  persist: {
+    key: VITE_DEFAULT_LYRICS_KEY,
   },
 });
 export default useLyricsStore;
