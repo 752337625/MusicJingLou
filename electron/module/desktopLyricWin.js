@@ -5,7 +5,7 @@ const path = require('path');
 const createLyricWindow = function () {
   let { size } = screen.getPrimaryDisplay();
   let w = (size.width - 800) / 2;
-  let h = size.height - 120;
+  let h = size.height - 200;
   const lyricWinURL = isDev ? `http://localhost:3100/jingluo/desktop` : `${SCHEME}#tray`;
   const obj = {
     useContentSize: true,
@@ -22,7 +22,7 @@ const createLyricWindow = function () {
     minimizable: false,
     maximizable: false,
     transparent: true,
-    alwaysOnTop: true,
+    alwaysOnTop: false,
     skipTaskbar: true, // 任务栏中不显示窗口
     closable: false,
     hasShadow: true,
