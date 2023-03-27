@@ -36,7 +36,7 @@ declare global {
   }
   declare interface Window {
     ElectronAPI: any;
-    axiosCanceler: any;
+    axiosCancelRouter: any;
   }
 }
 

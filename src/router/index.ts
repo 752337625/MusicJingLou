@@ -23,8 +23,7 @@ const router = createRouter({
  */
 router.beforeEach((_to, _from, next) => {
   NProgress.start();
-  console.log(window.axiosCanceler);
-  window.axiosCanceler ? window.axiosCanceler.removeAllPending() : null;
+  window.axiosCancelRouter ? window.axiosCancelRouter.removeAllPending() : null;
   next();
 });
 /**

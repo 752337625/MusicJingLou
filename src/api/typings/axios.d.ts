@@ -28,6 +28,7 @@ export interface RequestOptions {
   successMessageMode?: SuccessMessageMode;
   // Whether to add a timestamp
   joinTime?: boolean;
+  axiosCancelRouter?: boolean;
   ignoreCancelToken?: boolean;
   // Whether to send token in header
   withToken?: boolean;

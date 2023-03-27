@@ -102,7 +102,8 @@ const transform: AxiosTransform = {
    * @description: 响应失败错误处理
    */
   responseInterceptorsCatch: (_axiosInstance: AxiosResponse, error: any): Promise<any> => {
-    ElMessage.error('数据请求失败');
+    const { code } = error;
+    if (code !== 'ERR_CANCELED') ElMessage.error('数据请求失败');
     return Promise.reject(error);
   },
 };
@@ -141,8 +142,10 @@ export function createAxios(opt?: Partial<CreateAxiosOptions>) {
           urlPrefix: '',
           //  是否加入时间戳
           joinTime: true,
-          //是否可以取消请求
-          ignoreCancelToken: true,
+          //取消重复请求
+          ignoreCancelToken: false,
+          //取消重复请求
+          ignoreCancelRouter: true,
           // 是否携带token
           withToken: true,
           retryRequest: {
