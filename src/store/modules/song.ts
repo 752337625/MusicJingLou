@@ -1,5 +1,7 @@
 import utils from '/@/utils/util';
 import { createLocalStorage } from '/@/utils/cache';
+import { getEnvConfig } from '/@/utils/env';
+const { VITE_DEFAULT_PLAYINDEX_KEY, VITE_DEFAULT_PLAYLIST_KEY } = getEnvConfig();
 const ls = createLocalStorage();
 // 合并歌曲到播放列表查重
 const concatPlayList = (list, playList) => {
@@ -44,9 +46,9 @@ const useSongStore = defineStore({
       isDesktop: false,
       userInfo: null,
       isShowPlayListTips: false,
-      playList: ls.get('playList') || [], //播放列表
+      playList: ls.get(VITE_DEFAULT_PLAYLIST_KEY) || [], //播放列表
       isPlayed: false, //是否正在播放
-      playIndex: ls.get('playIndex') || 0, //播放列表中播放的第几个
+      playIndex: ls.get(VITE_DEFAULT_PLAYINDEX_KEY) || 0, //播放列表中播放的第几个
     };
   },
   getters: {

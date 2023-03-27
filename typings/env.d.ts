@@ -3,6 +3,8 @@
 interface ImportMetaEnv {
   readonly VITE_PORT: number;
   readonly VITE_DEFAULT_LOCALE_KEY: string;
+  readonly VITE_DEFAULT_PLAYLIST_KEY: string;
+  readonly VITE_DEFAULT_PLAYINDEX_KEY: string;
   readonly VITE_DEFAULT_THEME_KEY: string;
   readonly VITE_PUBLIC_PATH: string;
   readonly VITE_APP_TITLE: string;
