@@ -12,8 +12,8 @@ interface Info {
   };
 }
 
-const useLyricsStore = defineStore({
-  id: 'app-lyrics',
+const useDesktopStore = defineStore({
+  id: 'app-desktop',
   state: (): Info => {
     return {
       Lyrics: {
@@ -22,6 +22,9 @@ const useLyricsStore = defineStore({
         curIndex: 0,
       },
     };
+  },
+  sync: {
+    key: VITE_DEFAULT_LYRICS_KEY,
   },
   getters: {
     getLyrics: state => {
@@ -48,9 +51,6 @@ const useLyricsStore = defineStore({
       this.Lyrics.curIndex = curIndex;
     },
   },
-  persist: {
-    key: VITE_DEFAULT_LYRICS_KEY,
-  },
 });
-export default useLyricsStore;
-export { useLyricsStore };
+export default useDesktopStore;
+export { useDesktopStore };

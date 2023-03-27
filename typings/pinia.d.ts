@@ -16,5 +16,6 @@ export interface PersistedStateOptions {
 declare module 'pinia' {
   export interface DefineStoreOptionsBase {
     persist?: boolean | PersistedStateOptions | PersistedStateOptions[];
+    sync?: boolean | PersistedStateOptions | PersistedStateOptions[];
   }
 }

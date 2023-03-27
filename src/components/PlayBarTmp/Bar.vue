@@ -266,7 +266,7 @@
       };
       const openDeskTop = () => {
         songStore.setIsDesktop(!isDesktop.value);
-        window.ElectronDesktop.setDesktopLyricDialog(isDesktop.value);
+        window.ElectronAPI.setDesktopLyricDialog(isDesktop.value);
       };
       const popverHandle = () => (info['isLock'] = true);
       const popverClose = () => {

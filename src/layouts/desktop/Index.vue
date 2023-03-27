@@ -1,37 +1,35 @@
 <script lang="ts" setup>
-  import { computed, watch } from 'vue';
-  import useLyricsStore from '/@/store/modules/lyrics';
-  const lyricsStore = useLyricsStore();
-  // // const lyric = computed(() => lyricsStore.getlyric);
-  // // const lyricObj = computed(() => lyricsStore.getLyricObj);
+  import { computed } from 'vue';
+  import useDesktopStore from '/@/store/modules/desktop';
+  const lyricsStore = useDesktopStore();
+  const lyricObj = computed(() => lyricsStore.getLyricObj);
   const curIndex = computed(() => lyricsStore.getCurIndex);
-  let current_lyric = ref('听见好时光,听见好时光,听见好时光听见好时光听见好时光听见好时光');
-  watch(curIndex, () => console.log(curIndex));
+  const current_lyric = computed(() => lyricObj.value[curIndex.value]);
 </script>
 <template>
   <div id="desktop" class="desktop-lyric">
-    <div id="lrc" class="playing-lyric"> {{ current_lyric }} {{ curIndex }}</div>
+    <div id="lrc" class="playing-lyric"> {{ current_lyric?.txt ?? '听见好时光' }} </div>
   </div>
 </template>
 
 <style lang="less" scoped>
   .desktop-lyric {
+    text-align: center;
     -webkit-app-region: drag;
     .playing-lyric {
       // width: max-content;
-      height: 60px;
-      line-height: 60px;
-      margin: 10px;
-      padding: 0 15px;
+      height: 120px;
       font-size: 40px;
       color: #fff;
       text-shadow: 1px 1px 5px #c62f2f, 1px -1px 3px #c62f2f;
       text-align: center;
       font-family: 'Microsoft JhengHei', '明黑', Arial, Helvetica;
-      text-indent: 2px;
-      white-space: nowrap;
-      overflow-x: auto;
-      display: inline-block;
+      // text-indent: 2px;
+      // white-space: wrap;
+      // overflow-x: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       &:hover {
         cursor: grab;

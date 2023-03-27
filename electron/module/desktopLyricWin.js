@@ -4,15 +4,17 @@ const { SCHEME } = require('../config');
 const path = require('path');
 const createLyricWindow = function () {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+  console.log(width, height);
   const lyricWinURL = isDev ? `http://localhost:3100/jingluo/desktop` : `${SCHEME}#tray`;
   const obj = {
-    minWidth: 650,
-    width,
-    height: 80,
+    width: 800,
+    height: 120,
+    minHeight: 120,
+    maxHeight: 120,
     show: false,
     frame: false,
     x: 0,
-    y: height - 150,
+    y: height - 120,
     fullscreenable: false,
     minimizable: false,
     maximizable: false,
@@ -31,7 +33,6 @@ const createLyricWindow = function () {
   let lyricWindow = new BrowserWindow(obj);
   lyricWindow.on('show', () => {
     lyricWindow.loadURL(lyricWinURL);
-    lyricWindow.webContents.openDevTools();
   });
   lyricWindow.hookWindowMessage(278, () => {
     lyricWindow.setEnabled(false);

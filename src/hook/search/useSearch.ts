@@ -189,7 +189,6 @@ export default function useSearch() {
 
   onMounted(() => {
     info['index'] = info.typeList.findIndex(item => item.k === +info['type']);
-    console.log(info['index']);
     init();
   });
 

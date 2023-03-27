@@ -47,14 +47,14 @@ const useSongStore = defineStore({
       userInfo: null,
       isShowPlayListTips: false,
       isPlayed: false, //是否正在播放
-      playList: ls.get(VITE_DEFAULT_PLAYLIST_KEY) || [], //播放列表
-      playIndex: ls.get(VITE_DEFAULT_PLAYINDEX_KEY) || 0, //播放列表中播放的第几个
+      playList: ls.get(VITE_DEFAULT_PLAYLIST_KEY)?.playList || [], //播放列表
+      playIndex: ls.get(VITE_DEFAULT_PLAYINDEX_KEY)?.playIndex || 0, //播放列表中播放的第几个
     };
   },
   // @ts-ignore
   persist: [
     {
-      paths: ['playList', 'playIndex'],
+      paths: ['playList'],
       key: VITE_DEFAULT_PLAYLIST_KEY,
     },
     {

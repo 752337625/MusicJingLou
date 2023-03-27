@@ -1,16 +1,12 @@
 import { createSessionStorage, createLocalStorage } from '/@/utils/cache';
-import { type PersistedStateFactoryOptions } from './types';
+import { type PersistedStateFactoryOptions, PersistedStateOptions } from '../types';
 import type { PiniaPlugin, PiniaPluginContext, StateTree } from 'pinia';
-import { normalizeOptions } from './normalize';
-import { pick } from './pick';
+import { normalizeOptions } from '../utils/normalize';
+import { pick } from '../utils/pick';
 const ls = createLocalStorage();
 const ss = createSessionStorage();
-interface Persistence {
-  storage?: 'localStorage' | 'sessionStorage';
-  paths?: string[] | null;
-  key?: string;
-}
-function persistState(state: StateTree, { storage = 'localStorage', paths, key }: Persistence) {
+
+function persistState(state: StateTree, { storage = 'localStorage', paths, key }: PersistedStateOptions) {
   const toStore = Array.isArray(paths) ? pick(state, paths) : state;
   storage === 'localStorage' ? ls!.set(key!, toStore) : ss!.set(key!, toStore);
 }
@@ -22,12 +18,13 @@ export function createPersistedState(factoryOptions: PersistedStateFactoryOption
       store,
     } = context;
     if (!persist) return;
-    const persistences = Array.isArray(persist)
+    let persistences = Array.isArray(persist)
       ? persist.map(p => normalizeOptions(p, factoryOptions))
       : [normalizeOptions(persist, factoryOptions)];
-    persistences.map(({ storage = 'localStorage', key = store.$id }) => ({
+    persistences = persistences.map(({ storage = 'localStorage', key = store.$id, paths }) => ({
       storage,
-      key: (factoryOptions.key ?? (k => k))(key),
+      key: factoryOptions.key || key,
+      paths,
     }));
     persistences.forEach(item => {
       store.$subscribe((_mutation, state: StateTree) => persistState(state, item), {
