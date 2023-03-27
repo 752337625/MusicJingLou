@@ -46,11 +46,22 @@ const useSongStore = defineStore({
       isDesktop: false,
       userInfo: null,
       isShowPlayListTips: false,
-      playList: ls.get(VITE_DEFAULT_PLAYLIST_KEY) || [], //播放列表
       isPlayed: false, //是否正在播放
+      playList: ls.get(VITE_DEFAULT_PLAYLIST_KEY) || [], //播放列表
       playIndex: ls.get(VITE_DEFAULT_PLAYINDEX_KEY) || 0, //播放列表中播放的第几个
     };
   },
+  // @ts-ignore
+  persist: [
+    {
+      paths: ['playList', 'playIndex'],
+      key: VITE_DEFAULT_PLAYLIST_KEY,
+    },
+    {
+      paths: ['playIndex'],
+      key: VITE_DEFAULT_PLAYINDEX_KEY,
+    },
+  ],
   getters: {
     getIsDesktop: state => {
       return state.isDesktop;
@@ -114,11 +125,11 @@ const useSongStore = defineStore({
     },
     setPalyList(val) {
       this.playList = val;
-      ls.set('playList', val);
+      // ls.set('playList', val);
     },
     setPalyIndex(num) {
       this.playIndex = num;
-      ls.set('playIndex', num);
+      // ls.set('playIndex', num);
     },
     setIsShowPlayListTips(flag) {
       this.isShowPlayListTips = flag;
