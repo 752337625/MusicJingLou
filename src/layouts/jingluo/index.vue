@@ -31,7 +31,7 @@
 
   .el-header {
     padding: 0;
-    height: 50px;
+    height: 66px;
     display: flex;
     align-items: center;
     background: #ec4141;

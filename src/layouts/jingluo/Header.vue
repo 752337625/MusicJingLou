@@ -80,7 +80,6 @@
 <style lang="less" scoped>
   .logo img {
     width: 230px;
-    height: 50px;
   }
   .search,
   .logo,
