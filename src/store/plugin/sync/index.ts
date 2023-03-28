@@ -27,6 +27,7 @@ export function createSyncState(factoryOptions: PersistedStateFactoryOptions = {
     let syncs = Array.isArray(sync)
       ? sync.map(p => normalizeOptions(p, factoryOptions))
       : [normalizeOptions(sync, factoryOptions)];
+    //@ts-ignore
     syncs = syncs.map(({ storage = 'localStorage', key = store.$id, paths }) => ({
       storage,
       key: factoryOptions.key || key,

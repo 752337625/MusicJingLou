@@ -21,6 +21,7 @@ export function createPersistedState(factoryOptions: PersistedStateFactoryOption
     let persistences = Array.isArray(persist)
       ? persist.map(p => normalizeOptions(p, factoryOptions))
       : [normalizeOptions(persist, factoryOptions)];
+    //@ts-ignore
     persistences = persistences.map(({ storage = 'localStorage', key = store.$id, paths }) => ({
       storage,
       key: factoryOptions.key || key,
