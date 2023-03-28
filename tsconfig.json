@@ -30,18 +30,14 @@
   "exclude": ["node_modules", "tests/server/**/*.ts", "dist", "**/*.js"],
   // "files": ["package.json"],
   "include": [
-    "src",
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "typings",
     "typings/**/*.d.ts",
     "typings/**/*.ts",
-    "build",
     "build/**/*.ts",
     "build/**/*.d.ts",
-    "mock",
     "mock/**/*.ts",
     "vite.config.ts"
   ]
