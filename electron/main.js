@@ -16,8 +16,7 @@ const { LOAD_URL_MAIN } = require('./config');
 // 注册协议
 creatProtocol();
 if (!isDev) {
-  global.__img = path.join(__dirname, './img');
-  global.__images = path.join(__dirname, './images');
+  global.__images = path.join(__dirname, '../dist/images');
 }
 const icon = isDev ? 'public/images/tray.ico' : `${global.__images}/tray.ico`;
 

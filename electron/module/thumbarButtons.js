@@ -5,7 +5,7 @@ const prevIcon = isDev ? 'public/images/prev.png' : `${global.__images}/prev.png
 const nextIcon = isDev ? 'public/images/next.png' : `${global.__images}/next.png`;
 const playIcon = isDev ? 'public/images/play.png' : `${global.__images}/play.png`;
 const pauseIcon = isDev ? 'public/images/pause.png' : `${global.__images}/pause.png`;
-const setThumbarButton = function (playing) {
+const setThumbarButton = function (playing = false) {
   global.win.setThumbarButtons([
     {
       tooltip: '上一曲',
