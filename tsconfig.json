@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "./dist",
+    "outDir": "dist",
     "composite": true,
     "target": "ESNext",
     "useDefineForClassFields": true,
@@ -31,10 +31,9 @@
       "/@/*": ["src/*"]
     }
   },
-  "files": ["package.json"],
+  "exclude": ["node_modules", "tests/server/**/*.ts", "dist", "**/*.js"],
+  // "files": ["package.json"],
   "include": [
-    "electron/**/*.ts",
-    "electron/**/*.d.ts",
     "src",
     "src/**/*.ts",
     "src/**/*.d.ts",
