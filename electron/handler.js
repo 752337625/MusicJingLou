@@ -1,6 +1,7 @@
 const { BrowserWindow, ipcMain, shell } = require('electron');
 // 创建桌面歌词win
-const { createLyricWindow } = require('./module/desktopLyricWin');
+// const { createLyricWindow } = require('./module/desktopLyricWin');
+const { setThumbarButton } = require('./module/thumbarButtons');
 function ipcMainFn() {
   ipcMain.on('show-window', () => {
     global.win.show();
@@ -36,12 +37,16 @@ function ipcMainFn() {
     flag ? global.loginWindow.show() : global.loginWindow.hide();
   });
   ipcMain.on('set-desktop-lyric-dialog', (event, flag) => {
-    if (!flag) return global.lyricWindow.destroy();
+    flag ? global.lyricWindow.show() : global.lyricWindow.hide();
     // 创建桌面歌词框
-    global.lyricWindow = createLyricWindow();
+    // global.lyricWindow = createLyricWindow();
   });
   ipcMain.on('set-shell-external', (event, url) => {
     shell.openExternal(url);
+  });
+  ipcMain.on('set-thumbar-button', (_event, value) => {
+    console.log(value); // will print value to Node console
+    setThumbarButton(value);
   });
 }
 module.exports = ipcMainFn;

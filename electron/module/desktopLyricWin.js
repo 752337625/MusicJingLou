@@ -22,7 +22,7 @@ const createLyricWindow = function () {
     minimizable: false,
     maximizable: false,
     transparent: true,
-    alwaysOnTop: false,
+    alwaysOnTop: true,
     skipTaskbar: true, // 任务栏中不显示窗口
     closable: false,
     hasShadow: true,
@@ -34,9 +34,10 @@ const createLyricWindow = function () {
     },
   };
   let lyricWindow = new BrowserWindow(obj);
-  lyricWindow.loadURL(lyricWinURL);
   // lyricWindow.webContents.openDevTools();
-  lyricWindow.once('ready-to-show', () => lyricWindow.show());
+  lyricWindow.on('show', () => {
+    lyricWindow.loadURL(lyricWinURL);
+  });
   lyricWindow.hookWindowMessage(278, () => {
     lyricWindow.setEnabled(false);
     setTimeout(() => {

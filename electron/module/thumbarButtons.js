@@ -11,23 +11,21 @@ const setThumbarButton = function (playing) {
       tooltip: '上一曲',
       icon: prevIcon,
       click() {
-        // mainWindow.webContents.send('prev-play');
+        global.win.webContents.send('play-song-states', 'prev');
       },
     },
     {
       tooltip: playing ? '暂停' : '播放',
       icon: playing ? pauseIcon : playIcon,
       click() {
-        // mainWindow.webContents.send('toggle-play', {
-        // 	value: !playing,
-        // });
+        global.win.webContents.send('play-song-states', 'play');
       },
     },
     {
       tooltip: '下一曲',
       icon: nextIcon,
       click() {
-        // mainWindow.webContents.send('next-play');
+        global.win.webContents.send('play-song-states', 'next');
       },
     },
   ]);

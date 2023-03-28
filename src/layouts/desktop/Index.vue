@@ -22,7 +22,6 @@
     align-items: center;
     .playing-lyric {
       user-select: none;
-      -webkit-app-region: no-drag;
       font-size: 40px;
       color: #fff;
       text-shadow: 1px 1px 5px #c62f2f, 1px -1px 3px #c62f2f;

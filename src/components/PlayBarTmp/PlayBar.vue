@@ -25,7 +25,8 @@
   import AudioBox from '/@/components/PlayBarTmp/AudioBox.vue';
   import MiniBar from '/@/components/PlayBarTmp/MiniBar.vue';
   import Bar from '/@/components/PlayBarTmp/Bar.vue';
-  import { provide, ref } from 'vue';
+  import { provide, ref, computed } from 'vue';
+  import useSongStore from '/@/store/modules/song';
   export default {
     name: 'PlayBar',
     components: {
@@ -37,10 +38,17 @@
       const audioRef = ref(null);
       const currentTime = ref(0);
       const barType = ref('Bar');
+      const songStore = useSongStore();
+      const isPlayed = computed(() => songStore.getIsPlayed);
+      window.ElectronAPI.setThumbarButton(isPlayed.value);
       // 歌曲播放操作； 播放、暂停、上一首、下一首
       const playSongStates = state => {
         audioRef.value.playAudioType(state);
       };
+      window.ElectronAPI.setPlaySongStates((event, value) => {
+        playSongStates(value);
+        event.sender.send('set-thumbar-button', isPlayed.value);
+      });
       // 歌曲播放类型：循环、单曲、随机
       const playAudioMode = mode => {
         audioRef.value.playAudioMode(mode);
