@@ -14,6 +14,14 @@
 </template>
 
 <style lang="less" scoped>
+  .dj-list {
+    padding: 0 20px;
+    margin-bottom: 25px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+    height: 552px;
+  }
   .h_title {
     padding: 20px 0 10px;
 
@@ -23,12 +31,5 @@
       font-size: 28px;
       font-weight: 700;
     }
-  }
-  .dj-list {
-    padding: 0 20px;
-    margin-bottom: 25px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
   }
 </style>

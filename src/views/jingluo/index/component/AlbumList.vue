@@ -23,6 +23,13 @@
 </template>
 
 <style lang="less" scoped>
+  .album_list {
+    padding: 0 20px;
+    margin-bottom: 25px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  }
   .h_title {
     padding: 20px 0 10px;
 
@@ -56,12 +63,5 @@
         }
       }
     }
-  }
-  .album_list {
-    padding: 0 20px;
-    margin-bottom: 25px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="artist-list">
+  <div id="artist-list" class="artist-list">
     <div class="h_title">
       <h3>热门歌手</h3>
     </div>

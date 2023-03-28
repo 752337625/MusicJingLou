@@ -9,22 +9,19 @@
   let TopList = createAsyncComponent(() => import('/@/views/jingluo/index/component/TopList.vue'));
 </script>
 <template>
-  <div class="home">
-    <!-- 轮播 -->
-    <Banners />
-    <!-- 热门推荐 -->
-    <HostList />
-    <!-- 最新MV -->
-    <MvList />
-    <!-- 热门电台 -->
-    <DtList />
-    <!-- 新碟上架 -->
-    <AlbumList />
-    <!-- 分类 -->
-    <TopList />
-    <!--热门歌手  -->
-    <SongList />
-  </div>
+  <!-- 轮播 -->
+  <Banners />
+  <!-- 热门推荐 -->
+  <HostList />
+  <!-- 最新MV -->
+  <MvList />
+  <!-- 热门电台 -->
+  <DtList />
+  <!-- 新碟上架 -->
+  <AlbumList />
+  <!-- 分类 -->
+  <TopList />
+  <!--热门歌手  -->
+  <SongList />
 </template>
-
 <style lang="less" scoped></style>
