@@ -67,6 +67,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       drop: isBuild ? ['console', 'debugger'] : [],
     },
     build: {
+      target: 'es2015',
       cssTarget: 'chrome61',
       sourcemap: isBuild ? false : 'inline',
       assetsInlineLimit: 0, //禁止将文件转base64
