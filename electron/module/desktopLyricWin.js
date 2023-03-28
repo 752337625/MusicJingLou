@@ -1,12 +1,12 @@
 const { BrowserWindow, screen } = require('electron');
 const isDev = require('electron-is-dev');
-const { SCHEME } = require('../config');
+const { LOAD_URL } = require('../config');
 const path = require('path');
 const createLyricWindow = function () {
   let { size } = screen.getPrimaryDisplay();
   let w = (size.width - 800) / 2;
   let h = size.height - 200;
-  const lyricWinURL = isDev ? `http://localhost:3100/jingluo/desktop` : `${SCHEME}#tray`;
+  const lyricWinURL = isDev ? `http://localhost:3100/jingluo/desktop` : `${LOAD_URL}/jingluo/desktop`;
   const obj = {
     useContentSize: true,
     center: true,

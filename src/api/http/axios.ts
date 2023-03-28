@@ -9,7 +9,7 @@ import { getEnvConfig } from '/@/utils/env';
 import { isString } from '/@/utils/is';
 import { joinTimestamp, formatRequestDate } from '/@/api/http/helper';
 
-const { VITE_GLOB_API_URL } = getEnvConfig();
+const { VITE_GLOB_API_URL, VITE_BASE_URL } = getEnvConfig();
 /**
  * @description: 数据处理，方便区分多种处理方式
  */
@@ -115,7 +115,7 @@ export function createAxios(opt?: Partial<CreateAxiosOptions>) {
         authenticationScheme: '',
         timeout: 100 * 1000,
         // 基础接口地址
-        // baseURL: globSetting.apiUrl
+        baseURL: VITE_BASE_URL,
         headers: { 'Content-Type': ContentTypeEnum.JSON },
         // 如果是form-data格式
         // headers: { 'Content-Type': ContentTypeEnum.FORM_URLENCODED },

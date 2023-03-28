@@ -11,19 +11,19 @@ import {
 } from '/@/api/main';
 
 interface Details {
-  description: string;
-  name: string;
-  coverImgUrl: string;
-  creator: {
+  description?: string;
+  name?: string;
+  coverImgUrl?: string;
+  creator?: {
     avatarUrl: string;
     nickname: string;
   };
-  createTime: string;
-  tags: Array<any>;
-  playCount: number | string;
-  subscribedCount: number | string;
-  commentCount: number | string;
-  subscribed: string;
+  createTime?: string;
+  tags?: Array<any>;
+  playCount?: number | string;
+  subscribedCount?: number | string;
+  commentCount?: number | string;
+  subscribed?: string;
 }
 interface Info {
   id: LocationQueryValue | LocationQueryValue[];
@@ -61,13 +61,13 @@ export default function useDetail() {
     let idsArr = [];
     // 数组过长 每500份一组
     for (let index = 0; index < ids.length; index += num) {
-      sliceArr.push(ids.slice(index, index + num));
+      const a = ids.slice(index, index + num);
+      //@ts-ignore
+      sliceArr.push(a);
     }
     for (let i = 0; i < sliceArr.length; i++) {
-      const arrs = [];
-      sliceArr[i].map(d => {
-        arrs.push(d.id);
-      });
+      //@ts-ignore
+      const arrs = sliceArr[i].map(d => d.id);
       info['isLoading'] = true;
       const { songs, privileges, code } = await songDetail({ ids: arrs.join(','), timestamp: new Date().valueOf() + i });
       if (code !== 200) return ElMessage.error('数据请求失败');

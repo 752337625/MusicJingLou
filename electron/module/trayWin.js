@@ -1,6 +1,6 @@
 const { Tray, BrowserWindow, screen } = require('electron');
 const isDev = require('electron-is-dev');
-const { SCHEME } = require('../config');
+const { LOAD_URL } = require('../config');
 const path = require('path');
 const createTray = function () {
   // 当前电脑屏幕得分辨率
@@ -27,7 +27,7 @@ const createTray = function () {
 };
 const createTrayWindow = function () {
   const bounds = global.tray.getBounds();
-  const TrayWinURL = isDev ? `http://localhost:3100/jingluo/tray` : `${SCHEME}#tray`;
+  const TrayWinURL = isDev ? `http://localhost:3100/jingluo/tray` : `${LOAD_URL}/jingluo/tray`;
   const win = {
     width: 210,
     height: 310,

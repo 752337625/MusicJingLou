@@ -9,6 +9,10 @@
 		"lokalise.i18n-ally",
 		"mikestead.dotenv",
 		"voorjaar.windicss-intellisense",
-		"jingwang37.element-plus-snippets"
+		"jingwang37.element-plus-snippets",
+    "wix.vscode-import-cost",
+    "formulahendry.auto-rename-tag",
+    "formulahendry.auto-close-tag",
+    "pranaygp.vscode-css-peek"
 	]
 }

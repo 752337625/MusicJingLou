@@ -19,7 +19,7 @@
     "start": "nodemon --exec electron . --watch ./ --ext .js,.html,.scss,.vue,.ts,.css",
     "electron:serve": "concurrently \"pnpm run serve\" \"pnpm run start\"",
     "build": "concurrently \"vue-tsc --noEmit\" \"vite build\"",
-    "electron:build": "electron-builder",
+    "electron:build": "concurrently \"pnpm run build\" \"electron-builder\"",
     "build:no-cache": "concurrently \"pnpm run clean:cache\" \"pnpm run build\"",
     "preview": "pnpm run build && vite preview",
     "preview:dist": "vite preview",
@@ -31,6 +31,7 @@
     "format": "prettier --write --cache .",
     "update": "pnpm update",
     "outdated": "pnpm outdated",
+    "ts:lint": "vue-tsc --noEmit",
     "reinstall": "concurrently \"rimraf pnpm-lock.yaml\" \"rimraf package.lock.json\" \"pnpm install\""
   },
   "dependencies": {
@@ -172,6 +173,8 @@
       "artifactName": "${productName}_${version}.${ext}"
     },
     "nsis": {
+      "allowElevation": true,
+      "runAfterFinish": true,
       "shortcutName": "鲸落云",
       "oneClick": false,
       "perMachine": false,

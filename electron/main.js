@@ -12,6 +12,7 @@ const { setThumbarButton } = require('./module/thumbarButtons');
 // 判断系统处于什么环境
 const isDev = require('electron-is-dev');
 const ipcMainFn = require('./handler');
+const { LOAD_URL_MAIN } = require('./config');
 // 注册协议
 creatProtocol();
 if (!isDev) {
@@ -86,7 +87,7 @@ function createWindow() {
     //   electron: require(`../node_modules/electron`),
     // });
   } else {
-    global.win.loadFile(path.join(__dirname, '../index.html'));
+    global.win.loadURL(`${LOAD_URL_MAIN}/jingluo/music/index`);
   }
   //在窗口要关闭的时候触发。 它在DOM 的beforeunload 和 unload 事件之前触发. 调用event.preventDefault()将阻止这个操作。
   global.win.on('close', event => {
