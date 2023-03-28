@@ -23,7 +23,7 @@ interface Details {
   playCount?: number | string;
   subscribedCount?: number | string;
   commentCount?: number | string;
-  subscribed?: string;
+  subscribed?: string | boolean;
 }
 interface Info {
   id: LocationQueryValue | LocationQueryValue[];
@@ -95,7 +95,7 @@ export default function useDetail() {
 
   // 歌单简介查看更多
   const showAllDesc = () => {
-    if (info.details.description.length > 120) {
+    if (info.details?.description?.length ?? 0 > 120) {
       info.isShowDesc = !info.isShowDesc;
     }
   };

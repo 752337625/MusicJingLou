@@ -77,7 +77,9 @@ export default {
     const map = new Map();
 
     for (const item of arr) {
+      //@ts-ignore
       if (!map.has(item.id)) {
+        //@ts-ignore
         map.set(item.id, item);
       }
     }
@@ -91,6 +93,7 @@ export default {
       if (item.id) {
         // 是否有版权播放
         item.license = !privileges[index].cp;
+        //@ts-ignore
         ret.push(formatSongInfo(item));
       }
     });

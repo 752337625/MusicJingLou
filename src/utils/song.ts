@@ -1,6 +1,17 @@
 import utils from '/@/utils/util';
 
 export default class Song {
+  id = '';
+  name = '';
+  mvId = '';
+  singer = '';
+  album = '';
+  alia = '';
+  duration = '';
+  url = '';
+  vip = '';
+  license = '';
+  publishTime = '';
   constructor({ id, name, mvId, singer, album, alia, duration, url, vip, license, publishTime }) {
     this.id = id;
     this.name = name;

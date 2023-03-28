@@ -24,6 +24,7 @@ export function useLocale() {
   const localeStore = useLocaleStore();
   const getLocale = computed(() => localeStore.getLocale);
   const getAntdLocale = computed((): any => {
+    //@ts-ignore
     return i18n.global.getLocaleMessage(unref(getLocale))?.antdLocale ?? {};
   });
   async function changeLocale(locale: LocaleType) {

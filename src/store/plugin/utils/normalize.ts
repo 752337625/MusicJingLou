@@ -1,4 +1,4 @@
-import type { PersistedStateFactoryOptions, PersistedStateOptions } from './types';
+import type { PersistedStateFactoryOptions, PersistedStateOptions } from '../types';
 
 function isObject(v: unknown) {
   return typeof v === 'object' && v !== null;
