@@ -46,7 +46,6 @@
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
-    height: 184px;
   }
   .el-skeleton {
     display: flex;

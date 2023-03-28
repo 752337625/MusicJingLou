@@ -75,7 +75,6 @@
 <style lang="less" scoped>
   .top_list {
     margin-bottom: 25px;
-    height: 522px;
   }
   .wrapper {
     display: flex;
