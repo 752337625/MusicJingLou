@@ -213,6 +213,8 @@
         } else {
           songStore.setPlayStatus(false);
           songStore.setPalyList([]);
+          songStore.setIsDesktop(false);
+          window.ElectronAPI.setDesktopLyricDialog(false);
         }
       };
 

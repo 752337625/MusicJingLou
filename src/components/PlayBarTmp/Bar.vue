@@ -290,6 +290,8 @@
         songStore.setPalyList([]);
         songStore.setPlayStatus(false);
         songStore.setPalyIndex(0);
+        songStore.setIsDesktop(false);
+        window.ElectronAPI.setDesktopLyricDialog(false);
       };
 
       const picInpic = () => {
