@@ -28,10 +28,10 @@ const createTrayWindow = function () {
   const bounds = global.tray.getBounds();
   const TrayWinURL = isDev ? `http://localhost:3100/jingluo/tray` : `${SCHEME}#tray`;
   const win = {
-    height: 350,
-    width: 200,
+    width: 210,
+    height: 310,
     x: bounds.x,
-    y: bounds.y - 350,
+    y: bounds.y - 300,
     show: false,
     frame: false,
     movable: false,
@@ -40,6 +40,7 @@ const createTrayWindow = function () {
     resizable: false,
     alwaysOnTop: true,
     skipTaskbar: true,
+    transparent: true,
     // parent: global.mainWindow,
     webPreferences: {
       nodeIntegration: true,
@@ -50,13 +51,10 @@ const createTrayWindow = function () {
   };
   const trayWindow = new BrowserWindow(win);
   // 禁用右键菜单
-  trayWindow.setEnabled(false);
+  // trayWindow.webContents.openDevTools();
   trayWindow.loadURL(TrayWinURL);
   trayWindow.on('blur', () => {
     trayWindow.hide();
-  });
-  trayWindow.on('closed', () => {
-    global.trayWindow = null;
   });
   return trayWindow;
 };
