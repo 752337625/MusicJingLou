@@ -63,34 +63,37 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       //namedExports: true,
       //stringify:true
     },
+    esbuild: {
+      drop: isBuild ? ['console', 'debugger'] : [],
+    },
     build: {
       cssTarget: 'chrome61',
       sourcemap: isBuild ? false : 'inline',
       assetsInlineLimit: 0, //禁止将文件转base64
-      minify: 'terser',
-      terserOptions: {
-        compress: {
-          drop_console: true,
-          drop_debugger: true,
-          pure_funcs: ['console.log', 'debugger'],
-        },
-        format: {
-          comments: false,
-        },
-      },
+      // minify: 'terser',
+      // terserOptions: {
+      //   compress: {
+      //     drop_console: true,
+      //     drop_debugger: true,
+      //     pure_funcs: ['console.log', 'debugger'],
+      //   },
+      //   format: {
+      //     comments: false,
+      //   },
+      // },
       // chunk 大小警告的限制
       chunkSizeWarningLimit: 500,
-      rollupOptions: {
-        output: {
-          chunkFileNames: 'js/[name]-[hash].js',
-          entryFileNames: 'js/[name]-[hash].js',
-          assetFileNames: '[ext]/[name]-[hash].[ext]',
-        },
-      },
+      // rollupOptions: {
+      //   output: {
+      //     chunkFileNames: 'js/[name]-[hash].js',
+      //     entryFileNames: 'js/[name]-[hash].js',
+      //     assetFileNames: '[ext]/[name]-[hash].[ext]',
+      //   },
+      // },
     },
+    // @ts-ignore
     plugins: createVitePlugins(viteEnv, isBuild),
     optimizeDeps: {
-      exclude: [],
       //官网给出解释：默认情况下，不在 node_modules 中的，链接的包不会被预构建。使用此选项可强制预构建链接的包。
       //但是有些第三方包，vite开始并不知道你是否使用，所以也需要手动加载进去。
       include: [
