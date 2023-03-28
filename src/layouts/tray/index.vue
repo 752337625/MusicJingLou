@@ -19,6 +19,20 @@
   //   ];
   // return params[info.playMode];
   // });
+  const clickHandle = TYPE => {
+    console.log(TYPE);
+    switch (TYPE) {
+      case 'exit':
+        window.ElectronAPI.setWindowClose();
+        break;
+      case 'prev':
+        window.ElectronAPI.setTrayPlaySongStates(TYPE);
+        break;
+      case 'next':
+        window.ElectronAPI.setTrayPlaySongStates(TYPE);
+        break;
+    }
+  };
 </script>
 <template>
   <el-container class="jingluo">
@@ -29,10 +43,10 @@
       <li>
         <!-- VideoPlay --><el-icon><VideoPause /></el-icon>播放
       </li>
-      <li>
+      <li @click="clickHandle('prev')">
         <el-icon><CaretLeft /></el-icon>上一首
       </li>
-      <li>
+      <li @click="clickHandle('next')">
         <el-icon><CaretRight /></el-icon>下一首
       </li>
       <li>
@@ -45,7 +59,7 @@
       <li>
         <el-icon><Setting /></el-icon>设置
       </li>
-      <li class="line">
+      <li @click="clickHandle('exit')">
         <el-icon><SwitchButton /></el-icon>退出
       </li>
     </ul>

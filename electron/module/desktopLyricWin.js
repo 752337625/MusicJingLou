@@ -35,9 +35,7 @@ const createLyricWindow = function () {
   };
   let lyricWindow = new BrowserWindow(obj);
   // lyricWindow.webContents.openDevTools();
-  lyricWindow.on('show', () => {
-    lyricWindow.loadURL(lyricWinURL);
-  });
+  lyricWindow.on('show', () => lyricWindow.loadURL(lyricWinURL));
   lyricWindow.hookWindowMessage(278, () => {
     lyricWindow.setEnabled(false);
     setTimeout(() => {

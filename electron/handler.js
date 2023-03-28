@@ -44,5 +44,12 @@ function ipcMainFn() {
   ipcMain.on('set-thumbar-button', (_event, value) => {
     setThumbarButton(value);
   });
+  ipcMain.on('tray-play-song-states', (_event, TYPE) => {
+    if (TYPE === 'prev') {
+      global.win.webContents.send('play-song-states', 'prev');
+    } else if (TYPE === 'next') {
+      global.win.webContents.send('play-song-states', 'next');
+    }
+  });
 }
 module.exports = ipcMainFn;
