@@ -1,11 +1,11 @@
 <template>
   <div v-if="curSongInfo" :class="['play-bar', lockName]" @mouseenter="enterBar($event)" @mouseleave="leaveBar($event)">
     <!-- 固定播放条按钮 -->
-    <!-- <div class="fold">
+    <div class="fold">
       <div class="fold-btn" @click="lockBar">
         <i class="iconfont icon-lock" :class="[locked ? 'active' : '']"></i>
       </div>
-    </div> -->
+    </div>
 
     <!-- 播放进度条 -->
     <ProgressLine class="audioProgress" :progressWidth="audioProgressWidth" @set-progress-line="setAudioProgress" />
@@ -374,11 +374,11 @@
     background: #fff;
     box-shadow: 0 5px 40px -1px rgba(2, 10, 18, 0.1);
     transition: all 0.4s ease-out;
-    // transform: translateY(100%);
+    transform: translateY(100%);
 
-    // &.active {
-    //   transform: translateY(0);
-    // }
+    &.active {
+      transform: translateY(0);
+    }
   }
   .fold {
     position: absolute;
