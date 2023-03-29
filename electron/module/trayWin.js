@@ -49,12 +49,12 @@ const createTrayWindow = function () {
     },
   });
   if (isPro) {
-    // trayWindow.webContents.openDevTools();
-    global.trayWindow.loadURL(TRY_URL_MAIN_HASH);
-  } else {
     global.trayWindow.loadFile(LOAD_URL_MAIN, {
       hash: url.format(TRY_URL_MAIN_HASH),
     });
+  } else {
+    // trayWindow.webContents.openDevTools();
+    global.trayWindow.loadURL(TRY_URL_MAIN_HASH);
   }
   global.trayWindow.on('blur', () => global.trayWindow.hide());
 };

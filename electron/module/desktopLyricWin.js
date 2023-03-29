@@ -34,12 +34,12 @@ const createLyricWindow = function () {
   });
   global.lyricWindow.on('show', () => {
     if (isPro) {
-      // lyricWindow.webContents.openDevTools();
-      global.lyricWindow.loadURL(LYRIC_URL_MAIN_HASH);
-    } else {
       global.lyricWindow.loadFile(LOAD_URL_MAIN, {
         hash: url.format(LYRIC_URL_MAIN_HASH),
       });
+    } else {
+      // lyricWindow.webContents.openDevTools();
+      global.lyricWindow.loadURL(LYRIC_URL_MAIN_HASH);
     }
   });
   global.lyricWindow.hookWindowMessage(278, () => {

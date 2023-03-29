@@ -57,12 +57,9 @@ function createWindow() {
     global.win.loadFile(LOAD_URL_MAIN, {
       hash: url.format(WIN_URL_MAIN_HASH),
     });
-    // global.win.loadURL(WIN_URL_MAIN_HASH);
-    global.win.webContents.openDevTools();
   } else {
-    global.win.loadFile(LOAD_URL_MAIN, {
-      hash: url.format(WIN_URL_MAIN_HASH),
-    });
+    global.win.loadURL(WIN_URL_MAIN_HASH);
+    global.win.webContents.openDevTools();
   }
   // require('electron-reload')(__dirname, {
   //   // Note that the path to electron may vary according to the main file

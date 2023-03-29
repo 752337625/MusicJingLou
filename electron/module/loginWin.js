@@ -24,12 +24,12 @@ const createLoginWindow = function () {
   // loginWindow.webContents.openDevTools();
   global.loginWindow.on('show', () => {
     if (isPro) {
-      // loginWindow.webContents.openDevTools();
-      global.loginWindow.loadURL(LOGIN_URL_MAIN_HASH);
-    } else {
       global.loginWindow.loadFile(LOAD_URL_MAIN, {
         hash: url.format(LOGIN_URL_MAIN_HASH),
       });
+    } else {
+      // loginWindow.webContents.openDevTools();
+      global.loginWindow.loadURL(LOGIN_URL_MAIN_HASH);
     }
   });
   global.loginWindow.hookWindowMessage(278, () => {
