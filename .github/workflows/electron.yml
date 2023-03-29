@@ -1,0 +1,15 @@
+name: electron-build
+on:
+  workflow_dispatch:
+jobs:
+  buildwin:
+    runs-on: windows-2022
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install and Build
+      run: pnpm install && pnpm run electron:build
+    - name: Upload File
+      uses: actions/upload-artifact@v2
+      with:
+        name: windows
+        path: dist_electron/*exe
