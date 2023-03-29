@@ -52,7 +52,6 @@ function createWindow() {
     }, 100);
     return true;
   });
-  // app.setUserTasks([]);
   if (isPro) {
     global.win.loadFile(LOAD_URL_MAIN, {
       hash: url.format(WIN_URL_MAIN_HASH),
@@ -61,10 +60,6 @@ function createWindow() {
     global.win.loadURL(WIN_URL_MAIN_HASH);
     global.win.webContents.openDevTools();
   }
-  // require('electron-reload')(__dirname, {
-  //   // Note that the path to electron may vary according to the main file
-  //   electron: require(`../node_modules/electron`),
-  // });
   // 禁用右键菜单,这个禁用后所有的功能都不能点了
   // global.win.setEnabled(false);
   global.win.once('ready-to-show', () => {

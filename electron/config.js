@@ -1,7 +1,8 @@
-const { app } = require('electron');
+// const { app } = require('electron');
+const isDev = process.env.WEBPACK_DEV_SERVER_URL;
+const isPro = !isDev;
 const SCHEME = 'JINGLUO';
 const LOAD_URL_MAIN = `dist/index.html`;
-const isPro = app.isPackaged;
 const WIN_URL_MAIN_HASH = isPro ? `/music/index` : 'http://localhost:3100/#/music/index';
 const LYRIC_URL_MAIN_HASH = isPro ? `/desktop` : 'http://localhost:3100/#/desktop';
 const LOGIN_URL_MAIN_HASH = isPro ? `/login/qr` : 'http://localhost:3100/#/login/qr';

@@ -17,7 +17,7 @@
     "commit": "czg",
     "prepare": "husky install",
     "serve": "vite",
-    "start": "nodemon --exec electron . --watch ./ --ext .js,.html,.scss,.vue,.ts,.css",
+    "start": "cross-env WEBPACK_DEV_SERVER_URL=true nodemon --exec electron . --watch ./ --ext .js,.html,.scss,.vue,.ts,.css",
     "electron:serve": "concurrently \"pnpm run serve\" \"pnpm run start\"",
     "build": "vite build",
     "electron:build": "vite build&&electron-builder",
@@ -146,9 +146,9 @@
   },
   "build": {
     "appId": "com.clound.app",
-    "productName": "electron",
+    "productName": "鲸落云",
     "asar": true,
-    "copyright": "Copyright © 2023 electron",
+    "copyright": "Copyright © 2023 鲸落云",
     "directories": {
       "output": "dist_electron"
     },
@@ -158,7 +158,7 @@
       "package.json"
     ],
     "win": {
-      "icon": "public/electron-icon/icon.ico",
+      "icon": "public/images/icon.ico",
       "target": [
         {
           "target": "nsis",
@@ -177,9 +177,9 @@
       "perMachine": false,
       "allowToChangeInstallationDirectory": true,
       "deleteAppDataOnUninstall": false,
-      "installerIcon": "public/electron-icon/icon.ico",
-      "uninstallerIcon": "public/electron-icon/icon.ico",
-      "installerHeaderIcon": "public/electron-icon/icon.ico",
+      "installerIcon": "public/images/icon.ico",
+      "uninstallerIcon": "public/images/icon.ico",
+      "installerHeaderIcon": "public/images/icon.ico",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
     }
