@@ -1,9 +1,8 @@
 const { BrowserWindow } = require('electron');
-const { LOAD_URL } = require('../config');
-const isDev = require('electron-is-dev');
+const { LOGIN_URL_MAIN } = require('../config');
+// const isDev = require('electron-is-dev');
 const path = require('path');
 const createLoginWindow = function () {
-  const LoginWinURL = isDev ? `http://localhost:3100/jingluo/login/qr` : `${LOAD_URL}/jingluo/login/qr`;
   const win = {
     parent: global.win,
     center: true,
@@ -24,7 +23,7 @@ const createLoginWindow = function () {
   };
   const loginWindow = new BrowserWindow(win);
   loginWindow.on('show', () => {
-    loginWindow.loadURL(LoginWinURL);
+    loginWindow.loadURL(LOGIN_URL_MAIN);
   });
   loginWindow.hookWindowMessage(278, () => {
     loginWindow.setEnabled(false);

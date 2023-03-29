@@ -157,13 +157,6 @@
       "electron/**/*",
       "package.json"
     ],
-    "mac": {
-      "icon": "public/electron-icon/icon.icns",
-      "artifactName": "${productName}_${version}.${ext}",
-      "target": [
-        "dmg"
-      ]
-    },
     "win": {
       "icon": "public/electron-icon/icon.ico",
       "target": [

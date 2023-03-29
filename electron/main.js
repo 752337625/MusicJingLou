@@ -10,9 +10,10 @@ const { createLyricWindow } = require('./module/desktopLyricWin');
 // 设置window底部任务栏按钮（缩略图）
 const { setThumbarButton } = require('./module/thumbarButtons');
 // 判断系统处于什么环境
-const isDev = require('electron-is-dev');
+// const isDev = require('electron-is-dev');
 const ipcMainFn = require('./handler');
-const { LOAD_URL_MAIN } = require('./config');
+const { WIN_URL_MAIN } = require('./config');
+const isDev = process.env.NODE_ENV !== 'production';
 // 注册协议
 creatProtocol();
 if (!isDev) {
@@ -78,16 +79,15 @@ function createWindow() {
   if (process.platform === 'win32') {
   }
   // app.setUserTasks([]);
-  if (isDev) {
-    global.win.loadURL('http://localhost:3100/jingluo/music/index');
-    global.win.webContents.openDevTools();
-    // require('electron-reload')(__dirname, {
-    //   // Note that the path to electron may vary according to the main file
-    //   electron: require(`../node_modules/electron`),
-    // });
-  } else {
-    global.win.loadURL(`${LOAD_URL_MAIN}/jingluo/music/index`);
-  }
+  global.win.loadURL(WIN_URL_MAIN);
+  if (isDev) global.win.webContents.openDevTools();
+  // require('electron-reload')(__dirname, {
+  //   // Note that the path to electron may vary according to the main file
+  //   electron: require(`../node_modules/electron`),
+  // });
+  // } else {
+  //   global.win.loadURL(`${LOAD_URL_MAIN}/jingluo/music/index`);
+  // }
   //在窗口要关闭的时候触发。 它在DOM 的beforeunload 和 unload 事件之前触发. 调用event.preventDefault()将阻止这个操作。
   global.win.on('close', event => {
     event.preventDefault(); // 阻止窗口关闭
