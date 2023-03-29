@@ -97,22 +97,21 @@ app.whenReady().then(() => {
   ipcMainFn();
 });
 
-// 为避免启动多个应用 在 macOS Linux Windows 下都可以
-app.on('second-instance', () => {
-  const win = BrowserWindowsMap.get(global.win.id);
-  if (win) {
-    win.restore();
-    win.show();
-  }
-  // const tray = BrowserWindowsMap.get(global.tray.id);
-  // if (tray) {
-  // 	tray.restore();
-  // 	tray.show();
-  // }
-});
 app.on('activate', () => {
   if (!BrowserWindow.getAllWindows().length) return createWindow();
 });
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') return app.quit();
 });
+const gotTheLock = app.requestSingleInstanceLock();
+if (!gotTheLock) {
+  app.quit();
+} else {
+  app.on('second-instance', (_event, _commandLine, _workingDirectory) => {
+    if (global.win) {
+      if (global.win.isMinimized()) global.win.restore();
+      global.win.focus();
+      global.win.show();
+    }
+  });
+}
