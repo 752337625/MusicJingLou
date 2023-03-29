@@ -20,7 +20,7 @@
     "start": "nodemon --exec electron . --watch ./ --ext .js,.html,.scss,.vue,.ts,.css",
     "electron:serve": "concurrently \"pnpm run serve\" \"pnpm run start\"",
     "build": "vite build",
-    "electron:build": "electron-builder",
+    "electron:build": "vite build&&electron-builder",
     "build:no-cache": "concurrently \"pnpm run clean:cache\" \"pnpm run build\"",
     "preview": "pnpm run build && vite preview",
     "preview:dist": "vite preview",

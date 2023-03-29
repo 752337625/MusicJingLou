@@ -1,11 +1,9 @@
 // 设置window底部任务栏按钮（缩略图）
-
-// const isDev = require('electron-is-dev');
-const isDev = process.env.NODE_ENV !== 'production';
-const prevIcon = isDev ? 'public/images/prev.png' : `${global.__images}/prev.png`;
-const nextIcon = isDev ? 'public/images/next.png' : `${global.__images}/next.png`;
-const playIcon = isDev ? 'public/images/play.png' : `${global.__images}/play.png`;
-const pauseIcon = isDev ? 'public/images/pause.png' : `${global.__images}/pause.png`;
+const { isPro } = require('../config');
+const prevIcon = isPro ? `${global.__images}/prev.png` : 'public/images/prev.png';
+const nextIcon = isPro ? `${global.__images}/next.png` : 'public/images/next.png';
+const playIcon = isPro ? `${global.__images}/play.png` : 'public/images/play.png';
+const pauseIcon = isPro ? `${global.__images}/pause.png` : 'public/images/pause.png';
 const setThumbarButton = function (playing = false) {
   global.win.setThumbarButtons([
     {

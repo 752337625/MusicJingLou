@@ -10,15 +10,12 @@ const { createTray, createTrayWindow } = require('./module/trayWin');
 const { createLyricWindow } = require('./module/desktopLyricWin');
 // 设置window底部任务栏按钮（缩略图）
 const { setThumbarButton } = require('./module/thumbarButtons');
-// 判断系统处于什么环境
-// const isDev = require('electron-is-dev');
 const ipcMainFn = require('./handler');
-const { LOAD_URL_MAIN, isDev, WIN_URL_MAIN_HASH } = require('./config');
+const { LOAD_URL_MAIN, isPro, WIN_URL_MAIN_HASH } = require('./config');
 // 注册协议
 creatProtocol();
-if (isDev) global.__images = path.join(__dirname, '../dist/images');
-const icon = isDev ? 'public/images/tray.ico' : `${global.__images}/tray.ico`;
-
+if (isPro) global.__images = path.join(__dirname, '../dist/images');
+const icon = isPro ? `${global.__images}/tray.ico` : 'public/images/tray.ico';
 // 取消安全校验
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 function createWindow() {
@@ -56,8 +53,11 @@ function createWindow() {
     return true;
   });
   // app.setUserTasks([]);
-  if (isDev) {
-    global.win.loadURL(WIN_URL_MAIN_HASH);
+  if (isPro) {
+    global.win.loadFile(LOAD_URL_MAIN, {
+      hash: url.format(WIN_URL_MAIN_HASH),
+    });
+    // global.win.loadURL(WIN_URL_MAIN_HASH);
     global.win.webContents.openDevTools();
   } else {
     global.win.loadFile(LOAD_URL_MAIN, {

@@ -1,7 +1,7 @@
 const url = require('url');
 const path = require('path');
 const { BrowserWindow, screen } = require('electron');
-const { LOAD_URL_MAIN, isDev, LYRIC_URL_MAIN_HASH } = require('../config');
+const { LOAD_URL_MAIN, isPro, LYRIC_URL_MAIN_HASH } = require('../config');
 const createLyricWindow = function () {
   let { size } = screen.getPrimaryDisplay();
   let w = (size.width - 800) / 2;
@@ -33,10 +33,9 @@ const createLyricWindow = function () {
     },
   });
   global.lyricWindow.on('show', () => {
-    if (isDev) {
+    if (isPro) {
       // lyricWindow.webContents.openDevTools();
       global.lyricWindow.loadURL(LYRIC_URL_MAIN_HASH);
-      global.lyricWindow.webContents.openDevTools();
     } else {
       global.lyricWindow.loadFile(LOAD_URL_MAIN, {
         hash: url.format(LYRIC_URL_MAIN_HASH),

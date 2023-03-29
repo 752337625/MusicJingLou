@@ -1,11 +1,11 @@
 const url = require('url');
 const path = require('path');
 const { Tray, BrowserWindow, screen } = require('electron');
-const { LOAD_URL_MAIN, isDev, TRY_URL_MAIN_HASH } = require('../config');
+const { LOAD_URL_MAIN, isPro, TRY_URL_MAIN_HASH } = require('../config');
 const createTray = function () {
   // 当前电脑屏幕得分辨率
   let { width } = screen.getPrimaryDisplay().size;
-  const trayIconPath = isDev ? 'public/images/tray.ico' : `${global.__images}/tray.ico`;
+  const trayIconPath = isPro ? `${global.__images}/tray.ico` : 'public/images/tray.ico';
   global.tray = new Tray(trayIconPath);
   global.tray.setToolTip('网易云音乐');
   global.tray.on('click', () => {
@@ -48,10 +48,9 @@ const createTrayWindow = function () {
       preload: path.join(__dirname, '../preload.js'),
     },
   });
-  if (isDev) {
+  if (isPro) {
     // trayWindow.webContents.openDevTools();
     global.trayWindow.loadURL(TRY_URL_MAIN_HASH);
-    global.trayWindow.webContents.openDevTools();
   } else {
     global.trayWindow.loadFile(LOAD_URL_MAIN, {
       hash: url.format(TRY_URL_MAIN_HASH),

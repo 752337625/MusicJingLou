@@ -1,7 +1,7 @@
 const url = require('url');
 const path = require('path');
 const { BrowserWindow } = require('electron');
-const { LOAD_URL_MAIN, isDev, LOGIN_URL_MAIN_HASH } = require('../config');
+const { LOAD_URL_MAIN, isPro, LOGIN_URL_MAIN_HASH } = require('../config');
 const createLoginWindow = function () {
   global.loginWindow = new BrowserWindow({
     parent: global.win,
@@ -23,10 +23,9 @@ const createLoginWindow = function () {
   });
   // loginWindow.webContents.openDevTools();
   global.loginWindow.on('show', () => {
-    if (isDev) {
+    if (isPro) {
       // loginWindow.webContents.openDevTools();
       global.loginWindow.loadURL(LOGIN_URL_MAIN_HASH);
-      global.loginWindow.webContents.openDevTools();
     } else {
       global.loginWindow.loadFile(LOAD_URL_MAIN, {
         hash: url.format(LOGIN_URL_MAIN_HASH),

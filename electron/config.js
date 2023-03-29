@@ -1,13 +1,13 @@
 const { app } = require('electron');
 const SCHEME = 'JINGLUO';
 const LOAD_URL_MAIN = `dist/index.html`;
-const isDev = !app.isPackaged;
-const WIN_URL_MAIN_HASH = isDev ? 'http://localhost:3100/#/music/index' : `/music/index`;
-const LYRIC_URL_MAIN_HASH = isDev ? 'http://localhost:3100/#/desktop' : `/desktop`;
-const LOGIN_URL_MAIN_HASH = isDev ? 'http://localhost:3100/#/login/qr' : `/login/qr`;
-const TRY_URL_MAIN_HASH = isDev ? 'http://localhost:3100/#/tray' : `/tray`;
+const isPro = app.isPackaged;
+const WIN_URL_MAIN_HASH = isPro ? `/music/index` : 'http://localhost:3100/#/music/index';
+const LYRIC_URL_MAIN_HASH = isPro ? `/desktop` : 'http://localhost:3100/#/desktop';
+const LOGIN_URL_MAIN_HASH = isPro ? `/login/qr` : 'http://localhost:3100/#/login/qr';
+const TRY_URL_MAIN_HASH = isPro ? `/tray` : 'http://localhost:3100/#/tray';
 module.exports = {
-  isDev,
+  isPro,
   SCHEME,
   LOAD_URL_MAIN,
   WIN_URL_MAIN_HASH,
