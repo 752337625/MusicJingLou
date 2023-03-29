@@ -6,6 +6,7 @@ contextBridge.exposeInMainWorld('ElectronAPI', {
   setWindowMax: () => ipcRenderer.send('set-window-max'),
   setWindowMin: () => ipcRenderer.send('set-window-min'),
   setWindowClose: () => ipcRenderer.send('set-window-close'),
+  setTryWindowClose: () => ipcRenderer.send('set-try-window-close'),
   setShellExternal: url => ipcRenderer.send('set-shell-external', url),
   setPlaySongStates: status => ipcRenderer.on('play-song-states', status),
   setThumbarButton: (status = false) => ipcRenderer.send('set-thumbar-button', status),

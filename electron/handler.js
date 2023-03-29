@@ -17,11 +17,14 @@ function ipcMainFn() {
       global.win.maximize();
     }
   });
-  ipcMain.on('set-window-close', () => {
+  ipcMain.on('set-try-window-close', () => {
     let wins = BrowserWindow.getAllWindows();
     for (let i = 0; i < wins.length; i++) {
       wins[i].destroy();
     }
+  });
+  ipcMain.on('set-window-close', () => {
+    global.win.hide();
   });
   ipcMain.on('toggle-mini', (event, params) => {
     if (params.value) {

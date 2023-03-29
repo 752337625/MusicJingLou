@@ -60,26 +60,21 @@ function createWindow() {
     global.win.loadURL(WIN_URL_MAIN_HASH);
     global.win.webContents.openDevTools();
   }
-  // 禁用右键菜单,这个禁用后所有的功能都不能点了
-  // global.win.setEnabled(false);
   global.win.once('ready-to-show', () => {
     global.win.show();
     if (process.platform === 'win32') {
       // 设置任务栏缩略图
       setThumbarButton(false);
-      // 去除原生顶部菜单栏
-      // global.win.removeMenu();
       // 如果是windows系统模拟托盘菜单
       createTray();
-      // // 如果是windows系统模拟托盘右键菜单
+      // 如果是windows系统模拟托盘右键菜单
       createTrayWindow();
-      // // 创建login框
+      // 创建login框
       createLoginWindow();
-      // // 创建桌面歌词框
+      // 创建桌面歌词框
       createLyricWindow();
     }
   });
-  // if (process.platform === 'win32') {}
   //在窗口要关闭的时候触发。 它在DOM 的beforeunload 和 unload 事件之前触发. 调用event.preventDefault()将阻止这个操作。
   global.win.on('close', event => {
     event.preventDefault(); // 阻止窗口关闭

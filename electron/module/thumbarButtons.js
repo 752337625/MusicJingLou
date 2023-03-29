@@ -6,27 +6,27 @@
 // const pauseIcon = isPro ? `${global.__images}/pause.png` : 'public/images/pause.png';
 const setThumbarButton = function (_playing = false) {
   // global.win.setThumbarButtons([
-  // {
-  //   tooltip: '上一曲',
-  //   icon: prevIcon,
-  //   click() {
-  //     global.win.webContents.send('play-song-states', 'prev');
+  //   {
+  //     tooltip: '上一曲',
+  //     icon: prevIcon,
+  //     click() {
+  //       global.win.webContents.send('play-song-states', 'prev');
+  //     },
   //   },
-  // },
-  // {
-  //   tooltip: playing ? '暂停' : '播放',
-  //   icon: playing ? pauseIcon : playIcon,
-  //   click() {
-  //     global.win.webContents.send('play-song-states', 'play');
+  //   {
+  //     tooltip: playing ? '暂停' : '播放',
+  //     icon: playing ? pauseIcon : playIcon,
+  //     click() {
+  //       global.win.webContents.send('play-song-states', 'play');
+  //     },
   //   },
-  // },
-  // {
-  //   tooltip: '下一曲',
-  //   icon: nextIcon,
-  //   click() {
-  //     global.win.webContents.send('play-song-states', 'next');
+  //   {
+  //     tooltip: '下一曲',
+  //     icon: nextIcon,
+  //     click() {
+  //       global.win.webContents.send('play-song-states', 'next');
+  //     },
   //   },
-  // },
   // ]);
   // global.win.setThumbnailClip({ x: 0, y: 0, width: 0, height: 0 });
 };

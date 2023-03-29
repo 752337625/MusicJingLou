@@ -23,7 +23,7 @@
     console.log(TYPE);
     switch (TYPE) {
       case 'exit':
-        window.ElectronAPI.setWindowClose();
+        window.ElectronAPI.setTryWindowClose();
         break;
       case 'prev':
         window.ElectronAPI.setTrayPlaySongStates(TYPE);
