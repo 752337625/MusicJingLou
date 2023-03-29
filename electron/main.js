@@ -13,13 +13,10 @@ const { setThumbarButton } = require('./module/thumbarButtons');
 // 判断系统处于什么环境
 // const isDev = require('electron-is-dev');
 const ipcMainFn = require('./handler');
-const { WIN_URL_MAIN } = require('./config');
-const isDev = process.env.NODE_ENV !== 'production';
+const { LOAD_URL_MAIN, isDev, WIN_URL_MAIN_HASH } = require('./config');
 // 注册协议
 creatProtocol();
-if (!isDev) {
-  global.__images = path.join(__dirname, '../dist/images');
-}
+if (isDev) global.__images = path.join(__dirname, '../dist/images');
 const icon = isDev ? 'public/images/tray.ico' : `${global.__images}/tray.ico`;
 
 // 取消安全校验
@@ -59,18 +56,14 @@ function createWindow() {
     return true;
   });
   // app.setUserTasks([]);
-  // global.win.loadURL(
-  //   url.format({
-  //     pathname: path.join(__dirname, LOAD_URL_MAIN),
-  //     protocol: 'file:',
-  //     slashes: true,
-  //     hash: '/music/index',
-  //   }),
-  // );
-  global.win.loadFile(WIN_URL_MAIN, {
-    hash: url.format('/music/index'),
-  });
-  if (isDev) global.win.webContents.openDevTools();
+  if (isDev) {
+    global.win.loadURL(WIN_URL_MAIN_HASH);
+    global.win.webContents.openDevTools();
+  } else {
+    global.win.loadFile(LOAD_URL_MAIN, {
+      hash: url.format(WIN_URL_MAIN_HASH),
+    });
+  }
   // require('electron-reload')(__dirname, {
   //   // Note that the path to electron may vary according to the main file
   //   electron: require(`../node_modules/electron`),

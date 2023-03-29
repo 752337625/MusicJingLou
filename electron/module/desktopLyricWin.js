@@ -1,8 +1,7 @@
-const { BrowserWindow, screen } = require('electron');
-// const isDev = require('electron-is-dev');
-const { LYRIC_URL_MAIN } = require('../config');
 const url = require('url');
 const path = require('path');
+const { BrowserWindow, screen } = require('electron');
+const { LOAD_URL_MAIN, isDev, LYRIC_URL_MAIN_HASH } = require('../config');
 const createLyricWindow = function () {
   let { size } = screen.getPrimaryDisplay();
   let w = (size.width - 800) / 2;
@@ -33,11 +32,16 @@ const createLyricWindow = function () {
       preload: path.join(__dirname, '../preload.js'),
     },
   });
-  // lyricWindow.webContents.openDevTools();
   global.lyricWindow.on('show', () => {
-    global.lyricWindow.loadFile(LYRIC_URL_MAIN, {
-      hash: url.format('/desktop'),
-    });
+    if (isDev) {
+      // lyricWindow.webContents.openDevTools();
+      global.lyricWindow.loadURL(LYRIC_URL_MAIN_HASH);
+      global.lyricWindow.webContents.openDevTools();
+    } else {
+      global.lyricWindow.loadFile(LOAD_URL_MAIN, {
+        hash: url.format(LYRIC_URL_MAIN_HASH),
+      });
+    }
   });
   global.lyricWindow.hookWindowMessage(278, () => {
     global.lyricWindow.setEnabled(false);

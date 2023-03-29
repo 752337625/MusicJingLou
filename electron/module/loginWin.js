@@ -1,8 +1,7 @@
-const { BrowserWindow } = require('electron');
-const { LOGIN_URL_MAIN } = require('../config');
 const url = require('url');
-// const isDev = require('electron-is-dev');
 const path = require('path');
+const { BrowserWindow } = require('electron');
+const { LOAD_URL_MAIN, isDev, LOGIN_URL_MAIN_HASH } = require('../config');
 const createLoginWindow = function () {
   global.loginWindow = new BrowserWindow({
     parent: global.win,
@@ -24,9 +23,15 @@ const createLoginWindow = function () {
   });
   // loginWindow.webContents.openDevTools();
   global.loginWindow.on('show', () => {
-    global.loginWindow.loadFile(LOGIN_URL_MAIN, {
-      hash: url.format('/login/qr'),
-    });
+    if (isDev) {
+      // loginWindow.webContents.openDevTools();
+      global.loginWindow.loadURL(LOGIN_URL_MAIN_HASH);
+      global.loginWindow.webContents.openDevTools();
+    } else {
+      global.loginWindow.loadFile(LOAD_URL_MAIN, {
+        hash: url.format(LOGIN_URL_MAIN_HASH),
+      });
+    }
   });
   global.loginWindow.hookWindowMessage(278, () => {
     global.loginWindow.setEnabled(false);

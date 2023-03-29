@@ -1,8 +1,7 @@
-const { Tray, BrowserWindow, screen } = require('electron');
-// const isDev = require('electron-is-dev');
-const isDev = process.env.NODE_ENV !== 'production';
-const { TRY_URL_MAIN } = require('../config');
+const url = require('url');
 const path = require('path');
+const { Tray, BrowserWindow, screen } = require('electron');
+const { LOAD_URL_MAIN, isDev, TRY_URL_MAIN_HASH } = require('../config');
 const createTray = function () {
   // 当前电脑屏幕得分辨率
   let { width } = screen.getPrimaryDisplay().size;
@@ -49,7 +48,15 @@ const createTrayWindow = function () {
       preload: path.join(__dirname, '../preload.js'),
     },
   });
-  global.trayWindow.loadURL(TRY_URL_MAIN);
+  if (isDev) {
+    // trayWindow.webContents.openDevTools();
+    global.trayWindow.loadURL(TRY_URL_MAIN_HASH);
+    global.trayWindow.webContents.openDevTools();
+  } else {
+    global.trayWindow.loadFile(LOAD_URL_MAIN, {
+      hash: url.format(TRY_URL_MAIN_HASH),
+    });
+  }
   global.trayWindow.on('blur', () => global.trayWindow.hide());
 };
 
