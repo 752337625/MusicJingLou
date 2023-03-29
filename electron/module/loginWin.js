@@ -1,9 +1,10 @@
 const { BrowserWindow } = require('electron');
 const { LOGIN_URL_MAIN } = require('../config');
+const url = require('url');
 // const isDev = require('electron-is-dev');
 const path = require('path');
 const createLoginWindow = function () {
-  const win = {
+  global.loginWindow = new BrowserWindow({
     parent: global.win,
     center: true,
     height: 530,
@@ -20,18 +21,19 @@ const createLoginWindow = function () {
       contextIsolation: true, // 可以使用require方法,
       preload: path.join(__dirname, '../preload.js'),
     },
-  };
-  const loginWindow = new BrowserWindow(win);
-  loginWindow.on('show', () => {
-    loginWindow.loadURL(LOGIN_URL_MAIN);
   });
-  loginWindow.hookWindowMessage(278, () => {
-    loginWindow.setEnabled(false);
+  // loginWindow.webContents.openDevTools();
+  global.loginWindow.on('show', () => {
+    global.loginWindow.loadFile(LOGIN_URL_MAIN, {
+      hash: url.format('/login/qr'),
+    });
+  });
+  global.loginWindow.hookWindowMessage(278, () => {
+    global.loginWindow.setEnabled(false);
     setTimeout(() => {
-      loginWindow.setEnabled(true);
+      global.loginWindow.setEnabled(true);
     }, 100);
     return true;
   });
-  return loginWindow;
 };
 module.exports = { createLoginWindow };

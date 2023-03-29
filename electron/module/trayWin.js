@@ -7,12 +7,12 @@ const createTray = function () {
   // 当前电脑屏幕得分辨率
   let { width } = screen.getPrimaryDisplay().size;
   const trayIconPath = isDev ? 'public/images/tray.ico' : `${global.__images}/tray.ico`;
-  const tray = new Tray(trayIconPath);
-  tray.setToolTip('网易云音乐');
-  tray.on('click', () => {
+  global.tray = new Tray(trayIconPath);
+  global.tray.setToolTip('网易云音乐');
+  global.tray.on('click', () => {
     global.win.isVisible() ? global.win.focus() : global.win.restore(), global.win.show();
   });
-  tray.on('right-click', () => {
+  global.tray.on('right-click', () => {
     // 返回当前trayWindow窗口得大小
     const [trayMenuWidth, trayMenuHeight] = global.trayWindow.getSize();
     // 当前鼠标的绝对位置。没看明白官方给的意思
@@ -24,11 +24,10 @@ const createTray = function () {
     }
     global.trayWindow.show();
   });
-  return tray;
 };
 const createTrayWindow = function () {
   const bounds = global.tray.getBounds();
-  const win = {
+  global.trayWindow = new BrowserWindow({
     width: 210,
     height: 310,
     x: bounds.x,
@@ -49,13 +48,9 @@ const createTrayWindow = function () {
       contextIsolation: true, // 可以使用require方法,
       preload: path.join(__dirname, '../preload.js'),
     },
-  };
-  const trayWindow = new BrowserWindow(win);
-  // 禁用右键菜单
-  // trayWindow.webContents.openDevTools();
-  trayWindow.loadURL(TRY_URL_MAIN);
-  trayWindow.on('blur', () => trayWindow.hide());
-  return trayWindow;
+  });
+  global.trayWindow.loadURL(TRY_URL_MAIN);
+  global.trayWindow.on('blur', () => global.trayWindow.hide());
 };
 
 module.exports = { createTray, createTrayWindow };

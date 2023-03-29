@@ -1,4 +1,5 @@
 const path = require('path');
+const url = require('url');
 const { app, BrowserWindow, screen } = require('electron');
 const { creatProtocol } = require('./module/protocol');
 // 创建登录win
@@ -57,6 +58,23 @@ function createWindow() {
     }, 100);
     return true;
   });
+  // app.setUserTasks([]);
+  // global.win.loadURL(
+  //   url.format({
+  //     pathname: path.join(__dirname, LOAD_URL_MAIN),
+  //     protocol: 'file:',
+  //     slashes: true,
+  //     hash: '/music/index',
+  //   }),
+  // );
+  global.win.loadFile(WIN_URL_MAIN, {
+    hash: url.format('/music/index'),
+  });
+  if (isDev) global.win.webContents.openDevTools();
+  // require('electron-reload')(__dirname, {
+  //   // Note that the path to electron may vary according to the main file
+  //   electron: require(`../node_modules/electron`),
+  // });
   // 禁用右键菜单,这个禁用后所有的功能都不能点了
   // global.win.setEnabled(false);
   global.win.once('ready-to-show', () => {
@@ -67,27 +85,16 @@ function createWindow() {
       // 去除原生顶部菜单栏
       // global.win.removeMenu();
       // 如果是windows系统模拟托盘菜单
-      global.tray = createTray();
-      // 如果是windows系统模拟托盘右键菜单
-      global.trayWindow = createTrayWindow();
-      // 创建login框
-      global.loginWindow = createLoginWindow();
-      // 创建桌面歌词框
-      global.lyricWindow = createLyricWindow();
+      createTray();
+      // // 如果是windows系统模拟托盘右键菜单
+      createTrayWindow();
+      // // 创建login框
+      createLoginWindow();
+      // // 创建桌面歌词框
+      createLyricWindow();
     }
   });
-  if (process.platform === 'win32') {
-  }
-  // app.setUserTasks([]);
-  global.win.loadURL(WIN_URL_MAIN);
-  if (isDev) global.win.webContents.openDevTools();
-  // require('electron-reload')(__dirname, {
-  //   // Note that the path to electron may vary according to the main file
-  //   electron: require(`../node_modules/electron`),
-  // });
-  // } else {
-  //   global.win.loadURL(`${LOAD_URL_MAIN}/jingluo/music/index`);
-  // }
+  // if (process.platform === 'win32') {}
   //在窗口要关闭的时候触发。 它在DOM 的beforeunload 和 unload 事件之前触发. 调用event.preventDefault()将阻止这个操作。
   global.win.on('close', event => {
     event.preventDefault(); // 阻止窗口关闭
@@ -101,8 +108,8 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
-  ipcMainFn();
   createWindow();
+  ipcMainFn();
 });
 
 // 为避免启动多个应用 在 macOS Linux Windows 下都可以

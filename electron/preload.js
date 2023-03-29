@@ -8,6 +8,6 @@ contextBridge.exposeInMainWorld('ElectronAPI', {
   setWindowClose: () => ipcRenderer.send('set-window-close'),
   setShellExternal: url => ipcRenderer.send('set-shell-external', url),
   setPlaySongStates: status => ipcRenderer.on('play-song-states', status),
-  setThumbarButton: status => ipcRenderer.send('set-thumbar-button', status),
+  setThumbarButton: (status = false) => ipcRenderer.send('set-thumbar-button', status),
   setTrayPlaySongStates: status => ipcRenderer.send('tray-play-song-states', status),
 });

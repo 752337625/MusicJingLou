@@ -1,12 +1,13 @@
 const { BrowserWindow, screen } = require('electron');
 // const isDev = require('electron-is-dev');
 const { LYRIC_URL_MAIN } = require('../config');
+const url = require('url');
 const path = require('path');
 const createLyricWindow = function () {
   let { size } = screen.getPrimaryDisplay();
   let w = (size.width - 800) / 2;
   let h = size.height - 200;
-  const obj = {
+  global.lyricWindow = new BrowserWindow({
     useContentSize: true,
     center: true,
     maxWidth: 800,
@@ -31,17 +32,19 @@ const createLyricWindow = function () {
       contextIsolation: true, // 可以使用require方法,
       preload: path.join(__dirname, '../preload.js'),
     },
-  };
-  let lyricWindow = new BrowserWindow(obj);
+  });
   // lyricWindow.webContents.openDevTools();
-  lyricWindow.on('show', () => lyricWindow.loadURL(LYRIC_URL_MAIN));
-  lyricWindow.hookWindowMessage(278, () => {
-    lyricWindow.setEnabled(false);
+  global.lyricWindow.on('show', () => {
+    global.lyricWindow.loadFile(LYRIC_URL_MAIN, {
+      hash: url.format('/desktop'),
+    });
+  });
+  global.lyricWindow.hookWindowMessage(278, () => {
+    global.lyricWindow.setEnabled(false);
     setTimeout(() => {
-      lyricWindow.setEnabled(true);
+      global.lyricWindow.setEnabled(true);
     }, 100);
     return true;
   });
-  return lyricWindow;
 };
 module.exports = { createLyricWindow };

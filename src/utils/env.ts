@@ -11,8 +11,10 @@ export function getEnvConfig() {
     VITE_DEFAULT_LOCALE_KEY,
     VITE_DEFAULT_PLAYLIST_KEY,
     VITE_DEFAULT_PLAYINDEX_KEY,
+    VITE_ROUTER_History,
   } = ENV;
   return {
+    VITE_ROUTER_History,
     VITE_BASE_URL,
     VITE_DEFAULT_LYRICS_KEY,
     VITE_DEFAULT_PLAYLIST_KEY,

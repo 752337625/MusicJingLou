@@ -41,7 +41,7 @@ function ipcMainFn() {
   ipcMain.on('set-shell-external', (event, url) => {
     shell.openExternal(url);
   });
-  ipcMain.on('set-thumbar-button', (_event, value) => {
+  ipcMain.on('set-thumbar-button', (_event, value = false) => {
     setThumbarButton(value);
   });
   ipcMain.on('tray-play-song-states', (_event, TYPE) => {

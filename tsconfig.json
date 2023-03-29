@@ -30,6 +30,7 @@
   "exclude": ["node_modules", "tests/server/**/*.ts", "dist", "**/*.js"],
   // "files": ["package.json"],
   "include": [
+    "electron",
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
