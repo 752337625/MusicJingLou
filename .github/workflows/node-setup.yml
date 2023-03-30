@@ -6,6 +6,7 @@ on:
       - master
 jobs:
   install:
+    # runs-on字段指定运行所需要的虚拟机环境。它是必填字段。目前可用的虚拟机如下。
     runs-on: ubuntu-latest
     steps:
       - name: setup-node

@@ -1,9 +1,5 @@
 name: pnpm-setup
 on:
-  push:
-    # 分支随意
-    branches:
-      - master
 jobs:
   setup-install:
       # 运行在最新版ubuntu系统中
