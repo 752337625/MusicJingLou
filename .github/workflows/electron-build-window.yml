@@ -1,0 +1,20 @@
+name: electron-build-window
+#当master分支push时触发，可以限定分支或标签。
+on:
+   # push:
+    # 分支随意
+    # branches:
+       # - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build
+        run: pnpm run electron:build
+      - name: Upload File
+        uses: actions/upload-artifact@v2
+        with:
+          name: windows
+          path: dist_electron/*exe
