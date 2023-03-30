@@ -1,9 +1,5 @@
 name: node-setup
 on:
-  push:
-    # 分支随意
-    branches:
-      - master
 jobs:
   install:
     # runs-on字段指定运行所需要的虚拟机环境。它是必填字段。目前可用的虚拟机如下。
