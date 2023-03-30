@@ -1,30 +1,50 @@
 name: electron-setup
 on:
-  workflow_dispatch:
+  push:
+    tags:
+      - 'v*.*.*'
+# on:
+#   workflow_dispatch:
 jobs:
-  build:
+  release:
+    name: build and release electron app
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - name: Use Node
         uses: actions/setup-node@v3
         with:
           node-version: 17
           registry-url: http://registry.npmmirror.com
-     
+
       - name: Setup Pnpm
         run: npm i -g pnpm
-     
+
       - name: Install Pnpm
         run: pnpm run bootstrap
-        
+
       - name: Build
         run: pnpm run electron:build
-        
+        env:
+          GH_TOKEN: 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
+
+
+      - name: Clean Upload File
+        run: |
+          pnpm rimraf "dist_electron/!(*.exe|*.dmg)"
+
       - name: Upload File
-        uses: actions/upload-artifact@v3 
+        uses: actions/upload-artifact@v3
         with:
-          name: jingluo-window
-          path: dist_electron/*.*
+          name: window
+          path: dist_electron
+
+      - name: release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: "dist_electron/**"
+        env:
+          GH_TOKEN: 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
