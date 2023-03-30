@@ -1,10 +1,9 @@
 name: electron-setup
-# on:
-#   push:
-#     tags:
-#       - 'v*.*.*'
 on:
   workflow_dispatch:
+  push:
+    tags:
+      - 'v*.*.*'
 jobs:
   release:
     name: build and release electron app
@@ -27,7 +26,7 @@ jobs:
       - name: Build
         run: pnpm run electron:build
         env:
-          GH_TOKEN: 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
+          GH_TOKEN: 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
 
 
       - name: Clean Upload File
@@ -46,4 +45,4 @@ jobs:
         with:
           files: "dist_electron/**"
         env:
-          GH_TOKEN: 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
+          GH_TOKEN: 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
