@@ -139,6 +139,9 @@
   "bugs": {
     "url": "https://github.com/752337625/vite-electron-plugin/issues"
   },
+  "resolutions": {
+    "bin-wrapper": "pnpm:bin-wrapper-china"
+  },
   "lint-staged": {
     "*.{vue,js,ts,jsx,tsx,json}": [
       "prettier --write",
