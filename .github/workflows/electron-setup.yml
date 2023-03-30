@@ -13,8 +13,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
+    
         
       - name: Use Node
         uses: actions/setup-node@v3
@@ -23,36 +22,28 @@ jobs:
      
     
         
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        run: |
-          echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      - uses: actions/cache@v3
-        name: Setup pnpm cache
-        with:
-          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+      - name: Setup Pnpm
+        run: npm i -g pnpm
      
       - name: Install
         run: pnpm i
+        
+      - name: Clean Upload File
+        run: |
+          pnpm rimraf "dist_electron"
 
       - name: Build
         run: pnpm run electron:build
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
          
-      - name: Clean Upload File
-        run: |
-          pnpm rimraf "dist_electron/!(*.exe)"
+     
 
       - name: Upload File
         uses: actions/upload-artifact@v3
         with:
           name: jingluo-window
-          path: dist_electron
+          path: dist_electron/*.exe
 
       - name: release
         uses: softprops/action-gh-release@v1
