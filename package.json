@@ -13,6 +13,7 @@
   },
   "main": "electron/main.js",
   "scripts": {
+    "bootstrap": "pnpm install"
     "add": "git add .",
     "commit": "czg",
     "prepare": "husky install",
