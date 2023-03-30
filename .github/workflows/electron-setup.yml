@@ -27,7 +27,7 @@ jobs:
         run: pnpm run electron:build
         env:
           GH_TOKEN: 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
-
+          GITHUB_TOKEN: ${{ secrets.PRESS_TOKEN }}
 
       - name: Clean Upload File
         run: |
