@@ -38,7 +38,7 @@ jobs:
       - name: Upload File
         uses: actions/upload-artifact@v3
         with:
-          name: window
+          name: dist_electron
           path: dist_electron
 
       - name: release
