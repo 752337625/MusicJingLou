@@ -26,7 +26,7 @@ jobs:
       - name: Build
         run: pnpm run electron:build
         env:
-          GH_TOKEN: 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
+          GH_TOKEN: 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
           GITHUB_TOKEN: ${{ secrets.PRESS_TOKEN }}
 
       - name: Clean Upload File
@@ -45,5 +45,5 @@ jobs:
         with:
           files: "dist_electron/**"
         env:
-          GH_TOKEN: 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
+          GH_TOKEN: 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
           GITHUB_TOKEN: ${{ secrets.PRESS_TOKEN }}
