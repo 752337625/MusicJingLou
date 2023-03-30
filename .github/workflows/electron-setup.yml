@@ -33,7 +33,7 @@ jobs:
 
       - name: Clean Upload File
         run: |
-          pnpm rimraf "dist_electron/!(*.exe|*.dmg)"
+          pnpm rimraf "dist_electron/!(*.exe|)"
 
       - name: Upload File
         uses: actions/upload-artifact@v3
