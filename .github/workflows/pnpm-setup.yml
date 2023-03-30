@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       # 使用建一个名为setup-node的步骤
-      - name: Setup PNPM
+      - name: Setup Pnpm
       # 使用 pnpm/action-setup@v2@v3这个action下载pnpm
         uses: pnpm/action-setup@v2
         with:

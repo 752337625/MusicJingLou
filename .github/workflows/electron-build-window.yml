@@ -11,10 +11,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Pnpm Version
+        run:  pnpm -v
       - name: Build
-        run: pnpm run electron:build
-      - name: Upload File
-        uses: actions/upload-artifact@v2
-        with:
-          name: windows
-          path: dist_electron/*exe
+        run:  pnpm run electron:build
