@@ -17,7 +17,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 17
-          registry-url: http://registry.npmmirror.com
 
       - name: Setup Pnpm
         run: npm i -g pnpm
