@@ -23,7 +23,7 @@ jobs:
       - name: Build
         run: pnpm run electron:build
       - name: Upload File
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3 
         with:
           name: jingluo-window
           path: dist_electron/*.*
