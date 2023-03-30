@@ -13,7 +13,7 @@ jobs:
       - name: Setup Pnpm
         run: npm i -g pnpm
       - name: Install Pnpm
-        run: cd ../ && pnpm i
+        run: pnpm run bootstrap
       - name: CheckOut
         uses: actions/checkout@v3
       - name: Build
