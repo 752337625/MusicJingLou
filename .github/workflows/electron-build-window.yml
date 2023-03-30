@@ -1,10 +1,10 @@
 name: electron-build-window
 #当master分支push时触发，可以限定分支或标签。
 on:
-   # push:
+   push:
     # 分支随意
-    # branches:
-       # - master
+    branches:
+      - master
 jobs:
   publish-npm:
     runs-on: ubuntu-latest
