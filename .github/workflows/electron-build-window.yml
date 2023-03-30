@@ -1,40 +1,11 @@
-name: electron-build-window
-#当master分支push时触发，可以限定分支或标签。
+name: electron-setup
 on:
-   push:
-    # 分支随意
-    branches:
-      - master
+  workflow_dispatch:
 jobs:
   publish-npm:
     runs-on: ubuntu-latest
     steps:
       - name: CheckOut
         uses: actions/checkout@v3
-
-      - name: Use Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 17
-          registry-url: http://registry.npmmirror.com
-          # electron_mirror: https://npmmirror.com/mirrors/electron/
-          # ELECTRON_CUSTOM_DIR: {{ version }}
-          # strict-peer-dependencie: false
-
-      - name: Cache
-        id: cache-dependencies
-        uses: actions/cache@v3
-        with:
-          path: |
-            **/node_modules
-          key: ${{hashFiles('**/pnpm-lock.yaml')}}
-
-
-      - name: Installing Dependencies
-        if: steps.cache-dependencies.outputs.cache-hit != 'true'
-        run: |
-          npm i pnpm -g
-          pnpm install
-
       - name: Build
         run: pnpm run electron:build

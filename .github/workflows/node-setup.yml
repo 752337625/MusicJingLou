@@ -1,0 +1,14 @@
+name: node-setup
+on:
+  workflow_dispatch:
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: CheckOut
+        uses: actions/checkout@v3
+      - name: Use Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 17
+          registry-url: http://registry.npmmirror.com
