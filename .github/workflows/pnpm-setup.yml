@@ -1,5 +1,6 @@
 name: pnpm-setup
 on:
+  
 jobs:
   setup-install:
       # 运行在最新版ubuntu系统中
@@ -8,8 +9,9 @@ jobs:
     # 使用actions/checkout@v3这个action获取源码
     - name: Checkout
       uses: actions/checkout@v3
-    # 使用建一个名为setup-node的步骤
-    - name: Setup Pnpm
+
+    # 使用建一个名为 Setup-Pnpm的步骤
+    - name: setup-pnpm
     # 使用 pnpm/action-setup@v2@v3这个action下载pnpm
       uses: pnpm/action-setup@v2
       with:
