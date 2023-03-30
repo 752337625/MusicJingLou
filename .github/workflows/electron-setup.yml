@@ -2,7 +2,7 @@ name: electron-setup
 on:
   workflow_dispatch:
 jobs:
-  publish-npm:
+  build:
     runs-on: ubuntu-latest
      steps:
       - name: CheckOut
