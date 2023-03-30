@@ -10,11 +10,12 @@ jobs:
         with:
           node-version: 17
           registry-url: http://registry.npmmirror.com
+     
       - name: Setup Pnpm
         run: npm i -g pnpm
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Install Pnpm
         run: pnpm run bootstrap
-      - name: CheckOut
-        uses: actions/checkout@v3
       - name: Build
         run: pnpm run electron:build
