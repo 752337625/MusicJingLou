@@ -44,6 +44,8 @@ jobs:
         with:
           name: jingluo-window
           path: dist_electron/*.exe
+      - name: ls
+        run: ls
 
       - name: release
         uses: softprops/action-gh-release@v1
