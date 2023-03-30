@@ -38,7 +38,7 @@ jobs:
       - name: Upload File
         uses: actions/upload-artifact@v3
         with:
-          name: dist_electron
+          name: jingluo-window
           path: dist_electron
 
       - name: release
