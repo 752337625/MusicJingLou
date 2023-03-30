@@ -1,10 +1,10 @@
 name: electron-setup
-on:
-  push:
-    tags:
-      - 'v*.*.*'
 # on:
-#   workflow_dispatch:
+#   push:
+#     tags:
+#       - 'v*.*.*'
+on:
+  workflow_dispatch:
 jobs:
   release:
     name: build and release electron app
