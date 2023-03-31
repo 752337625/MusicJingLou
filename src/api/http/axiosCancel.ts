@@ -19,51 +19,29 @@ export class AxiosCanceler {
       config.cancelToken ||
       new axios.CancelToken(cancel => {
         if (!pendingMap.has(url)) {
+          // If there is no current request in pending, add it
           pendingMap.set(url, cancel);
         }
       });
   }
-  /**
-   * Add request
-   * @param {Object} config
-   */
-  addPendingNoRemove(config: AxiosRequestConfig) {
-    const timestamp = config.params.timestamp;
-    config.cancelToken =
-      config.cancelToken ||
-      new axios.CancelToken(cancel => {
-        if (!pendingMap.has(timestamp)) {
-          pendingMap.set(timestamp, cancel);
-        }
-      });
-  }
+
   /**
    * @description: Clear all pending
    */
   removeAllPending() {
-    pendingMap.forEach(cancel => cancel && isFunction(cancel) && cancel());
+    pendingMap.forEach(cancel => {
+      cancel && isFunction(cancel) && cancel();
+    });
     pendingMap.clear();
   }
-  /**
-   * Removal request
-   * @param {Object} config
-   */
-  removePendingNoRemove(config: AxiosRequestConfig) {
-    const timestamp = config.params.timestamp;
-    if (pendingMap.has(timestamp)) {
-      // If there is a current request identifier in pending,
-      // the current request needs to be cancelled and removed
-      const cancel = pendingMap.get(timestamp);
-      cancel && cancel(timestamp);
-      pendingMap.delete(timestamp);
-    }
-  }
+
   /**
    * Removal request
    * @param {Object} config
    */
   removePending(config: AxiosRequestConfig) {
     const url = getPendingUrl(config);
+
     if (pendingMap.has(url)) {
       // If there is a current request identifier in pending,
       // the current request needs to be cancelled and removed

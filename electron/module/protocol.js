@@ -1,4 +1,5 @@
 //  浏览器唤起本地应用
+const path = require('path');
 const { app } = require('electron');
 const { SCHEME, isPro } = require('../config');
 function creatProtocol() {
