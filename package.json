@@ -21,7 +21,7 @@
     "start": "cross-env WEBPACK_DEV_SERVER_URL=true nodemon --exec electron . --watch ./ --ext .js,.html,.scss,.vue,.ts,.css",
     "electron:serve": "concurrently \"pnpm run serve\" \"pnpm run start\"",
     "build": "vite build",
-    "electron:build": "vite build&&electron-builder",
+    "electron:build": "vite build&&electron-builder --win",
     "build:no-cache": "concurrently \"pnpm run clean:cache\" \"pnpm run build\"",
     "preview": "pnpm run build && vite preview",
     "preview:dist": "vite preview",
@@ -186,6 +186,16 @@
       "installerHeaderIcon": "public/images/icon.ico",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
-    }
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "***",
+        "repo": "vite-electron-plugin",
+        "private": true,
+        "token": "***",
+        "releaseType": "release"
+      }
+    ]
   }
 }
