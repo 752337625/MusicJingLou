@@ -191,10 +191,7 @@
       {
         "provider": "github",
         "owner": "***",
-        "repo": "vite-electron-plugin",
-        "private": true,
-        "token": "***",
-        "releaseType": "release"
+        "repo": "vite-electron-plugin"
       }
     ]
   }

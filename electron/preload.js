@@ -11,4 +11,9 @@ contextBridge.exposeInMainWorld('ElectronAPI', {
   setPlaySongStates: status => ipcRenderer.on('play-song-states', status),
   setThumbarButton: (status = false) => ipcRenderer.send('set-thumbar-button', status),
   setTrayPlaySongStates: status => ipcRenderer.send('tray-play-song-states', status),
+  // 自动更新
+  setCheckForUpdate: () => ipcRenderer.send('check-for-update'),
+  setCheckAppVersion: () => ipcRenderer.invoke('check-app-version'),
+  setMessageVersion: message => ipcRenderer.on('message-version', message),
+  setDownloadProgress: progress => ipcRenderer.on('download-progress', progress),
 });

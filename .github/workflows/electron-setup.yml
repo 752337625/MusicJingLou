@@ -55,5 +55,4 @@ jobs:
         with:
           files: "dist_electron/**"
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GIT_HUB_TOKEN }}

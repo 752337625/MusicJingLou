@@ -1,4 +1,5 @@
-const { BrowserWindow, ipcMain, shell } = require('electron');
+const { BrowserWindow, ipcMain, shell, app } = require('electron');
+const { autoUpdater } = require('electron-updater');
 // 创建桌面歌词win
 const { setThumbarButton } = require('./module/thumbarButtons');
 function ipcMainFn() {
@@ -53,6 +54,15 @@ function ipcMainFn() {
     } else if (TYPE === 'next') {
       global.win.webContents.send('play-song-states', 'next');
     }
+  });
+  // 我们需要主动触发一次更新检查
+  ipcMain.on('check-for-update', () => {
+    // 当我们收到渲染进程传来的消息，主进程就就进行一次更新检查
+    autoUpdater.checkForUpdates();
+  });
+  // 当前引用的版本告知给渲染层
+  ipcMain.handle('check-app-version', () => {
+    return app.getVersion();
   });
 }
 module.exports = ipcMainFn;
