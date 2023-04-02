@@ -17,7 +17,6 @@
   // // 名称
   // const nickname = computed(() => songStore.getNickname);
   const loginOrwindow = async type => {
-    console.log(type);
     if (type === 'max') {
       window.ElectronAPI.setWindowMax();
     } else if (type === 'min') {
@@ -47,6 +46,12 @@
       window.ElectronAPI.setLoginDialog(true);
     }
   };
+  // 检测更新
+  window.ElectronAPI.setCheckForUpdate();
+  // 获取更新信息
+  window.ElectronAPI.setMessageVersion((event, message) => {
+    console.log(message);
+  });
 </script>
 <template>
   <router-link to="/" class="logo flex items-center"><img :src="logo" alt="log" /></router-link>

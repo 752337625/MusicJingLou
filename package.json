@@ -190,7 +190,7 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "***",
+        "owner": "752337625",
         "repo": "vite-electron-plugin"
       }
     ]

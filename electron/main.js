@@ -11,6 +11,8 @@ const { createLyricWindow } = require('./module/desktopLyricWin');
 // 设置window底部任务栏按钮（缩略图）
 const { setThumbarButton } = require('./module/thumbarButtons');
 const ipcMainFn = require('./handler');
+
+const { checkUpdate } = require('./module/autoUpdater');
 const { LOAD_URL_MAIN, isPro, WIN_URL_MAIN_HASH } = require('./config');
 // 注册协议
 creatProtocol();
@@ -85,6 +87,7 @@ function createWindow() {
   global.win.on('closed', _event => {
     //console.log(event);
   });
+  checkUpdate();
 }
 
 app.whenReady().then(() => {
