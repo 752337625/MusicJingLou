@@ -17,7 +17,7 @@ const { LOAD_URL_MAIN, isPro, WIN_URL_MAIN_HASH } = require('./config');
 // 注册协议
 creatProtocol();
 if (isPro) global.__images = path.join(__dirname, '../dist/images');
-const icon = isPro ? `${global.__images}/tray.ico` : 'public/images/tray.ico';
+const icon = isPro ? `${global.__images}/icon.png` : 'public/images/icon.png';
 // 取消安全校验
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 function createWindow() {
