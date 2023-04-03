@@ -62,20 +62,12 @@ function checkUpdate() {
   // 更新下载进度
   autoUpdater.on('download-progress', progress => {
     // 直接把当前的下载进度发送给渲染进程即可，有渲染层自己选择如何做展示
-    global.win.send('download-progress', progress);
+    global.win.webContents.send('download-progress', progress);
   });
   // 当需要更新的内容下载完成后
   autoUpdater.on('update-downloaded', () => {
     // 给用户一个提示，然后重启应用；或者直接重启也可以，只是这样会显得很突兀
-    dialog
-      .showMessageBox({
-        title: '安装更新',
-        message: '更新下载完毕，应用将重启并进行安装',
-      })
-      .then(() => {
-        // 退出并安装应用
-        setImmediate(() => autoUpdater.quitAndInstall());
-      });
+    autoUpdater.quitAndInstall();
   });
 }
 module.exports = { checkUpdate };

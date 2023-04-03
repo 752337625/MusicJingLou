@@ -120,7 +120,7 @@
     :close-on-click-modal="false"
     width="350px"
     :close-on-press-escape="false">
-    <template #header> <img src="/icon.ico" style="width: 32px; height: 32px" /> 鲸落云音乐 </template>
+    <template #header> <img src="/images/icon.png" style="width: 32px; height: 32px" /> 鲸落云音乐 </template>
     <div class="leading-8"> 版本号：{{ vo }} &nbsp;&nbsp;<el-tag v-if="!nv">未检测到更新</el-tag> </div>
     <div v-if="nv" class="leading-8"> 最新号：{{ nv }} &nbsp;&nbsp;<el-tag type="danger">更新</el-tag> </div>
     <div class="flex mt-5">
