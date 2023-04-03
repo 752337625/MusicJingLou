@@ -80,11 +80,7 @@
     "czg": "^1.5.0",
     "dotenv": "^16.0.3",
     "electron": "^23.1.1",
-    "electron-is-dev": "^2.0.0",
     "electron-builder": "^23.6.0",
-    "electron-packager": "^17.1.1",
-    "electron-reload": "2.0.0-alpha.1",
-    "electron-window-state": "^5.0.3",
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-import": "^2.27.5",
@@ -156,6 +152,12 @@
     "directories": {
       "output": "dist_electron"
     },
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "http://127.0.0.1:3001"
+      }
+    ],
     "files": [
       "dist/**/*",
       "electron/**/*",
@@ -186,17 +188,6 @@
       "installerHeaderIcon": "public/images/icon.ico",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
-    },
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "752337625",
-        "repo": "vite-electron-plugin"
-      },
-      {
-        "provider": "generic",
-        "url": "http://127.0.0.1:8080"
-      }
-    ]
+    }
   }
 }

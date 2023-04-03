@@ -1,6 +1,4 @@
 const { autoUpdater } = require('electron-updater');
-const path = require('path');
-const { isPro } = require('../config');
 const { dialog } = require('electron');
 function checkUpdate() {
   // 定义返回给渲染层的相关提示文案
@@ -12,9 +10,9 @@ function checkUpdate() {
   };
 
   // 这里是为了在本地做应用升级测试使用
-  if (!isPro) {
-    autoUpdater.updateConfigPath = path.join(__dirname, '../dev-app-update.yml');
-  }
+  // if (!isPro) {
+  //   autoUpdater.updateConfigPath = path.join(__dirname, '../dev-app-update.yml');
+  // }
 
   // 主进程跟渲染进程通信
   const sendUpdateMessage = text => {
