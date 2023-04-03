@@ -47,7 +47,7 @@
     }
   };
   // 检测更新
-  // window.ElectronAPI.setCheckForUpdate();
+  window.ElectronAPI.setCheckForUpdate();
   // 获取更新信息
   window.ElectronAPI.setMessageVersion((event, message) => {
     console.log(message);
@@ -165,9 +165,9 @@
   .arrow-right {
     margin-left: 0;
   }
-  .el-avatar {
-    margin-right: 10px;
-  }
+  // .el-avatar {
+  //   margin-right: 10px;
+  // }
   .el-menu--horizontal {
     border: 0;
     > .el-sub-menu {

@@ -58,9 +58,11 @@ function ipcMainFn() {
   // 我们需要主动触发一次更新检查;
   ipcMain.on('check-for-update', () => {
     // 当我们收到渲染进程传来的消息，主进程就就进行一次更新检查
-    autoUpdater.checkForUpdates();
+    autoUpdater.checkForUpdates().then(updateCheckResult => {
+      console.log(updateCheckResult);
+    });
   });
-  当前引用的版本告知给渲染层;
+  // 当前引用的版本告知给渲染层;
   ipcMain.handle('check-app-version', () => {
     return app.getVersion();
   });

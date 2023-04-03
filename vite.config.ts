@@ -132,6 +132,11 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         'element-plus/es/components/checkbox/style/css',
         'element-plus/es/components/form-item/style/css',
         'element-plus/es/components/input/style/css',
+        'element-plus/es/components/dialog/style/css',
+        'element-plus/es/components/tag/style/css',
+        'element-plus/es/components/menu/style/css',
+        'element-plus/es/components/sub-menu/style/css',
+        'element-plus/es/components/menu-item/style/css',
       ],
     },
   };
