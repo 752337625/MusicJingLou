@@ -47,10 +47,13 @@
     }
   };
   // 检测更新
-  window.ElectronAPI.setCheckForUpdate();
+  // window.ElectronAPI.setCheckForUpdate();
   // 获取更新信息
   window.ElectronAPI.setMessageVersion((event, message) => {
     console.log(message);
+  });
+  window.ElectronAPI.setDownloadProgress((event, value) => {
+    console.log(value);
   });
 </script>
 <template>
