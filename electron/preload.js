@@ -18,4 +18,5 @@ contextBridge.exposeInMainWorld('ElectronAPI', {
   setDownloadUpdate: () => ipcRenderer.send('download-update'),
   setDownloadProgress: progress => ipcRenderer.on('download-progress', progress),
   setUpdateDownload: message => ipcRenderer.on('update-downloaded', message),
+  setQuitAndInstall: () => ipcRenderer.send('quit-and-install'),
 });

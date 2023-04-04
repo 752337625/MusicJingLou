@@ -69,5 +69,8 @@ function ipcMainFn() {
   ipcMain.on('download-update', () => {
     autoUpdater.downloadUpdate();
   });
+  ipcMain.on('quit-and-install', () => {
+    autoUpdater.quitAndInstall();
+  });
 }
 module.exports = ipcMainFn;

@@ -39,10 +39,12 @@ export default function useVersion() {
     Info['message'] = m;
   });
   window.ElectronAPI.setDownloadProgress((_event, value) => {
-    console.log(value);
+    Info['percentage'] = value.percent;
   });
   window.ElectronAPI.setUpdateDownload((_event, m) => {
-    console.log(m);
+    // Info['percentage'] = 100;
+    Info['message'] = m;
+    window.ElectronAPI.setQuitAndInstall();
   });
   const downloadUpdate = () => {
     window.ElectronAPI.setDownloadUpdate();

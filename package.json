@@ -146,9 +146,9 @@
   },
   "build": {
     "appId": "com.jingluo.app",
-    "productName": "鲸落云",
+    "productName": "鲸落云音乐",
     "asar": true,
-    "copyright": "Copyright © 2023 鲸落云",
+    "copyright": "Copyright © 2023 鲸落云音乐",
     "directories": {
       "output": "dist_electron"
     },
@@ -173,12 +173,12 @@
           ]
         }
       ],
-      "artifactName": "${productName}_${version}.${ext}"
+      "artifactName": "${productName}.${ext}"
     },
     "nsis": {
       "allowElevation": true,
       "runAfterFinish": true,
-      "shortcutName": "鲸落云",
+      "shortcutName": "鲸落云音乐",
       "oneClick": false,
       "perMachine": false,
       "allowToChangeInstallationDirectory": true,
