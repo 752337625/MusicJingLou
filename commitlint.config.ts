@@ -75,7 +75,22 @@ export default {
     'type-enum': [
       2,
       'always',
-      ['build', 'chore', 'ci', 'docs', 'feat', 'fix', 'perf', 'refactor', 'revert', 'release', 'style', 'test', 'improvement'],
+      [
+        'build',
+        'chore',
+        'ci',
+        'docs',
+        'feat',
+        'fix',
+        'md',
+        'perf',
+        'refactor',
+        'revert',
+        'release',
+        'style',
+        'test',
+        'improvement',
+      ],
     ],
   },
   prompt: {

@@ -59,3 +59,5 @@
 ## "electron-builder": "^22.11.7", "electron-updater": "^4.3.9",
 
 版本不协调导致打包后找不到模块的问题，最后官网给出的案例中修改的版本。
+
+https://github.com/iffy/electron-updater-example
