@@ -55,3 +55,7 @@
   使用 electron-builder 打包时配置好了 license 许可协议，打包后安装出现乱码
   找到许可协议 txt 文件，并非是 GBK，或者 UTF-8，txt 写好之后，需要进行转化，转化为 ANSI
   记事本打开另存为，格式选择 ANSI
+
+## "electron-builder": "^22.11.7", "electron-updater": "^4.3.9",
+
+版本不协调导致打包后找不到模块的问题，最后官网给出的案例中修改的版本。
