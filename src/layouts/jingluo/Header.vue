@@ -5,11 +5,12 @@
   import { ArrowLeft, ArrowRight, Microphone, RefreshLeft } from '@element-plus/icons-vue';
   import logo from '/@/assets/img/logo.jpg';
   import { useRouter } from 'vue-router';
-  import useVersion from '/@/layouts/jingluo/hook/version';
+  import { ref, nextTick } from 'vue';
   let Search = createAsyncComponent(() => import('/@/layouts/jingluo/Search.vue'));
+  let Version = createAsyncComponent(() => import('/@/components/Version/src/Version.vue'));
   let router = useRouter();
   let state = computed(() => router.options.history.state);
-  let { nv, vo, vd } = useVersion();
+  let VPro = ref(null);
   // const songStore = useSongStore();
   // const isLogin = computed(() => songStore.getIsLogin);
   // // 头像
@@ -32,31 +33,16 @@
     } else if (type === '1-1') {
     } else if (type === '1-2') {
     } else if (type === '1-3') {
-      let version = window.__APP_INFO__.pkg.version;
-      let v = await window.ElectronAPI.setCheckAppVersion();
-      if (v === version) {
-        vd.value = true;
-        vo.value = version;
-      } else {
-        vd.value = true;
-        vo.value = version;
-        nv.value = v;
-      }
+      nextTick(() => {
+        VPro.value.dv = true;
+      });
     } else {
       window.ElectronAPI.setLoginDialog(true);
     }
   };
-  // 检测更新
-  window.ElectronAPI.setCheckForUpdate();
-  // 获取更新信息
-  window.ElectronAPI.setMessageVersion((event, message) => {
-    console.log(message);
-  });
-  window.ElectronAPI.setDownloadProgress((event, value) => {
-    console.log(value);
-  });
 </script>
 <template>
+  <Version ref="VPro" />
   <router-link to="/" class="logo flex items-center"><img :src="logo" alt="log" /></router-link>
   <div class="flex items-center search">
     <el-tooltip effect="dark" content="后退" placement="top">
@@ -82,7 +68,7 @@
       active-text-color="#fff"
       background-color="rbga(0,0,0,0)"
       @select="loginOrwindow">
-      <el-sub-menu index="1" popper-class="popper-header-class">
+      <el-sub-menu index="1" popper-class="popper-header-custom-class">
         <template #title>未登录</template>
         <el-menu-item index="1-1">未登录</el-menu-item>
         <el-menu-item index="1-2">未登录</el-menu-item>
@@ -108,35 +94,6 @@
       <el-icon @click="loginOrwindow('close')"><CloseBold /></el-icon>
     </el-tooltip>
   </div>
-  <el-dialog
-    v-model="vd"
-    title="关于我们"
-    :draggable="true"
-    :align-center="true"
-    :append-to-body="true"
-    :modal="false"
-    :center="false"
-    class="version-custom-class"
-    :close-on-click-modal="false"
-    width="350px"
-    :close-on-press-escape="false">
-    <template #header> <img src="/images/icon.png" style="width: 32px; height: 32px" /> 鲸落云音乐 </template>
-    <div class="leading-8"> 版本号：{{ vo }} &nbsp;&nbsp;<el-tag v-if="!nv">未检测到更新</el-tag> </div>
-    <div v-if="nv" class="leading-8"> 最新号：{{ nv }} &nbsp;&nbsp;<el-tag type="danger">更新</el-tag> </div>
-    <div class="flex mt-5">
-      优化项：
-      <ul>
-        <li class="leading-7">1.【优化】扫码登录优化</li>
-        <li class="leading-7">2.【优化】游戏驱动优化</li>
-        <li class="leading-7">3.【优化】修复已知bug</li>
-      </ul>
-    </div>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button color="#d93c3c" @click="versionDialog = false">关闭</el-button>
-      </span>
-    </template>
-  </el-dialog>
 </template>
 <style lang="less" scoped>
   .logo img {
@@ -187,29 +144,7 @@
   }
 </style>
 <style lang="less">
-  .version-custom-class {
-    .el-dialog__header {
-      padding: 8px;
-      color: #fff;
-      background-color: #ec4141;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      font-size: 17px;
-      margin: 0;
-      img {
-        margin-right: 8px;
-      }
-      .el-dialog__headerbtn {
-        top: 0px;
-        .el-dialog__close {
-          color: #fff;
-        }
-      }
-    }
-  }
-
-  .popper-header-class {
+  .popper-header-custom-class {
     .el-menu-item {
       color: #2d2d2d !important;
       &:hover {

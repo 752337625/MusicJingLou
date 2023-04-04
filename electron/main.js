@@ -58,6 +58,7 @@ function createWindow() {
     global.win.loadFile(LOAD_URL_MAIN, {
       hash: url.format(WIN_URL_MAIN_HASH),
     });
+    global.win.webContents.openDevTools();
   } else {
     global.win.loadURL(WIN_URL_MAIN_HASH);
     global.win.webContents.openDevTools();

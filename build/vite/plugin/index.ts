@@ -35,7 +35,14 @@ import { configStyleImportPlugin } from './styleImport';
 export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   const { VITE_USE_LEGACY, VITE_BUILD_COMPRESS, VITE_USE_PWA, VITE_SETUP_EXTEND, VITE_USE_MOCK, VITE_USE_ERUDA } = viteEnv;
   const vitePlugins: (PluginOption | PluginOption[])[] = [
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          // 将所有带短横线的标签名都视为自定义元素
+          isCustomElement: tag => tag.includes('custom'),
+        },
+      },
+    }),
     Vuejsx(),
     // Mkcert(),
     // VitePluginCertificate({

@@ -1,12 +1,11 @@
 import { getCountriesCode, getCaptchaSent, getCaptchaVerify, getRegisterAnonimous } from '/@/api/login';
-import { onMounted, shallowRef, reactive, inject } from 'vue';
+import { onMounted, shallowRef, reactive, inject, ref } from 'vue';
 import type { FormRules, FormInstance } from 'element-plus';
 import { createLocalStorage } from '/@/utils/cache';
 import { useIntervalFn } from '@vueuse/core';
 import { isNumber } from '/@/utils/is';
 export default function usePhoneLogin() {
   const title = ref<string | number>('获取验证码');
-
   const { loginOrwindow } = inject('loginOrwindow') as any;
   const ls = createLocalStorage();
   const form = reactive({

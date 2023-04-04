@@ -27,7 +27,7 @@
       "/@/*": ["src/*"]
     }
   },
-  "exclude": ["node_modules", "tests/server/**/*.ts", "dist", "**/*.js"],
+  "exclude": ["node_modules", "typings/auto-imports.d.ts", "typings/components.d.ts", "tests/server/**/*.ts", "dist", "**/*.js"],
   // "files": ["package.json"],
   "include": [
     "electron",

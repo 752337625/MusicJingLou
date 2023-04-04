@@ -10,7 +10,7 @@ import '/@/design/index.less';
 // import initAppConfigStore from '/@/initAppConfig'; //初始化配置，例如国际化、主题
 import 'virtual:svg-icons-register'; //vite-plugin-svg-icons
 import 'virtual:windi.css'; //tailwindcss
-// import { registerGlobComp } from '/@/components/registerGlobComp';
+import { registerGlobComp } from '/@/components/registerGlobComp';
 async function bootstrap() {
   const app = createApp(App);
   // 设置vue-router
@@ -26,7 +26,7 @@ async function bootstrap() {
   // 设置properties
   setupGlobProperties(app);
   // 注册component
-  // registerGlobComp(app);
+  registerGlobComp(app);
   // 配置error
   // setupErrorHandle(app);
   app.mount('#app');

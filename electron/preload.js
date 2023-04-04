@@ -12,8 +12,10 @@ contextBridge.exposeInMainWorld('ElectronAPI', {
   setThumbarButton: (status = false) => ipcRenderer.send('set-thumbar-button', status),
   setTrayPlaySongStates: status => ipcRenderer.send('tray-play-song-states', status),
   // 自动更新
-  setCheckForUpdate: () => ipcRenderer.send('check-for-update'),
+  setCheckForUpdate: () => ipcRenderer.invoke('check-for-update'),
   setCheckAppVersion: () => ipcRenderer.invoke('check-app-version'),
-  setMessageVersion: message => ipcRenderer.on('message-version', message),
+  setMessageAppVersionInfo: message => ipcRenderer.on('message-app-version-info', message),
+  setDownloadUpdate: () => ipcRenderer.send('download-update'),
   setDownloadProgress: progress => ipcRenderer.on('download-progress', progress),
+  setUpdateDownload: message => ipcRenderer.on('update-downloaded', message),
 });

@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { useLocaleStore } from '/@/store/modules/locale';
-  import { computed } from 'vue';
+  import { computed, shallowRef, watchEffect } from 'vue';
   let EleLocale = shallowRef();
   const localeStore = useLocaleStore();
   let locale = computed(() => localeStore.getLocale);

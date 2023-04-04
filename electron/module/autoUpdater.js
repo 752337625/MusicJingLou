@@ -1,5 +1,4 @@
 const { autoUpdater } = require('electron-updater');
-const { dialog } = require('electron');
 const path = require('path');
 const { isPro } = require('../config');
 function checkUpdate() {
@@ -7,10 +6,10 @@ function checkUpdate() {
   const message = {
     error: '检查更新出错',
     checking: '正在检查更新……',
-    updateAva: '检测到新版本，正在下载……',
-    updateNotAva: '现在使用的就是最新版本，不用更新',
+    updateAva: '更新',
+    updateNotAva: '最新版本',
+    updateSuccess: '更新完成',
   };
-
   // 这里是为了在本地做应用升级测试使用
   if (!isPro) {
     autoUpdater.updateConfigPath = path.join(__dirname, '../dev-app-update.yml');
@@ -18,9 +17,8 @@ function checkUpdate() {
   // 主进程跟渲染进程通信
   const sendUpdateMessage = text => {
     // 发送消息给渲染进程
-    global.win.webContents.send('message-version', text);
+    global.win.webContents.send('message-app-version-info', text);
   };
-
   // 设置自动下载为false，也就是不启动自动下载
   autoUpdater.autoDownload = false;
   // 检测下载错误
@@ -34,24 +32,7 @@ function checkUpdate() {
   // 检测到可以更新时
   autoUpdater.on('update-available', () => {
     // 这里我们可以做一个提示，让用户自己选择是否进行更新
-    dialog
-      .showMessageBox({
-        type: 'info',
-        title: '应用有新的更新',
-        message: '发现新版本，是否现在更新？',
-        buttons: ['是', '否'],
-      })
-      .then(({ response }) => {
-        if (response === 0) {
-          // 下载更新
-          autoUpdater.downloadUpdate();
-          sendUpdateMessage(message.updateAva);
-        }
-      });
-
-    // 也可以默认直接更新，二选一即可
-    // autoUpdater.downloadUpdate();
-    // sendUpdateMessage(message.updateAva);
+    sendUpdateMessage(message.updateAva);
   });
   // 检测到不需要更新时
   autoUpdater.on('update-not-available', () => {
@@ -65,8 +46,9 @@ function checkUpdate() {
   });
   // 当需要更新的内容下载完成后
   autoUpdater.on('update-downloaded', () => {
+    global.win.webContents.send('update-downloaded', message.updateSuccess);
     // 给用户一个提示，然后重启应用；或者直接重启也可以，只是这样会显得很突兀
-    autoUpdater.quitAndInstall();
+    // autoUpdater.quitAndInstall();
   });
 }
 module.exports = { checkUpdate };

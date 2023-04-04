@@ -14,7 +14,9 @@
       <el-main>
         <RouterView v-slot="{ Component }">
           <!-- <KeepAlive> -->
+          <!-- <Suspense> -->
           <Component :is="Component" />
+          <!-- </Suspense> -->
           <!-- </KeepAlive> -->
         </RouterView>
       </el-main>
