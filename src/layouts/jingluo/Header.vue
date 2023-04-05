@@ -33,9 +33,7 @@
     } else if (type === '1-1') {
     } else if (type === '1-2') {
     } else if (type === '1-3') {
-      nextTick(() => {
-        VPro.value.dv = true;
-      });
+      nextTick(() => (VPro.value.dv = true));
     } else {
       window.ElectronAPI.setLoginDialog(true);
     }
