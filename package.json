@@ -156,8 +156,7 @@
       {
         "provider": "github",
         "owner": "752337625",
-        "repo": "vite-electron-plugin",
-        "releaseType": "release"
+        "repo": "vite-electron-plugin"
       }
     ],
     "files": [
