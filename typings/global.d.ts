@@ -2,6 +2,7 @@ declare global {
   declare type Recordable<T = any> = Record<string, T>;
   declare type Nullable<T> = T | null;
   declare interface ViteEnv {
+    readonly VITE_DEFAULT_VERSION_UPDATE_KEY: string;
     readonly VITE_PORT: number;
     readonly VITE_BASE_URL: string;
     readonly VITE_ROUTER_History: 'Web' | 'Hash';

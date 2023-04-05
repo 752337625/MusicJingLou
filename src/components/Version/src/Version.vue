@@ -1,9 +1,7 @@
 <script lang="ts" setup>
   import useVersion from './version.js';
   let { nv, ov, dv, message, downloadUpdate, percentage, customColorMethod } = useVersion();
-  defineExpose({
-    dv,
-  });
+  defineExpose({ dv });
 </script>
 <template>
   <el-dialog
@@ -16,7 +14,7 @@
     :center="false"
     class="version-custom-class"
     :close-on-click-modal="false"
-    width="350px"
+    width="400px"
     :close-on-press-escape="false">
     <template #header> <img src="/images/icon.png" style="width: 32px; height: 32px" /> 鲸落云音乐 </template>
     <div class="leading-8">

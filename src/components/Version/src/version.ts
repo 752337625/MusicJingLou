@@ -1,4 +1,8 @@
 import { toRefs, reactive, onBeforeMount, watch } from 'vue';
+import { createSessionStorage } from '/@/utils/cache';
+import { getEnvConfig } from '/@/utils/env';
+const { VITE_DEFAULT_VERSION_UPDATE_KEY } = getEnvConfig();
+const ls = createSessionStorage();
 interface Info {
   dv: boolean;
   ov: string;
@@ -21,19 +25,24 @@ export default function useVersion() {
     { color: '#1989fa', percentage: 80 },
     { color: '#6f7ad3', percentage: 100 },
   ];
+  const updateVersion = async type => {
+    // 获取最新应用版本
+    const u = await window.ElectronAPI.setCheckForUpdate();
+    Info['nv'] = u;
+    // 获取当前应用版本
+    const v = await window.ElectronAPI.setCheckAppVersion();
+    Info['ov'] = v;
+    if (!type) (Info['dv'] = true), ls.set(VITE_DEFAULT_VERSION_UPDATE_KEY, true);
+  };
   watch(
     () => Info.dv,
-    async n => {
+    n => {
       if (n) {
-        // 获取最新应用版本
-        const u = await window.ElectronAPI.setCheckForUpdate();
-        Info['nv'] = u;
-        // 获取当前应用版本
-        const v = await window.ElectronAPI.setCheckAppVersion();
-        Info['ov'] = v;
+        updateVersion(true);
       }
     },
   );
+
   //  获取更新提示语
   window.ElectronAPI.setMessageAppVersionInfo((_event, m) => {
     Info['message'] = m;
@@ -49,8 +58,8 @@ export default function useVersion() {
   const downloadUpdate = () => {
     window.ElectronAPI.setDownloadUpdate();
   };
-  onBeforeMount(async () => {
-    // 下载进度
+  onBeforeMount(() => {
+    ls.get(VITE_DEFAULT_VERSION_UPDATE_KEY) ? ls.set(VITE_DEFAULT_VERSION_UPDATE_KEY, true) : updateVersion(false);
   });
 
   return {

@@ -12,6 +12,7 @@ export function getEnvConfig() {
     VITE_DEFAULT_PLAYLIST_KEY,
     VITE_DEFAULT_PLAYINDEX_KEY,
     VITE_ROUTER_History,
+    VITE_DEFAULT_VERSION_UPDATE_KEY,
   } = ENV;
   return {
     VITE_ROUTER_History,
@@ -25,6 +26,7 @@ export function getEnvConfig() {
     VITE_DEFAULT_CACHE_KEY,
     VITE_DEFAULT_CACHE_TIME,
     VITE_GLOB_API_URL,
+    VITE_DEFAULT_VERSION_UPDATE_KEY,
   };
 }
 
