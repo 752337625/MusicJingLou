@@ -146,7 +146,7 @@
   },
   "build": {
     "appId": "com.jingluo.app",
-    "productName": "鲸落云音乐",
+    "productName": "vite-electron-plugin-setup",
     "asar": true,
     "copyright": "Copyright © 2023 鲸落云音乐",
     "directories": {
@@ -156,7 +156,8 @@
       {
         "provider": "github",
         "owner": "752337625",
-        "repo": "vite-electron-plugin"
+        "repo": "vite-electron-plugin",
+        "releaseType": 'release' 
       }
     ],
     "files": [
