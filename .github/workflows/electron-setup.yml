@@ -4,8 +4,6 @@ on:
   push:
     tags:
       - 'v*.*.*'
-    branches: 
-      - master
 jobs:
   release:
     name: build and release electron app
@@ -41,11 +39,11 @@ jobs:
          
      
 
-      - name: Upload File
-        uses: actions/upload-artifact@v3
-        with:
-          name: jingluo-window
-          path: dist_electron/*.exe
+      #- name: Upload File
+        #uses: actions/upload-artifact@v3
+       # with:
+          #name: jingluo-window
+         # path: dist_electron/*.exe
               
       - name: ls
         run: |
