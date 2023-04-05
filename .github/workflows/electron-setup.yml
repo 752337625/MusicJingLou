@@ -45,11 +45,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: jingluo-window
-          path: |
-              dist_electron/*.exe
-              dist_electron/*latest*.yml
-              dist_electron/*.dmg
-              dist_electron/*.blockmap
+          path: dist_electron/*.exe
               
       - name: ls
         run: |
