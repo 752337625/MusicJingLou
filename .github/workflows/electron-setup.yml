@@ -7,7 +7,15 @@ on:
 jobs:
   release:
     name: build and release electron app
-    runs-on: windows-latest
+    # runs-on: windows-latest
+    # the type of machine to run the job on
+    runs-on: ${{ matrix.os }}
+
+    # create a build matrix for jobs
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macOS-latest]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -24,8 +32,8 @@ jobs:
 
       - name: Setup Pnpm
         run: npm i -g pnpm
-        
-        
+
+
        # 检查和设置 pnpm 缓存
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -48,11 +56,18 @@ jobs:
         run: |
           pnpm rimraf "dist_electron"
 
-      - name: Build
-        run: pnpm run electron:build
+      #- name: Build
+      #  run: pnpm run electron:build
+      #  env:
+      #      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+       # step4: build app for mac/win
+      - name: build windows app
+        if: matrix.os == 'windows-latest'
+        run: |
+          pnpm run electron:build-win
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
 
 
       #- name: Upload File
