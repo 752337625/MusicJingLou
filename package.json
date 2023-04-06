@@ -22,7 +22,6 @@
     "electron:serve": "concurrently \"pnpm run serve\" \"pnpm run start\"",
     "build": "vite build",
     "electron:build": "vite build&&electron-builder",
-    "electron:build-win": "vite build&&electron-builder --windows",
     "build:no-cache": "concurrently \"pnpm run clean:cache\" \"pnpm run build\"",
     "preview": "pnpm run build && vite preview",
     "preview:dist": "vite preview",
