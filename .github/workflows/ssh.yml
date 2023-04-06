@@ -30,7 +30,3 @@ jobs:
           TARGET: ${{ secrets.SSH_TARGET }}
 
           EXCLUDE: "/dist/, /node_modules/, /dist_electron/"
-
-      - name: Check build product
-        run: sh -c ./scripts/publish.sh
-
