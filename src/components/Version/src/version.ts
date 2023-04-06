@@ -48,7 +48,7 @@ export default function useVersion() {
     Info['message'] = m;
   });
   window.ElectronAPI.setDownloadProgress((_event, value) => {
-    Info['percentage'] = value.percent;
+    Info['percentage'] = value.percent.toFixed(0);
   });
   window.ElectronAPI.setUpdateDownload((_event, m) => {
     // Info['percentage'] = 100;
