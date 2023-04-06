@@ -64,7 +64,7 @@ jobs:
        # step4: build app for mac/win
       - name: build windows app
         run: |
-          pnpm run electron:build-win
+          pnpm run electron:build
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
@@ -76,9 +76,6 @@ jobs:
          # path: dist_electron/*.exe
        # step5: cleanup artifacts in dist_electron
 
-      - name: cleanup artifacts for windows
-        run: |
-          pnpm rimraf "dist_electron/!(*.exe|*.yml)
 
       - name: ls
         run: |
