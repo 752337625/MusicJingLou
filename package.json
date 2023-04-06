@@ -1,6 +1,6 @@
 {
   "name": "vite-electron-plugin",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "homepage": "https://www.luosifa.top/blog",
   "description": "这是一个桌面端云音乐",
   "author": {
@@ -154,9 +154,8 @@
     },
     "publish": [
       {
-        "provider": "github",
-        "owner": "752337625",
-        "repo": "vite-electron-plugin"
+        "provider": "generic",
+        "url": "https://www.luosifa.top/jingluo"
       }
     ],
     "files": [
