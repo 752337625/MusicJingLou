@@ -33,13 +33,17 @@ jobs:
       - name: Setup Pnpm
         run: npm i -g pnpm
 
+      # cache
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
        # 检查和设置 pnpm 缓存
       - name: Get pnpm store directory
         id: pnpm-cache
         shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - name: Setup pnpm cache
         uses: actions/cache@v3
@@ -50,6 +54,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install
+        if: steps.pnpm-cache.outputs.cache-hit != 'true'
         run: pnpm i
 
       - name: Clean Upload File
@@ -76,9 +81,7 @@ jobs:
          # path: dist_electron/*.exe
        # step5: cleanup artifacts in dist_electron
 
-      - name: cleanup artifacts for windows
-        run: |
-          pnpm rimraf "dist_electron/!(*.exe|*.yml)
+
 
       - name: ls
         run: |
