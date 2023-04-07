@@ -18,10 +18,10 @@
     :close-on-press-escape="false">
     <template #header> <img src="/images/icon.png" style="width: 32px; height: 32px" /> 鲸落云音乐 </template>
     <div class="leading-8">
-      当前版本号：{{ ov }} &nbsp;&nbsp;<el-tag v-if="nv === ov">{{ message }}</el-tag>
+      当前版本号：{{ ov }} &nbsp;&nbsp;<el-tag v-if="nv === ov" :title="message">{{ message }}</el-tag>
     </div>
     <div class="leading-8">
-      最新版本号：{{ nv }} &nbsp;&nbsp;<el-tag v-if="nv !== ov" type="danger">{{ message }}</el-tag>
+      最新版本号：{{ nv }} &nbsp;&nbsp;<el-tag v-if="nv !== ov" type="danger" :title="message">{{ message }}</el-tag>
     </div>
     <div v-if="nv !== ov" class="mt-5">
       <el-progress :percentage="percentage" :color="customColorMethod" text-inside :stroke-width="15" />
@@ -66,6 +66,12 @@
     .el-dialog__body {
       padding-top: 5px;
       padding-bottom: 5px;
+      .el-tag {
+        max-width: 260px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
     }
   }
 </style>

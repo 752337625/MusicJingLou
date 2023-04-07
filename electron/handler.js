@@ -71,6 +71,10 @@ function ipcMainFn() {
   });
   ipcMain.on('quit-and-install', () => {
     autoUpdater.quitAndInstall();
+    let wins = BrowserWindow.getAllWindows();
+    for (let i = 0; i < wins.length; i++) {
+      wins[i].destroy();
+    }
   });
 }
 module.exports = ipcMainFn;

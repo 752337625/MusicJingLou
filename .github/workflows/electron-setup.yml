@@ -7,7 +7,7 @@ on:
 jobs:
   release:
     name: build and release electron app
-    runs-on: windows-latest
+    runs-on: window-latest
     # the type of machine to run the job on
     # runs-on: ${{ matrix.os }}
 
@@ -34,27 +34,22 @@ jobs:
         run: npm i -g pnpm
 
       # cache
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        shell: bash
-        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      # - name: Get pnpm store directory
+      #   id: pnpm-cache
+      #   shell: bash
+      #   run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-       # 检查和设置 pnpm 缓存
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        shell: bash
-        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-      - name: Setup pnpm cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+      # - name: Setup pnpm cache
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+      #     key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-pnpm-store-
 
       - name: Install
-        if: steps.pnpm-cache.outputs.cache-hit != 'true'
+        # if: steps.pnpm-cache.outputs.cache-hit != 'true'
         run: pnpm i
 
       - name: Clean Upload File
@@ -69,7 +64,7 @@ jobs:
        # step4: build app for mac/win
       - name: build windows app
         run: |
-          pnpm run electron:build-win
+          pnpm run electron:build
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
@@ -92,24 +87,24 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: dist_electron/**
+          files: dist_electron/*
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_HUB_TOKEN }}
 
       # Deploy   都采用secrets加密防止外泄
-      - name: Deploy
-        uses: easingthemes/ssh-deploy@main
-        env:
-          # 私钥
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_ACCESS_TOKEN }}
-          # scp参数
-          ARGS: "-avz --delete"
-          # 源目录，编译后生成的文件目录
-          SOURCE: "dist_electron/"
-          # 服务器ip：换成你的服务器IP
-          REMOTE_HOST: ${{ secrets.SSH_HOST }}
-          # 用户
-          REMOTE_USER: ${{ secrets.SSH_USERNAME }}
-           # 目标地址 你在服务器上部署代码的地方
-          TARGET: ${{ secrets.SSH_TARGET }}
+      # - name: Deploy
+      #   uses: easingthemes/ssh-deploy@main
+      #   env:
+      #     # 私钥
+      #     SSH_PRIVATE_KEY: ${{ secrets.SSH_ACCESS_TOKEN }}
+      #     # scp参数
+      #     ARGS: "-avz --delete"
+      #     # 源目录，编译后生成的文件目录
+      #     SOURCE: "dist_electron/"
+      #     # 服务器ip：换成你的服务器IP
+      #     REMOTE_HOST: ${{ secrets.SSH_HOST }}
+      #     # 用户
+      #     REMOTE_USER: ${{ secrets.SSH_USERNAME }}
+      #      # 目标地址 你在服务器上部署代码的地方
+      #     TARGET: ${{ secrets.SSH_TARGET }}
 

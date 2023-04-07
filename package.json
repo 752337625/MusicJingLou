@@ -1,6 +1,6 @@
 {
   "name": "vite-electron-plugin",
-  "version": "1.4.0",
+  "version": "1.7.0",
   "homepage": "https://www.luosifa.top/blog",
   "description": "这是一个桌面端云音乐",
   "author": {
@@ -22,7 +22,6 @@
     "electron:serve": "concurrently \"pnpm run serve\" \"pnpm run start\"",
     "build": "vite build",
     "electron:build": "vite build&&electron-builder",
-    "electron:build-win": "vite build&&electron-builder --windows",
     "build:no-cache": "concurrently \"pnpm run clean:cache\" \"pnpm run build\"",
     "preview": "pnpm run build && vite preview",
     "preview:dist": "vite preview",
@@ -155,8 +154,9 @@
     },
     "publish": [
       {
-        "provider": "generic",
-        "url": "https://www.luosifa.top/jingluo"
+        "provider": "github",
+        "owner": "752337625",
+        "repo": "vite-electron-plugin"
       }
     ],
     "files": [
