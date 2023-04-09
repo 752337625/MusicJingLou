@@ -1,6 +1,9 @@
 const path = require('path');
 const url = require('url');
 const { app, BrowserWindow, screen } = require('electron');
+const ipcMainFn = require('./handler');
+const { checkUpdate } = require('./module/autoUpdater');
+const { LOAD_URL_MAIN, isPro, WIN_URL_MAIN_HASH } = require('./config');
 const { creatProtocol } = require('./module/protocol');
 // 创建登录win
 const { createLoginWindow } = require('./module/loginWin');
@@ -12,10 +15,6 @@ const { createLyricWindow } = require('./module/desktopLyricWin');
 const { createLoading } = require('./module/loadingWin');
 // 设置window底部任务栏按钮（缩略图）
 const { setThumbarButton } = require('./module/thumbarButtons');
-const ipcMainFn = require('./handler');
-
-const { checkUpdate } = require('./module/autoUpdater');
-const { LOAD_URL_MAIN, isPro, WIN_URL_MAIN_HASH } = require('./config');
 // 注册协议
 creatProtocol();
 if (isPro) global.__images = path.join(__dirname, '../dist/images');
