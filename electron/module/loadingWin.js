@@ -1,6 +1,6 @@
 const { BrowserWindow } = require('electron');
 const { LOAD_URL_MAIN, isPro, LOADING_URL_MAIN_HASH } = require('../config');
-function createLoading(cb) {
+function createLoading(cd) {
   global.loading = new BrowserWindow({
     show: false,
     frame: false, // 无边框（窗口、工具栏等），只包含网页内容
@@ -21,10 +21,8 @@ function createLoading(cb) {
   } else {
     global.loading.loadURL(LOADING_URL_MAIN_HASH);
   }
-  global.loading.once('ready-to-show', () => {
-    global.loading.show();
-  });
-  global.loading.once('show', cb);
+  global.loading.show();
+  global.loading.once('show', cd);
 }
 
 module.exports = { createLoading };

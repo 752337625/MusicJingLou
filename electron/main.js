@@ -71,21 +71,21 @@ function createWindow() {
       global.win.show();
       global.loading.destroy();
       global.loading = null;
+      if (process.platform === 'win32') {
+        // 设置任务栏缩略图
+        setThumbarButton(false);
+        // 如果是windows系统模拟托盘菜单
+        createTray();
+        // 如果是windows系统模拟托盘右键菜单
+        createTrayWindow();
+        // 创建login框
+        createLoginWindow();
+        // 创建桌面歌词框
+        createLyricWindow();
+      }
       clearTimeout(time);
       time = null;
     }, 3000);
-    if (process.platform === 'win32') {
-      // 设置任务栏缩略图
-      setThumbarButton(false);
-      // 如果是windows系统模拟托盘菜单
-      createTray();
-      // 如果是windows系统模拟托盘右键菜单
-      createTrayWindow();
-      // 创建login框
-      createLoginWindow();
-      // 创建桌面歌词框
-      createLyricWindow();
-    }
   });
   //在窗口要关闭的时候触发。 它在DOM 的beforeunload 和 unload 事件之前触发. 调用event.preventDefault()将阻止这个操作。
   global.win.on('close', event => {
@@ -97,6 +97,10 @@ function createWindow() {
   global.win.on('closed', _event => {
     //console.log(event);
   });
+  // 通讯
+  ipcMainFn();
+  // 检测更新
+  checkUpdate();
 }
 // function createLoading(cb) {
 //   global.loading = new BrowserWindow({
@@ -126,9 +130,7 @@ function createWindow() {
 // }
 
 app.whenReady().then(() => {
-  createLoading(createWindow);
-  ipcMainFn();
-  checkUpdate();
+  createLoading(createWindow());
 });
 
 app.on('activate', () => {
