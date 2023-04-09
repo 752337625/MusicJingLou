@@ -7,7 +7,7 @@ on:
 jobs:
   release:
     name: build and release electron app
-    runs-on: window-latest
+    runs-on: windows-latest
     
     steps:
       - name: Checkout
