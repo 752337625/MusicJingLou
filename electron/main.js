@@ -68,9 +68,9 @@ function createWindow() {
   }
   global.win.once('ready-to-show', () => {
     let time = setTimeout(() => {
+      global.loading.hide();
+      global.loading.close();
       global.win.show();
-      global.loading.destroy();
-      global.loading = null;
       if (process.platform === 'win32') {
         // 设置任务栏缩略图
         setThumbarButton(false);
