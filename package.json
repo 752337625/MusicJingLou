@@ -184,9 +184,9 @@
       "perMachine": false,
       "allowToChangeInstallationDirectory": true,
       "deleteAppDataOnUninstall": false,
-      "installerIcon": "public/images/icon.ico",
-      "uninstallerIcon": "public/images/icon.ico",
-      "installerHeaderIcon": "public/images/icon.ico",
+      "installerIcon": "public/images/icon.png",
+      "uninstallerIcon": "public/images/icon.png",
+      "installerHeaderIcon": "public/images/icon.png",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
     }

@@ -13,7 +13,7 @@
         "to": "extraResources"
     },
     "win": {
-       "icon": "build/icons/icon.ico",//图标路径
+       "icon": "build/icons/icon.svg",//图标路径
         "target": [
           {
             "target": "nsis",

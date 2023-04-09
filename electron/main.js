@@ -8,6 +8,9 @@ const { createLoginWindow } = require('./module/loginWin');
 const { createTray, createTrayWindow } = require('./module/trayWin');
 // 创建桌面歌词win
 const { createLyricWindow } = require('./module/desktopLyricWin');
+//   加载动画
+const { createLoading } = require('./module/loading');
+
 // 设置window底部任务栏按钮（缩略图）
 const { setThumbarButton } = require('./module/thumbarButtons');
 const ipcMainFn = require('./handler');
@@ -49,8 +52,10 @@ function createWindow() {
   });
   global.win.hookWindowMessage(278, () => {
     global.win.setEnabled(false);
-    setTimeout(() => {
+    let time = setTimeout(() => {
       global.win.setEnabled(true);
+      clearTimeout(time);
+      time = null;
     }, 100);
     return true;
   });
@@ -64,7 +69,13 @@ function createWindow() {
     global.win.webContents.openDevTools();
   }
   global.win.once('ready-to-show', () => {
-    global.win.show();
+    let time = setTimeout(() => {
+      global.win.show();
+      global.loading.destroy();
+      global.loading = null;
+      clearTimeout(time);
+      time = null;
+    }, 3000);
     if (process.platform === 'win32') {
       // 设置任务栏缩略图
       setThumbarButton(false);
@@ -91,7 +102,7 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
-  createWindow();
+  createLoading(createWindow);
   ipcMainFn();
   checkUpdate();
 });
@@ -102,6 +113,7 @@ app.on('activate', () => {
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') return app.quit();
 });
+// app.setLoginItemSettings({ openAtLogin: true }); // 开机自启
 const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) {
   app.quit();

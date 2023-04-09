@@ -5,7 +5,7 @@ const { LOAD_URL_MAIN, isPro, TRY_URL_MAIN_HASH } = require('../config');
 const createTray = function () {
   // 当前电脑屏幕得分辨率
   let { width } = screen.getPrimaryDisplay().size;
-  const trayIconPath = isPro ? `${global.__images}/icon.png` : 'public/images/icon.ico';
+  const trayIconPath = isPro ? `${global.__images}/icon.png` : 'public/images/icon.png';
   global.tray = new Tray(trayIconPath);
   global.tray.setToolTip('网易云音乐');
   global.tray.on('click', () => {
