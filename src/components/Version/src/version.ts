@@ -32,7 +32,7 @@ export default function useVersion() {
     // 获取当前应用版本
     const v = await window.ElectronAPI.setCheckAppVersion();
     Info['ov'] = v;
-    if (!type) (Info['dv'] = true), ls.set(VITE_DEFAULT_VERSION_UPDATE_KEY, true);
+    if (!type && Info['ov'] !== Info['nv']) (Info['dv'] = true), ls.set(VITE_DEFAULT_VERSION_UPDATE_KEY, true);
   };
   watch(
     () => Info.dv,
