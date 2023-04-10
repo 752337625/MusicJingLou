@@ -25,6 +25,15 @@ function createLoading(cb) {
   } else {
     global.loading.loadURL(LOADING_URL_MAIN_HASH);
   }
+  global.loading.hookWindowMessage(278, () => {
+    global.loading.setEnabled(false);
+    let time = setTimeout(() => {
+      global.loading.setEnabled(true);
+      clearTimeout(time);
+      time = null;
+    }, 100);
+    return true;
+  });
   global.loading.show();
   global.loading.once('show', cb);
 }
