@@ -19,4 +19,9 @@ contextBridge.exposeInMainWorld('ElectronAPI', {
   setDownloadProgress: progress => ipcRenderer.on('download-progress', progress),
   setUpdateDownload: message => ipcRenderer.on('update-downloaded', message),
   setQuitAndInstall: () => ipcRenderer.send('quit-and-install'),
+
+  // 自动启动
+  setDisableAutoLaunch: () => ipcRenderer.send('disable-auto-launch'),
+  setEnableAutoLaunch: () => ipcRenderer.send('enable-auto-launch'),
+  setAutoLaunchInstance: isEnabled => ipcRenderer.on('auto-launch-instance', isEnabled),
 });

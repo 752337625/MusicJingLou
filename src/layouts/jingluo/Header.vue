@@ -1,16 +1,17 @@
-<script setup>
+<script lang="ts" setup>
   import { createAsyncComponent } from '/@/utils/createAsyncComponent';
   // import useSongStore from '/@/store/modules/song';
-  import { CloseBold, SemiSelect, FullScreen, Setting } from '@element-plus/icons-vue';
+  import { CloseBold, SemiSelect, Select, FullScreen, Setting } from '@element-plus/icons-vue';
   import { ArrowLeft, ArrowRight, Microphone, RefreshLeft } from '@element-plus/icons-vue';
   import logo from '/@/assets/img/logo.jpg';
   import { useRouter } from 'vue-router';
-  import { ref, nextTick } from 'vue';
+  import { ref, nextTick, Ref, computed } from 'vue';
   let Search = createAsyncComponent(() => import('/@/layouts/jingluo/Search.vue'));
   let Version = createAsyncComponent(() => import('/@/components/Version/src/Version.vue'));
   let router = useRouter();
   let state = computed(() => router.options.history.state);
   let VPro = ref(null);
+  let isEnabled: Ref<Boolean> = ref(false);
   // const songStore = useSongStore();
   // const isLogin = computed(() => songStore.getIsLogin);
   // // 头像
@@ -34,9 +35,18 @@
     } else if (type === '1-2') {
     } else if (type === '1-3') {
       nextTick(() => (VPro.value.dv = true));
+    } else if (type === '1-2-1') {
+      if (isEnabled.value) {
+        window.ElectronAPI.setDisableAutoLaunch();
+      } else {
+        window.ElectronAPI.setEnableAutoLaunch();
+      }
     } else {
       window.ElectronAPI.setLoginDialog(true);
     }
+    window.ElectronAPI.setAutoLaunchInstance((_event, isEnabled) => {
+      isEnabled.value = isEnabled;
+    });
   };
 </script>
 <template>
@@ -69,14 +79,13 @@
       <el-sub-menu index="1" popper-class="popper-header-custom-class">
         <template #title>未登录</template>
         <el-menu-item index="1-1">未登录</el-menu-item>
-        <el-menu-item index="1-2">未登录</el-menu-item>
+        <el-sub-menu index="1-2">
+          <template #title>设置</template>
+          <el-menu-item index="1-2-1">
+            <el-icon :class="[isEnabled ? 'invisible' : '']"><Select /></el-icon>开机自启
+          </el-menu-item>
+        </el-sub-menu>
         <el-menu-item index="1-3">关于我们</el-menu-item>
-        <!-- <el-sub-menu index="1-4">
-          <template #title>未登录</template>
-          <el-menu-item index="1-4-1">未登录</el-menu-item>
-          <el-menu-item index="1-4-2">未登录</el-menu-item>
-          <el-menu-item index="1-4-3">未登录</el-menu-item>
-        </el-sub-menu> -->
       </el-sub-menu>
     </el-menu>
     <el-tooltip effect="dark" content="设置" placement="top">

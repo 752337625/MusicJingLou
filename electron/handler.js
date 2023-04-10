@@ -76,5 +76,19 @@ function ipcMainFn() {
       wins[i].destroy();
     }
   });
+  // 手动设置--禁用开机自启
+  ipcMain.on('disable-auto-launch', () => {
+    global.autoLaunchInstance.disable();
+    global.autoLaunchInstance.isEnabled().then(function (isEnabled) {
+      global.win.webContents.send('auto-launch-instance', isEnabled);
+    });
+  });
+  // 手动设置，开机自启动
+  ipcMain.on('enable-auto-launch', () => {
+    global.autoLaunchInstance.enable();
+    global.autoLaunchInstance.isEnabled().then(function (isEnabled) {
+      global.win.webContents.send('auto-launch-instance', isEnabled);
+    });
+  });
 }
 module.exports = ipcMainFn;

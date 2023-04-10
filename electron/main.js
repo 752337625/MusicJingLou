@@ -11,11 +11,13 @@ const { createLoginWindow } = require('./module/loginWin');
 const { createTray, createTrayWindow } = require('./module/trayWin');
 // 创建桌面歌词win
 const { createLyricWindow } = require('./module/desktopLyricWin');
-//   加载动画
+//  加载动画
 const { createLoading } = require('./module/loadingWin');
 // 设置window底部任务栏按钮（缩略图）
 const { setThumbarButton } = require('./module/thumbarButtons');
-// 注册协议
+// 开机自启动
+const { checkIsAutoLaunch } = require('./module/autoLaunch');
+// 注册浏览器打开协议
 creatProtocol();
 if (isPro) global.__images = path.join(__dirname, '../dist/images');
 const icon = isPro ? `${global.__images}/icon.png` : 'public/images/icon.png';
@@ -68,8 +70,8 @@ function createWindow() {
   }
   global.win.once('ready-to-show', () => {
     let time = setTimeout(() => {
-      global.loading.hide();
-      global.loading.close();
+      global.loading ? global.loading.hide() : null;
+      global.loading ? global.loading.close() : null;
       global.win.show();
       if (process.platform === 'win32') {
         // 设置任务栏缩略图
@@ -101,6 +103,8 @@ function createWindow() {
   ipcMainFn();
   // 检测更新
   checkUpdate();
+  //  开机自启
+  checkIsAutoLaunch();
 }
 // function createLoading(cb) {
 //   global.loading = new BrowserWindow({
@@ -130,7 +134,10 @@ function createWindow() {
 // }
 
 app.whenReady().then(() => {
-  createLoading(createWindow());
+  if (isPro) {
+    createLoading(createWindow());
+  }
+  createWindow();
 });
 
 app.on('activate', () => {
