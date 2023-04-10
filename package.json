@@ -1,6 +1,6 @@
 {
   "name": "vite-electron-plugin",
-  "version": "1.7.0",
+  "version": "1.6.0",
   "homepage": "https://www.luosifa.top/blog",
   "description": "这是一个桌面端云音乐",
   "author": {
@@ -125,7 +125,8 @@
     "vite-plugin-vue-setup-extend": "^0.4.0",
     "vite-plugin-windicss": "^1.8.10",
     "vue-eslint-parser": "^9.1.0",
-    "vue-tsc": "^1.0.24"
+    "vue-tsc": "^1.0.24",
+    "wait-on": "^7.0.1"
   },
   "repository": {
     "type": "git",
@@ -185,7 +186,7 @@
       "allowToChangeInstallationDirectory": true,
       "deleteAppDataOnUninstall": false,
       "installerIcon": "public/images/icon.ico",
-      "uninstallerIcon": "public/images/icon.ico",
+      "uninstallerIcon": "public/images/uninst.ico",
       "installerHeaderIcon": "public/images/icon.ico",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true

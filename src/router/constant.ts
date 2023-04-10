@@ -6,3 +6,5 @@ export const JINGLUO = () => import('/@/layouts/jingluo/Index.vue');
 export const TYAY = () => import('/@/layouts/tray/Index.vue');
 export const LOGIN = () => import('/@/layouts/login/Index.vue');
 export const DESKTOP = () => import('/@/layouts/desktop/Index.vue');
+export const SUSPENSION = () => import('/@/layouts/suspension/Index.vue');
+export const LOADING = () => import('/@/layouts/loading/Index.vue');

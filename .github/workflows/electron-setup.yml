@@ -7,76 +7,34 @@ on:
 jobs:
   release:
     name: build and release electron app
-    runs-on: window-latest
-    # the type of machine to run the job on
-    # runs-on: ${{ matrix.os }}
-
-    # # create a build matrix for jobs
-    # strategy:
-    #   fail-fast: false
-    #   matrix:
-    #     os: [windows-latest,macos-latest]
+    runs-on: windows-latest
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
-
+        
       - name: Use Node
         uses: actions/setup-node@v3
         with:
           node-version: 16
 
-
-
       - name: Setup Pnpm
         run: npm i -g pnpm
 
-      # cache
-      # - name: Get pnpm store directory
-      #   id: pnpm-cache
-      #   shell: bash
-      #   run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-
-      # - name: Setup pnpm cache
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-      #     key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-pnpm-store-
-
       - name: Install
-        # if: steps.pnpm-cache.outputs.cache-hit != 'true'
         run: pnpm i
 
       - name: Clean Upload File
         run: |
           pnpm rimraf "dist_electron"
 
-      #- name: Build
-      #  run: pnpm run electron:build
-      #  env:
-      #      GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
-       # step4: build app for mac/win
       - name: build windows app
         run: |
           pnpm run electron:build
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
-
-      #- name: Upload File
-        #uses: actions/upload-artifact@v3
-       # with:
-          #name: jingluo-window
-         # path: dist_electron/*.exe
-       # step5: cleanup artifacts in dist_electron
-
-
 
       - name: ls
         run: |

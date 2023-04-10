@@ -1,6 +1,9 @@
 const path = require('path');
 const url = require('url');
 const { app, BrowserWindow, screen } = require('electron');
+const ipcMainFn = require('./handler');
+const { checkUpdate } = require('./module/autoUpdater');
+const { LOAD_URL_MAIN, isPro, WIN_URL_MAIN_HASH } = require('./config');
 const { creatProtocol } = require('./module/protocol');
 // 创建登录win
 const { createLoginWindow } = require('./module/loginWin');
@@ -8,12 +11,10 @@ const { createLoginWindow } = require('./module/loginWin');
 const { createTray, createTrayWindow } = require('./module/trayWin');
 // 创建桌面歌词win
 const { createLyricWindow } = require('./module/desktopLyricWin');
+//   加载动画
+const { createLoading } = require('./module/loadingWin');
 // 设置window底部任务栏按钮（缩略图）
 const { setThumbarButton } = require('./module/thumbarButtons');
-const ipcMainFn = require('./handler');
-
-const { checkUpdate } = require('./module/autoUpdater');
-const { LOAD_URL_MAIN, isPro, WIN_URL_MAIN_HASH } = require('./config');
 // 注册协议
 creatProtocol();
 if (isPro) global.__images = path.join(__dirname, '../dist/images');
@@ -49,8 +50,10 @@ function createWindow() {
   });
   global.win.hookWindowMessage(278, () => {
     global.win.setEnabled(false);
-    setTimeout(() => {
+    let time = setTimeout(() => {
       global.win.setEnabled(true);
+      clearTimeout(time);
+      time = null;
     }, 100);
     return true;
   });
@@ -64,19 +67,25 @@ function createWindow() {
     global.win.webContents.openDevTools();
   }
   global.win.once('ready-to-show', () => {
-    global.win.show();
-    if (process.platform === 'win32') {
-      // 设置任务栏缩略图
-      setThumbarButton(false);
-      // 如果是windows系统模拟托盘菜单
-      createTray();
-      // 如果是windows系统模拟托盘右键菜单
-      createTrayWindow();
-      // 创建login框
-      createLoginWindow();
-      // 创建桌面歌词框
-      createLyricWindow();
-    }
+    let time = setTimeout(() => {
+      global.loading.hide();
+      global.loading.close();
+      global.win.show();
+      if (process.platform === 'win32') {
+        // 设置任务栏缩略图
+        setThumbarButton(false);
+        // 如果是windows系统模拟托盘菜单
+        createTray();
+        // 如果是windows系统模拟托盘右键菜单
+        createTrayWindow();
+        // 创建login框
+        createLoginWindow();
+        // 创建桌面歌词框
+        createLyricWindow();
+      }
+      clearTimeout(time);
+      time = null;
+    }, 3000);
   });
   //在窗口要关闭的时候触发。 它在DOM 的beforeunload 和 unload 事件之前触发. 调用event.preventDefault()将阻止这个操作。
   global.win.on('close', event => {
@@ -88,12 +97,40 @@ function createWindow() {
   global.win.on('closed', _event => {
     //console.log(event);
   });
+  // 通讯
+  ipcMainFn();
+  // 检测更新
+  checkUpdate();
 }
+// function createLoading(cb) {
+//   global.loading = new BrowserWindow({
+//     show: false,
+//     frame: false, // 无边框（窗口、工具栏等），只包含网页内容
+//     width: 240,
+//     height: 500,
+//     movable: true,
+//     minimizable: false,
+//     maximizable: false,
+//     resizable: false,
+//     alwaysOnTop: true,
+//     skipTaskbar: true,
+//     transparent: true, // 窗口是否支持透明，如果想做高级效果最好为true
+//   });
+//   if (isPro) {
+//     global.loading.loadFile(LOAD_URL_MAIN, {
+//       hash: url.format(LOADING_URL_MAIN_HASH),
+//     });
+//   } else {
+//     global.loading.loadURL(LOADING_URL_MAIN_HASH);
+//   }
+//   global.loading.once('ready-to-show', () => {
+//     global.loading.show();
+//   });
+//   global.loading.once('show', cb);
+// }
 
 app.whenReady().then(() => {
-  createWindow();
-  ipcMainFn();
-  checkUpdate();
+  createLoading(createWindow());
 });
 
 app.on('activate', () => {
@@ -102,6 +139,7 @@ app.on('activate', () => {
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') return app.quit();
 });
+// app.setLoginItemSettings({ openAtLogin: true }); // 开机自启
 const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) {
   app.quit();
