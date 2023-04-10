@@ -24,4 +24,5 @@ contextBridge.exposeInMainWorld('ElectronAPI', {
   setDisableAutoLaunch: () => ipcRenderer.send('disable-auto-launch'),
   setEnableAutoLaunch: () => ipcRenderer.send('enable-auto-launch'),
   setAutoLaunchInstance: isEnabled => ipcRenderer.on('auto-launch-instance', isEnabled),
+  getEnableAutoLaunch: () => ipcRenderer.send('get-enable-auto-launch'),
 });
