@@ -90,5 +90,11 @@ function ipcMainFn() {
       global.win.webContents.send('auto-launch-instance', isEnabled);
     });
   });
+  // 获取状态
+  ipcMain.on('get-enable-auto-launch', () => {
+    global.autoLaunchInstance.isEnabled().then(function (isEnabled) {
+      global.win.webContents.send('auto-launch-instance', isEnabled);
+    });
+  });
 }
 module.exports = ipcMainFn;

@@ -5,13 +5,14 @@
   import { ArrowLeft, ArrowRight, Microphone, RefreshLeft } from '@element-plus/icons-vue';
   import logo from '/@/assets/img/logo.jpg';
   import { useRouter } from 'vue-router';
-  import { ref, nextTick, Ref, computed } from 'vue';
+  import { ref, nextTick, computed } from 'vue';
+  import useEnable from '/@/hook/useEnable';
   let Search = createAsyncComponent(() => import('/@/layouts/jingluo/Search.vue'));
   let Version = createAsyncComponent(() => import('/@/components/Version/src/Version.vue'));
   let router = useRouter();
   let state = computed(() => router.options.history.state);
-  let VPro = ref(null);
-  let isEnabled: Ref<Boolean> = ref(false);
+  let VPro = ref<InstanceType<typeof Version> | null>(null);
+  let { isEnabled } = useEnable();
   // const songStore = useSongStore();
   // const isLogin = computed(() => songStore.getIsLogin);
   // // 头像
@@ -34,6 +35,7 @@
     } else if (type === '1-1') {
     } else if (type === '1-2') {
     } else if (type === '1-3') {
+      // @ts-ignore
       nextTick(() => (VPro.value.dv = true));
     } else if (type === '1-2-1') {
       if (isEnabled.value) {
@@ -44,9 +46,6 @@
     } else {
       window.ElectronAPI.setLoginDialog(true);
     }
-    window.ElectronAPI.setAutoLaunchInstance((_event, isEnabled) => {
-      isEnabled.value = isEnabled;
-    });
   };
 </script>
 <template>
@@ -82,7 +81,7 @@
         <el-sub-menu index="1-2">
           <template #title>设置</template>
           <el-menu-item index="1-2-1">
-            <el-icon :class="[isEnabled ? 'invisible' : '']"><Select /></el-icon>开机自启
+            <el-icon :class="[isEnabled ? '' : 'invisible']"><Select /></el-icon>开机自启
           </el-menu-item>
         </el-sub-menu>
         <el-menu-item index="1-3">关于我们</el-menu-item>

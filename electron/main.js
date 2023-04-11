@@ -134,9 +134,7 @@ function createWindow() {
 // }
 
 app.whenReady().then(() => {
-  if (isPro) {
-    createLoading(createWindow());
-  }
+  if (isPro) return createLoading(createWindow());
   createWindow();
 });
 
