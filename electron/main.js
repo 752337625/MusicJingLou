@@ -32,6 +32,8 @@ function createWindow() {
     y: h,
     show: false,
     center: true,
+    width: 1660,
+    height: 800,
     minWidth: 1660,
     minHeight: 800,
     resizable: true,
