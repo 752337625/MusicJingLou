@@ -176,7 +176,6 @@
           ]
         }
       ],
-      "requestedExecutionLevel": "requireAdministrator",
       "artifactName": "${productName}.${ext}",
       "fileAssociations": [
         {

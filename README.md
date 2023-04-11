@@ -7,7 +7,7 @@
 - GitHub 自动化构建(CI|CD)，发布私有(私服)公有（例如：GITHUB\GITEE）网站 √
 - 开机动画 √
 - 开机自启 √
-- Electron-默认以管理员运行软件:Electron 中某些业务需要对文件进行读写等操作，若非管理员账号下运行可能会存在无权限的问题，因此需要将 Electron 应用默认以管理员权限运行 √
+- Electron-默认以管理员运行软件:Electron 中某些业务需要对文件进行读写等操作，若非管理员账号下运行可能会存在无权限的问题，因此需要将 Electron 应用默认以管理员权限运行 √  "requestedExecutionLevel": "requireAdministrator",
 - 只允许安装一个应用软件 √
 - 鼠标悬浮 window 图标显示 title package.json:description √
 - 关联文件的图标: 这个被配可以帮我们实现电脑默认应用程序的设置,删除应用后关联文件信息也要删除 √（未开发对默认文件的播放）
