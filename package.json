@@ -189,7 +189,7 @@
           ],
           "name": "video",
           "description": "video paly",
-          "icon": "public/images/icon.ico"
+          "icon": "public/images/icon.png"
         }
       ]
     },
