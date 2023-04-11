@@ -55,6 +55,7 @@
   .el-main {
     padding: 0px 10px;
     flex: 1;
+    min-width: 1430px;
 
     .main {
       overflow: hidden;

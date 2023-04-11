@@ -1,6 +1,6 @@
 {
   "name": "vite-electron-plugin",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "homepage": "https://www.luosifa.top/blog",
   "description": "这是一个桌面端云音乐",
   "author": {
@@ -176,7 +176,22 @@
           ]
         }
       ],
-      "artifactName": "${productName}.${ext}"
+      "requestedExecutionLevel": "requireAdministrator",
+      "artifactName": "${productName}.${ext}",
+      "fileAssociations": [
+        {
+          "ext": [
+            "MP3",
+            "AAC",
+            "WAV",
+            "WMA",
+            "FLAC"
+          ],
+          "name": "video",
+          "description": "video paly",
+          "icon": "public/images/icon.ico"
+        }
+      ]
     },
     "nsis": {
       "allowElevation": true,
@@ -191,7 +206,7 @@
       "installerHeaderIcon": "public/images/icon.ico",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "include": "./installer.nsh"
+      "include": "scripts/installer.nsh"
     }
   }
 }
