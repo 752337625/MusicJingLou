@@ -200,7 +200,7 @@
       "oneClick": false,
       "perMachine": false,
       "allowToChangeInstallationDirectory": true,
-      "deleteAppDataOnUninstall": false,
+      "deleteAppDataOnUninstall": true,
       "installerIcon": "public/images/icon.ico",
       "uninstallerIcon": "public/images/uninst.ico",
       "installerHeaderIcon": "public/images/icon.ico",
