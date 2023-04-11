@@ -149,8 +149,8 @@
   "build": {
     "appId": "com.jingluo.app",
     "productName": "vite-electron-plugin-setup",
-    "asar": true,
     "copyright": "Copyright © 2023 鲸落云音乐",
+    "asar": true,
     "directories": {
       "output": "dist_electron"
     },
@@ -190,7 +190,8 @@
       "uninstallerIcon": "public/images/uninst.ico",
       "installerHeaderIcon": "public/images/icon.ico",
       "createDesktopShortcut": true,
-      "createStartMenuShortcut": true
+      "createStartMenuShortcut": true,
+      "include": "./installer.nsh"
     }
   }
 }
