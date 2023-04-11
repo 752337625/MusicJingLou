@@ -14,7 +14,7 @@ function createLoading(cb) {
     maximizable: false,
     resizable: false,
     alwaysOnTop: true,
-    skipTaskbar: false,
+    skipTaskbar: true,
     transparent: true, // 窗口是否支持透明，如果想做高级效果最好为true
   });
 
