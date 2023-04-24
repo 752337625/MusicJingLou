@@ -1,9 +1,13 @@
+const { LOAD_URL_MAIN, isPro, WIN_URL_MAIN_HASH } = require('./config');
+const { app, BrowserWindow, screen, globalShortcut } = require('electron');
 const path = require('path');
 const url = require('url');
-const { app, BrowserWindow, screen } = require('electron');
+const { registerGlobalLog } = require('./log');
+// 线程通信
 const ipcMainFn = require('./handler');
+// 更新检测
 const { checkUpdate } = require('./module/autoUpdater');
-const { LOAD_URL_MAIN, isPro, WIN_URL_MAIN_HASH } = require('./config');
+// 浏览器协议打开
 const { creatProtocol } = require('./module/protocol');
 // 创建登录win
 const { createLoginWindow } = require('./module/loginWin');
@@ -11,14 +15,19 @@ const { createLoginWindow } = require('./module/loginWin');
 const { createTray, createTrayWindow } = require('./module/trayWin');
 // 创建桌面歌词win
 const { createLyricWindow } = require('./module/desktopLyricWin');
-//  加载动画
+// 开机加载动画
 const { createLoading } = require('./module/loadingWin');
 // 设置window底部任务栏按钮（缩略图）
 const { setThumbarButton } = require('./module/thumbarButtons');
 // 开机自启动
 const { checkIsAutoLaunch } = require('./module/autoLaunch');
+// 注册全局按键
+const { registerGlobalShortcut } = require('./module/registerGlobalShortcut');
 // 注册浏览器打开协议
 creatProtocol();
+// 注册全局日志
+global.log = registerGlobalLog();
+
 if (isPro) global.__images = path.join(__dirname, '../dist/images');
 const icon = isPro ? `${global.__images}/icon.png` : 'public/images/icon.png';
 // 取消安全校验
@@ -107,8 +116,24 @@ function createWindow() {
   checkUpdate();
   //  开机自启
   checkIsAutoLaunch();
+  // 注册快捷
+  registerGlobalShortcut();
 }
-
+// 当用户想要在应用中打开一个文件时发出。 open-file 事件通常在应用已经打开，并且系统要再次使用该应用打开文件时发出。 open-file也会在一个文件被拖到 dock 并且还没有运行的时候发出。 请确认在应用启动的时候(甚至在 ready 事件发出前) 就对 open-file 事件进行监听。
+// 如果你想处理这个事件，你应该调用 event.preventDefault() 。
+// 在 Windows 系统中，你需要解析 process.argv (在主进程中) 来获取文件路径
+app.on('open-file', (_event, path) => {
+  global.log.warn(path);
+  global.log.warn(process.argv);
+  // event.preventDefault();
+  // //win是打开的窗口，如果程序未启动则不会触发
+  // //窗口打开后可通过渲染进程代码global来获取路径
+  // let fileToOpen = path;
+  // if (process.platform === 'win32') fileToOpen = process.argv[1];
+  // if (global.win) {
+  //   global.win.webContents.send('user-open-file', fileToOpen);
+  // }
+});
 app.whenReady().then(() => {
   if (isPro) return createLoading(createWindow());
   createWindow();
@@ -120,7 +145,10 @@ app.on('activate', () => {
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') return app.quit();
 });
-
+app.on('will-quit', () => {
+  // 注销所有快捷键
+  globalShortcut.unregisterAll();
+});
 const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) {
   app.quit();

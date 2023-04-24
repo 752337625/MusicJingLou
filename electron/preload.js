@@ -25,4 +25,6 @@ contextBridge.exposeInMainWorld('ElectronAPI', {
   setEnableAutoLaunch: () => ipcRenderer.send('enable-auto-launch'),
   setAutoLaunchInstance: isEnabled => ipcRenderer.on('auto-launch-instance', isEnabled),
   getEnableAutoLaunch: () => ipcRenderer.send('get-enable-auto-launch'),
+  // 打开文件路径
+  getUserOpenFile: file => ipcRenderer.on('user-open-file', file),
 });

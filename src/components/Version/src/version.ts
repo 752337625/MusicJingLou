@@ -26,20 +26,22 @@ export default function useVersion() {
     { color: '#6f7ad3', percentage: 100 },
   ];
   const updateVersion = async type => {
-    // 获取最新应用版本
-    const u = await window.ElectronAPI.setCheckForUpdate();
-    Info['nv'] = u;
-    // 获取当前应用版本
-    const v = await window.ElectronAPI.setCheckAppVersion();
-    Info['ov'] = v;
-    if (!type && Info['ov'] !== Info['nv']) (Info['dv'] = true), ls.set(VITE_DEFAULT_VERSION_UPDATE_KEY, true);
+    try {
+      // 获取最新应用版本
+      const u = await window.ElectronAPI.setCheckForUpdate();
+      Info['nv'] = u;
+      // 获取当前应用版本
+      const v = await window.ElectronAPI.setCheckAppVersion();
+      Info['ov'] = v;
+      if (!type && Info['ov'] !== Info['nv']) (Info['dv'] = true), ls.set(VITE_DEFAULT_VERSION_UPDATE_KEY, true);
+    } catch (err) {
+      console.log('远程更新服务异常==>', err);
+    }
   };
   watch(
     () => Info.dv,
     n => {
-      if (n) {
-        updateVersion(true);
-      }
+      if (n) updateVersion(true);
     },
   );
 
