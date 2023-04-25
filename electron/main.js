@@ -25,8 +25,6 @@ const { checkIsAutoLaunch } = require('./module/autoLaunch');
 const { registerGlobalShortcut } = require('./module/registerGlobalShortcut');
 // 注册浏览器打开协议
 creatProtocol();
-// 注册全局日志
-global.log = registerGlobalLog();
 
 if (isPro) global.__images = path.join(__dirname, '../dist/images');
 const icon = isPro ? `${global.__images}/icon.png` : 'public/images/icon.png';
@@ -118,16 +116,20 @@ function createWindow() {
   checkIsAutoLaunch();
   // 注册快捷
   registerGlobalShortcut();
+  // 注册全局日志
+  global.log = registerGlobalLog();
 }
 // 当用户想要在应用中打开一个文件时发出。 open-file 事件通常在应用已经打开，并且系统要再次使用该应用打开文件时发出。 open-file也会在一个文件被拖到 dock 并且还没有运行的时候发出。 请确认在应用启动的时候(甚至在 ready 事件发出前) 就对 open-file 事件进行监听。
 // 如果你想处理这个事件，你应该调用 event.preventDefault() 。
 // 在 Windows 系统中，你需要解析 process.argv (在主进程中) 来获取文件路径
-app.on('open-file', (_event, path) => {
+app.on('open-file', (event, path) => {
+  event.preventDefault();
+  global.log.warn(5555);
   global.log.warn(path);
   global.log.warn(process.argv);
   // event.preventDefault();
-  // //win是打开的窗口，如果程序未启动则不会触发
-  // //窗口打开后可通过渲染进程代码global来获取路径
+  // win是打开的窗口，如果程序未启动则不会触发
+  // 窗口打开后可通过渲染进程代码global来获取路径
   // let fileToOpen = path;
   // if (process.platform === 'win32') fileToOpen = process.argv[1];
   // if (global.win) {
@@ -149,15 +151,20 @@ app.on('will-quit', () => {
   // 注销所有快捷键
   globalShortcut.unregisterAll();
 });
+// 默认新程序启动会触发main.js重新加载，这是就会判断gotTheLock是否为false，则退出去当前新开的进程。
+// 而老主进程'second-instance'事件触发
 const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) {
   app.quit();
 } else {
-  app.on('second-instance', (_event, _commandLine, _workingDirectory) => {
-    if (global.win) {
-      if (global.win.isMinimized()) global.win.restore();
-      global.win.focus();
-      global.win.show();
-    }
+  app.on('second-instance', (_event, argv, _workingDirectory) => {
+    if (!app.hasSingleInstanceLock() || !global.win) return;
+    if (global.win.isMinimized()) global.win.restore();
+    global.win.focus();
+    global.win.show();
+    if (argv.length <= 2) return;
+    let filePath = argv[2];
+    let flag = filePath.toLocaleUpperCase().includes('.MP3');
+    if (flag) global.win.webContents.send('user-open-file', filePath);
   });
 }

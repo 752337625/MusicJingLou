@@ -11,7 +11,7 @@ import 'virtual:windi.css'; //tailwindcss
 import { registerGlobComp } from '/@/components/registerGlobComp';
 import setupGlobDirectives from '/@/directives';
 import setupGlobProperties from '/@/properties';
-import registerGlobElecreon from '/@/electron';
+// import registerGlobElecreon from '/@/electron';
 async function bootstrap() {
   const app = createApp(App);
   // 设置vue-router
@@ -31,7 +31,7 @@ async function bootstrap() {
   // 配置error
   // setupErrorHandle(app);
   // 注册Electorn事件
-  registerGlobElecreon(app);
+  // registerGlobElecreon(app);
 
   app.mount('#app');
 }

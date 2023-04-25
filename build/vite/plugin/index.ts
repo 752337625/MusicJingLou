@@ -52,7 +52,7 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
     // OptimizationPersist(),
     //这里注意
     AutoImport({
-      dts: './typings/auto-imports.d.ts', // 生成配置文件，如果是ts项目，通常我们会把声明文件放在根目录/types中，注意，这个文件夹需要先建好，否则可能导致等下无法往里生成auto-imports.d.ts文件
+      dts: './auto-imports.d.ts', // 生成配置文件，如果是ts项目，通常我们会把声明文件放在根目录/types中，注意，这个文件夹需要先建好，否则可能导致等下无法往里生成auto-imports.d.ts文件
       imports: ['vue', 'vue-router', 'pinia', 'vue-i18n'],
       eslintrc: {
         enabled: true, // 默认false, true启用。生成一次就可以，避免每次工程启动都生成，一旦生成配置文件之后，最好把enable关掉，即改成false。否则这个文件每次会在重新加载的时候重新生成，这会导致eslint有时会找不到这个文件。当需要更新配置文件的时候，再重新打开
@@ -63,7 +63,7 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
     }),
     Components({
       dirs: 'src/base',
-      dts: './typings/components.d.ts', // 生成配置文件，如果是ts项目，通常我们会把声明文件放在根目录/types中，注意，这个文件夹需要先建好，否则可能导致等下无法往里生成components.d.ts文件
+      dts: './components.d.ts', // 生成配置文件，如果是ts项目，通常我们会把声明文件放在根目录/types中，注意，这个文件夹需要先建好，否则可能导致等下无法往里生成components.d.ts文件
       resolvers: [ElementPlusResolver()], // 组件按需引入，例如Element2.x的按需引入方式。后采用AutoImport取消import
     }),
     viteRestart({

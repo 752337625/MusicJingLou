@@ -183,11 +183,7 @@
       "fileAssociations": [
         {
           "ext": [
-            "MP3",
-            "AAC",
-            "WAV",
-            "WMA",
-            "FLAC"
+            "MP3"
           ],
           "name": "video",
           "description": "video paly",

@@ -24,7 +24,7 @@ dist_electron
 # 取消提交的配置文件
 dist-electron
 .eslintrc-auto-import.json
-typings/components.d.ts
-typings/auto-imports.d.ts
+components.d.ts
+auto-imports.d.ts
 release
 pnpm-lock.yaml

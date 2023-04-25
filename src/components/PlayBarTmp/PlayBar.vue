@@ -49,6 +49,10 @@
         playSongStates(value);
         event.sender.send('set-thumbar-button', isPlayed.value);
       });
+      // 外部传来的音频地址
+      window.ElectronAPI.getUserOpenFile((event, filePath) => {
+        songStore.setPlayAll({ list: [{ url: filePath }] });
+      });
       // 歌曲播放类型：循环、单曲、随机
       const playAudioMode = mode => {
         audioRef.value.playAudioMode(mode);
