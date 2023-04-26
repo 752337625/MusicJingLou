@@ -100,7 +100,7 @@ function ipcMainFn() {
   });
   ipcMain.on('set-user-open-file', () => {
     // 解析本地音乐，在这里放有问题，页面功能不全导致传递异常。只能从渲染进程发起通知获取数据
-    global.log.warn(process.argv);
+    if (process.argv <= 1) return;
     analysisTab(process.argv, 1);
   });
 }
