@@ -21,7 +21,7 @@
     "start": " cross-env WEBPACK_DEV_SERVER_URL=true nodemon --exec electron . --watch ./ --ext .js,.html,.scss,.vue,.ts,.css",
     "electron:serve": "concurrently \"pnpm run serve\" \"wait-on tcp:3100 && pnpm run start\"",
     "build": "vite build",
-    "electron:build": "vite build&&electron-builder",
+    "electron:build": "rimraf dist_electron && vite build && electron-builder",
     "electron:builder": "electron-builder",
     "build:no-cache": "concurrently \"pnpm run clean:cache\" \"pnpm run build\"",
     "preview": "pnpm run build && vite preview",
