@@ -14,6 +14,7 @@ function registerGlobalLog() {
   //日志大小50M，默认：1048576（1M），达到最大上限后，备份文件并重命名为：main.old.log，有且仅有一个备份文件
   // log.transports.file.maxSize = 50 * 1024 * 1024;
   if (!isPro) log.transports.file.resolvePathFn = () => path.join(__dirname, 'logs/main.log');
+  //error, warn, info, verbose, debug, silly
   return log;
 }
 

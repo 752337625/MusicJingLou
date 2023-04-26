@@ -2,6 +2,8 @@ const { BrowserWindow, ipcMain, shell, app } = require('electron');
 const { autoUpdater } = require('electron-updater'); // 将版本打包才没问题，使用5.x版本打包后报错。具体原因不探讨了
 // 创建桌面歌词win
 const { setThumbarButton } = require('./module/thumbarButtons');
+// 解析音乐
+const { analysisTab } = require('./utils/analysisTab');
 function ipcMainFn() {
   ipcMain.on('show-window', () => {
     global.win.show();
@@ -95,6 +97,11 @@ function ipcMainFn() {
     global.autoLaunchInstance.isEnabled().then(function (isEnabled) {
       global.win.webContents.send('auto-launch-instance', isEnabled);
     });
+  });
+  ipcMain.on('set-user-open-file', () => {
+    // 解析本地音乐，在这里放有问题，页面功能不全导致传递异常。只能从渲染进程发起通知获取数据
+    global.log.warn(process.argv);
+    analysisTab(process.argv, 1);
   });
 }
 module.exports = ipcMainFn;

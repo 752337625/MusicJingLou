@@ -23,6 +23,8 @@ const { setThumbarButton } = require('./module/thumbarButtons');
 const { checkIsAutoLaunch } = require('./module/autoLaunch');
 // 注册全局按键
 const { registerGlobalShortcut } = require('./module/registerGlobalShortcut');
+// 解析音乐
+const { analysisTab } = require('./utils/analysisTab');
 // 注册浏览器打开协议
 creatProtocol();
 
@@ -53,12 +55,13 @@ function createWindow() {
     hasShadow: true,
     skipTaskbar: false,
     webPreferences: {
-      webSecurity: true, //允许跨域
+      webSecurity: false, //false允许跨域这时候可以读取播放本地文件，true的话就会出现跨域
       nodeIntegration: true, //开启true这一步很重要,目的是为了vue文件中可以引入node和electron相关的API
       contextIsolation: true, // 可以使用require方法,
       preload: path.join(__dirname, 'preload.js'),
     },
   });
+  // 取消右键
   global.win.hookWindowMessage(278, () => {
     global.win.setEnabled(false);
     let time = setTimeout(() => {
@@ -93,6 +96,8 @@ function createWindow() {
         createLoginWindow();
         // 创建桌面歌词框
         createLyricWindow();
+        // 解析本地音乐，在这里放有问题，页面功能不全导致传递异常。只能从渲染进程发起通知获取数据
+        // analysisTab(process.argv, 1);
       }
       clearTimeout(time);
       time = null;
@@ -107,6 +112,7 @@ function createWindow() {
   //在窗口关闭时触发 当你接收到这个事件的时候, 你应当移除相应窗口的引用对象，避免再次使用它.
   global.win.on('closed', _event => {
     //console.log(event);
+    globalShortcut.unregisterAll();
   });
   // 通讯
   ipcMainFn();
@@ -145,12 +151,21 @@ app.on('activate', () => {
   if (!BrowserWindow.getAllWindows().length) return createWindow();
 });
 app.on('window-all-closed', () => {
+  globalShortcut.unregisterAll();
+  global.log = null;
+  global.win = null;
+  global.autoLaunchInstance = null;
+  global.lyricWindow = null;
+  global.trayWindow = null;
+  global.loginWindow = null;
+  global.loading = null;
   if (process.platform !== 'darwin') return app.quit();
 });
 app.on('will-quit', () => {
   // 注销所有快捷键
   globalShortcut.unregisterAll();
 });
+
 // 默认新程序启动会触发main.js重新加载，这是就会判断gotTheLock是否为false，则退出去当前新开的进程。
 // 而老主进程'second-instance'事件触发
 const gotTheLock = app.requestSingleInstanceLock();
@@ -163,8 +178,6 @@ if (!gotTheLock) {
     global.win.focus();
     global.win.show();
     if (argv.length <= 2) return;
-    let filePath = argv[2];
-    let flag = filePath.toLocaleUpperCase().includes('.MP3');
-    if (flag) global.win.webContents.send('user-open-file', filePath);
+    analysisTab(argv, 2);
   });
 }

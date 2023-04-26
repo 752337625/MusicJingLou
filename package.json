@@ -1,6 +1,6 @@
 {
   "name": "vite-electron-plugin",
-  "version": "1.9.0",
+  "version": "2.0.0",
   "homepage": "https://www.luosifa.top/blog",
   "description": "鲸落云音乐",
   "author": {
@@ -48,6 +48,7 @@
     "electron-log": "5.0.0-beta.23",
     "electron-updater": "^4.3.9",
     "element-plus": "^2.2.32",
+    "jsmediatags": "^3.9.7",
     "lodash-es": "^4.17.21",
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",

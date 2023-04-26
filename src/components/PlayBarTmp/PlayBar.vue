@@ -25,8 +25,9 @@
   import AudioBox from '/@/components/PlayBarTmp/AudioBox.vue';
   import MiniBar from '/@/components/PlayBarTmp/MiniBar.vue';
   import Bar from '/@/components/PlayBarTmp/Bar.vue';
-  import { provide, ref, computed } from 'vue';
+  import { provide, ref, computed, onMounted } from 'vue';
   import useSongStore from '/@/store/modules/song';
+  import userOpenFile from '/@/components/PlayBarTmp/userOpenFile';
   export default {
     name: 'PlayBar',
     components: {
@@ -40,18 +41,19 @@
       const barType = ref('Bar');
       const songStore = useSongStore();
       const isPlayed = computed(() => songStore.getIsPlayed);
-      window.ElectronAPI.setThumbarButton(isPlayed.value);
+
       // 歌曲播放操作； 播放、暂停、上一首、下一首
       const playSongStates = state => {
         audioRef.value.playAudioType(state);
       };
+      // 桌面端Task任务按钮
       window.ElectronAPI.setPlaySongStates((event, value) => {
         playSongStates(value);
         event.sender.send('set-thumbar-button', isPlayed.value);
       });
-      // 外部传来的音频地址
-      window.ElectronAPI.getUserOpenFile((event, filePath) => {
-        songStore.setPlayAll({ list: [{ url: filePath }] });
+      // 外部传来的音频地址，以及信息。然后播放
+      window.ElectronAPI.getUserOpenFile((event, obj) => {
+        userOpenFile(obj);
       });
       // 歌曲播放类型：循环、单曲、随机
       const playAudioMode = mode => {
@@ -78,6 +80,10 @@
       };
       // 下发当前音频时间戳
       provide('currentTime', currentTime);
+      onMounted(() => {
+        window.ElectronAPI.setThumbarButton(isPlayed.value);
+        window.ElectronAPI.setUserOpenFile();
+      });
       return {
         barType,
         audioRef,
