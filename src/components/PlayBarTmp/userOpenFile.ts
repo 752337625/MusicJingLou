@@ -11,7 +11,6 @@ function userOpenFile(obj) {
   };
   const audioElement = new Audio(filePath);
   audioElement.addEventListener('loadedmetadata', function (_event) {
-    console.log(audioElement.duration);
     const item = {
       id: '447534097',
       name: tab.tags.title,

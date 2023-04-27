@@ -54,6 +54,7 @@
       // 外部传来的音频地址，以及信息。然后播放
       window.ElectronAPI.getUserOpenFile((event, obj) => {
         userOpenFile(obj);
+        window.ElectronAPI.setThumbarButton(true);
       });
       // 歌曲播放类型：循环、单曲、随机
       const playAudioMode = mode => {
@@ -81,7 +82,7 @@
       // 下发当前音频时间戳
       provide('currentTime', currentTime);
       onMounted(() => {
-        window.ElectronAPI.setThumbarButton(isPlayed.value);
+        //
         window.ElectronAPI.setUserOpenFile();
       });
       return {
