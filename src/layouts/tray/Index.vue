@@ -20,7 +20,6 @@
   // return params[info.playMode];
   // });
   const clickHandle = TYPE => {
-    console.log(TYPE);
     switch (TYPE) {
       case 'exit':
         window.ElectronAPI.setTryWindowClose();

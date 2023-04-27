@@ -184,7 +184,6 @@
 
       // 播放当前播放歌曲
       const currentSong = item => {
-        console.log(item);
         // 若当前歌曲 或者 当前播放歌曲不是本歌单显示的歌曲  立即播放当前歌单
         if (!curSongInfo.value || item.id !== curSongInfo.value.id) {
           songStore.setPlayAll({ list: [item] });
