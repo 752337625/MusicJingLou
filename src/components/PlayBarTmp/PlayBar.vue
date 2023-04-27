@@ -51,7 +51,7 @@
       // 桌面端Task任务按钮
       window.ElectronAPI.setPlaySongStates((event, value) => {
         playSongStates(value);
-        event.sender.send('set-thumbar-button', isPlayed.value);
+        // event.sender.send('set-thumbar-button', isPlayed.value);
       });
       // 外部传来的音频地址，以及信息。然后播放
       window.ElectronAPI.getUserOpenFile((event, obj) => {
