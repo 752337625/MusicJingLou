@@ -79,7 +79,6 @@
               index = index >= playList.value.length - 1 ? 0 : ++index;
             }
           }
-
           info['initAudioReady'] = false;
           songStore.setPlayStatus(false);
           songStore.setPalyIndex(index);

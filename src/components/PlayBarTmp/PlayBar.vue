@@ -25,7 +25,7 @@
   import AudioBox from '/@/components/PlayBarTmp/AudioBox.vue';
   import MiniBar from '/@/components/PlayBarTmp/MiniBar.vue';
   import Bar from '/@/components/PlayBarTmp/Bar.vue';
-  import { provide, ref, computed, onMounted } from 'vue';
+  import { provide, ref, computed, onMounted, watch } from 'vue';
   import useSongStore from '/@/store/modules/song';
   import userOpenFile from '/@/components/PlayBarTmp/userOpenFile';
   export default {
@@ -41,7 +41,9 @@
       const barType = ref('Bar');
       const songStore = useSongStore();
       const isPlayed = computed(() => songStore.getIsPlayed);
-
+      watch(isPlayed, n => {
+        window.ElectronAPI.setThumbarButton(n);
+      });
       // 歌曲播放操作； 播放、暂停、上一首、下一首
       const playSongStates = state => {
         audioRef.value.playAudioType(state);
@@ -82,7 +84,6 @@
       // 下发当前音频时间戳
       provide('currentTime', currentTime);
       onMounted(() => {
-        //
         window.ElectronAPI.setUserOpenFile();
       });
       return {
