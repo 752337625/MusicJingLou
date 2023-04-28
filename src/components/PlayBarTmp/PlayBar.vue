@@ -56,7 +56,6 @@
       // 外部传来的音频地址，以及信息。然后播放
       window.ElectronAPI.getUserOpenFile((event, obj) => {
         userOpenFile(obj);
-        window.ElectronAPI.setThumbarButton(true);
       });
       // 歌曲播放类型：循环、单曲、随机
       const playAudioMode = mode => {
