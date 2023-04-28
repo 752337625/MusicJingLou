@@ -86,7 +86,8 @@ function createWindow() {
       global.loading ? global.loading.close() : null;
       global.win.show();
       if (process.platform === 'win32') {
-        // 设置任务栏缩略图
+        // 设置任务栏缩略图,本人测试任务栏缩略图不能由渲染端发起通知去创建，而是初始化得时候就要先加载创建，并且主进程show之后。
+        // 影响问题还有一个当我们通过拖拽打开音乐时，不要立刻播放。否则无法创建底部任务菜单
         setThumbarButton(false);
         // 如果是windows系统模拟托盘菜单
         createTray();
@@ -99,6 +100,7 @@ function createWindow() {
         // 解析本地音乐，在这里放有问题，页面功能不全导致传递异常。只能从渲染进程发起通知获取数据
         // analysisTab(process.argv, 1);
       }
+
       clearTimeout(time);
       time = null;
     }, 3000);
