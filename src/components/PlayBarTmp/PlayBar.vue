@@ -41,6 +41,7 @@
       const barType = ref('Bar');
       const songStore = useSongStore();
       const isPlayed = computed(() => songStore.getIsPlayed);
+      const playList = computed(() => songStore.getPlayList);
       watch(isPlayed, n => window.ElectronAPI.setThumbarButton(n));
       // 歌曲播放操作； 播放、暂停、上一首、下一首
       const playSongStates = state => audioRef.value.playAudioType(state);
