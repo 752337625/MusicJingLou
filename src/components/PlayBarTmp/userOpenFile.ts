@@ -12,19 +12,19 @@ function userOpenFile(obj) {
   const audioElement = new Audio(filePath);
   audioElement.addEventListener('loadedmetadata', function (_event) {
     const item = {
-      id: '447534097',
+      id: 'none',
       name: tab.tags.title,
       mvId: 0,
       singer: [
         {
-          id: 12194880,
+          id: 'none',
           name: tab.tags.artist,
           tns: [],
           alias: [],
         },
       ],
       album: {
-        id: 35060294,
+        id: 'none',
         name: tab.tags.album,
         picUrl: icon,
         tns: [],

@@ -1,37 +1,34 @@
 <template>
   <div v-if="curSongInfo" :class="['play-bar', lockName]" @mouseenter="enterBar($event)" @mouseleave="leaveBar($event)">
     <!-- 固定播放条按钮 -->
-    <!-- <div class="fold">
-      <div class="fold-btn" @click="lockBar">
-        <i class="iconfont icon-lock" :class="[locked ? 'active' : '']"></i>
-      </div>
-    </div> -->
-
+    <!-- 
+      <div class="fold">
+        <div class="fold-btn" @click="lockBar">
+          <i class="iconfont icon-lock" :class="[locked ? 'active' : '']"></i>
+        </div>
+      </div> 
+    -->
     <!-- 播放进度条 -->
     <ProgressLine class="audioProgress" :progressWidth="audioProgressWidth" @set-progress-line="setAudioProgress" />
     <div class="wrapper">
       <div class="play-bar-inside">
         <div class="bar-l">
-          <router-link :to="{ path: '/music/song', query: { id: curSongInfo.id } }">
-            <el-image :src="curSongInfo.album.picUrl" class="bar-cover-img">
-              <template #placeholder>
-                <div class="image-slot"> <i class="iconfont icon-placeholder"></i></div>
-              </template>
-            </el-image>
-          </router-link>
+          <!-- <router-link :to="{ path: '/music/song', query: { id: curSongInfo.id } }"> -->
+          <el-image :src="curSongInfo.album.picUrl" class="bar-cover-img">
+            <template #placeholder>
+              <div class="image-slot"> <i class="iconfont icon-placeholder"></i></div>
+            </template>
+          </el-image>
+          <!-- </router-link> -->
           <div class="bar-name">
-            <router-link :to="{ path: '/music/song', query: { id: curSongInfo.id } }" class="song_name">{{
-              curSongInfo.name
-            }}</router-link>
-            <p
-              ><router-link
-                v-for="(author, k) in curSongInfo.singer"
-                :key="author.name"
-                :to="{ path: '/music/singer', query: { id: author.id } }"
-                class="song_author"
-                >{{ k !== 0 ? ' / ' + author.name : author.name }}</router-link
-              ></p
-            >
+            <a class="song_name"> {{ curSongInfo.name }}</a>
+            <!-- <router-link :to="{ path: '/music/song', query: { id: curSongInfo.id } }" ></router-link> -->
+            <p>
+              <a v-for="(author, k) in curSongInfo.singer" :key="author.name" class="song_author">
+                {{ k !== 0 ? ' / ' + author.name : author.name }}
+              </a>
+              <!-- <router-link :to="{ path: '/music/singer', query: { id: author.id } }" class="song_author"> </router-link> -->
+            </p>
           </div>
           <div class="bar-time">
             <span>{{ $utils.formatSongTime(currentTime * 1000) }}</span> / {{ curSongInfo.duration }}
@@ -424,7 +421,7 @@
 
     .bar-l {
       display: flex;
-      width: 300px;
+      // width: 600px;
       align-items: center;
       justify-content: center;
     }
@@ -448,9 +445,9 @@
         line-height: 12px;
         font-size: 12px;
         font-weight: bold;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        // overflow: hidden;
+        // text-overflow: ellipsis;
+        // white-space: nowrap;
       }
 
       p {
