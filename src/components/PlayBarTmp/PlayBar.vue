@@ -41,50 +41,30 @@
       const barType = ref('Bar');
       const songStore = useSongStore();
       const isPlayed = computed(() => songStore.getIsPlayed);
-      watch(isPlayed, n => {
-        window.ElectronAPI.setThumbarButton(n);
-      });
+      watch(isPlayed, n => window.ElectronAPI.setThumbarButton(n));
       // 歌曲播放操作； 播放、暂停、上一首、下一首
-      const playSongStates = state => {
-        audioRef.value.playAudioType(state);
-      };
+      const playSongStates = state => audioRef.value.playAudioType(state);
       // 桌面端Task任务按钮
       window.ElectronAPI.setPlaySongStates((event, value) => {
+        if (!playList.value.length) return;
         playSongStates(value);
-        // event.sender.send('set-thumbar-button', isPlayed.value);
       });
       // 外部传来的音频地址，以及信息。然后播放
-      window.ElectronAPI.getUserOpenFile((event, obj) => {
-        userOpenFile(obj);
-      });
+      window.ElectronAPI.getUserOpenFile((event, obj) => userOpenFile(obj));
       // 歌曲播放类型：循环、单曲、随机
-      const playAudioMode = mode => {
-        audioRef.value.playAudioMode(mode);
-      };
+      const playAudioMode = mode => audioRef.value.playAudioMode(mode);
       // 拖拽音量进度条
-      const setvolumeProgress = progress => {
-        audioRef.value.setvolumeProgress(progress);
-      };
+      const setvolumeProgress = progress => audioRef.value.setvolumeProgress(progress);
       // 设置音量
-      const setVolumeHandler = state => {
-        audioRef.value.setVolumeHandler(state);
-      };
+      const setVolumeHandler = state => audioRef.value.setVolumeHandler(state);
       // 拖拽音频进度条
-      const setAudioProgress = t => {
-        audioRef.value.setAudioProgress(t);
-      };
+      const setAudioProgress = t => audioRef.value.setAudioProgress(t);
       // 当前音频的播放时长
-      const setCurrentTime = t => {
-        currentTime.value = t;
-      };
-      const changeMini = type => {
-        barType.value = type;
-      };
+      const setCurrentTime = t => (currentTime.value = t);
+      const changeMini = type => (barType.value = type);
       // 下发当前音频时间戳
       provide('currentTime', currentTime);
-      onMounted(() => {
-        window.ElectronAPI.setUserOpenFile();
-      });
+      onMounted(() => window.ElectronAPI.setUserOpenFile());
       return {
         barType,
         audioRef,
