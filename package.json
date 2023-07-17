@@ -136,6 +136,11 @@
     "vue-tsc": "^1.0.24",
     "wait-on": "^7.0.1"
   },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/752337625/vite-electron-plugin.git"
