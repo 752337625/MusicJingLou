@@ -91,6 +91,15 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       //     assetFileNames: '[ext]/[name]-[hash].[ext]',
       //   },
       // },
+      // 通过() => import()形式加载的组件会自动分包，第三方插件需手动分包
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vue: ['vue', 'pinia', 'vue-router'],
+            elementIcons: ['@element-plus/icons-vue'],
+          },
+        },
+      },
     },
     // @ts-ignore
     plugins: createVitePlugins(viteEnv, isBuild),
