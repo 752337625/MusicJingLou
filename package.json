@@ -35,7 +35,8 @@
     "update": "pnpm update",
     "outdated": "pnpm outdated",
     "ts:lint": "vue-tsc --noEmit",
-    "reinstall": "concurrently \"rimraf pnpm-lock.yaml\" \"rimraf package.lock.json\" \"pnpm install\""
+    "reinstall": "concurrently \"rimraf pnpm-lock.yaml\" \"rimraf package.lock.json\" \"pnpm install\"",
+    "release": "release-it"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.10",
@@ -64,6 +65,7 @@
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
     "@esbuild-kit/cjs-loader": "^2.2.1",
+    "@release-it/conventional-changelog": "^7.0.0",
     "@types/crypto-js": "^4.1.1",
     "@types/lodash-es": "^4.17.6",
     "@types/mockjs": "^1.0.7",
@@ -103,6 +105,7 @@
     "postcss-less": "^6.0.0",
     "prettier": "^2.8.4",
     "puppeteer": "^19.7.2",
+    "release-it": "^16.1.2",
     "rimraf": "^4.1.2",
     "rollup": "^3.17.2",
     "rollup-plugin-visualizer": "^5.9.0",
