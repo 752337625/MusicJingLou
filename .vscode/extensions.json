@@ -10,5 +10,16 @@
 		"mikestead.dotenv",
 		"voorjaar.windicss-intellisense",
 		"jingwang37.element-plus-snippets",
+    "redjue.git-commit-plugin",
+    "eamodio.gitlens",
+    "wallabyjs.console-ninja",
+    "chakrounanas.turbo-console-log",
+    "quicktype.quicktype",
+    "pranaygp.vscode-css-peek"
 	]
+// chakrounanas.turbo-console-log
+// 选中生成 console.log() alt+shift+l (L l 不是 I i)
+// 注释log：  alt + shift + c
+// 启用log：  alt + shift + u
+// 删除log:   alt + shift + d
 }

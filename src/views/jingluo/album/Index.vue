@@ -97,18 +97,18 @@
   let CommentList = createAsyncComponent(() => import('/@/components/Comments.vue'));
   let SongList = createAsyncComponent(() => import('/@/components/SongList.vue'));
   const {
-    artistsId,
-    name,
-    albumId,
-    details,
-    songList,
-    dynamic,
-    hotAlbums,
-    type,
-    isShowDesc,
-    showAllDesc,
-    playAllSongs,
-    subAlbum,
+    // artistsId,
+    // name,
+    // albumId,
+    // details,
+    // songList,
+    // dynamic,
+    // hotAlbums,
+    // type,
+    // isShowDesc,
+    // showAllDesc,
+    // playAllSongs,
+    // subAlbum,
   } = useAlbum();
 </script>
 <style scoped lang="less">
